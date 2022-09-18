@@ -25,12 +25,12 @@ class SplashActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             async {
-                for (i in 0..5) {
-                    binding.progressBar.incrementProgressBy(20)
+                for (i in 0..100) {
+                    binding.progressBar.incrementProgressBy(1)
                     runOnUiThread {
                         binding.progressTextView.text = "${binding.progressBar.progress} %"
                     }
-                    delay(DURATION/5)
+                    delay(DURATION/150)
                 }
             }
             val job = async{
