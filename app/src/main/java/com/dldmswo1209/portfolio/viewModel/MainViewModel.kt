@@ -6,6 +6,7 @@ import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.entity.ChatEntity
 import com.dldmswo1209.portfolio.repository.Repository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
@@ -36,12 +37,25 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // 카드를 추가하기 위해서 repository 에게 요청하는 메소드
     fun insertCard(card: CardEntity) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insertCard(card)
+        // 카드 추가 -> getAllCard() 호출
+        async {
+            repository.insertCard(card)
+        }.await() // await() 으로 데이터 삽입이 완료 될 때 까지 기다리고 다음 작업을 한다.
+        async {
+            getAllCard() // 데이터 삽입이 완료된 상태에서 모든 데이터를 가져온다.
+        }
+        // await 을 하지 않고 비동기적으로 실행한다면, 데이터가 삽입되지 않은 채 데이터를 가져오는 오류를 일으킬 수 있다.
     }
 
     // 채팅을 추가하기 위해서 repository 에게 요청하는 메소드
     fun insertChat(chat: ChatEntity) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insertChat(chat)
+        async {
+            repository.insertChat(chat)
+        }.await()
+        async {
+            getAllChat()
+        }
+
     }
 
 

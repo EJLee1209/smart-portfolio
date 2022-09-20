@@ -86,7 +86,6 @@ class AddPortfolioBottomSheet : BottomSheetDialogFragment() {
 
             // 위 과정을 통과하면 CardEntity 를 생성
             viewModel.insertCard(CardEntity(0,imageUri.toString(), title, content))
-            viewModel.getAllCard()
             dialog?.dismiss()
         }
 
