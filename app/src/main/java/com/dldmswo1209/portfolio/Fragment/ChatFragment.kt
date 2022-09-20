@@ -39,10 +39,15 @@ class ChatFragment : Fragment() {
 
         // 모드 변경 버튼 클릭 이벤트
         binding.changeModeButton.setOnClickListener {
-            type = if(type == MY_CHAT) OTHER_CHAT else MY_CHAT
+            type = if(type == MY_CHAT){
+                binding.modeTextView.text = "관리자 모드"
+                OTHER_CHAT
+            } else{
+                binding.modeTextView.text = "일반 모드"
+                MY_CHAT
+            }
             // ui 업데이트를 위해 모든 데이터를 다시 가져온다. -> 아이템이 서로 반대로 뒤바뀌게 됨
             viewModel.getAllChat()
-            Toast.makeText(requireContext(), "모드가 변경되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
         binding.inputEditText.addTextChangedListener(object: TextWatcher{
