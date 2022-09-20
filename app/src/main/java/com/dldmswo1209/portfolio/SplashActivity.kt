@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
                     runOnUiThread {
                         binding.progressTextView.text = "${binding.progressBar.progress} %"
                     }
-                    delay(DURATION/150)
+                    delay(DURATION/110)
                 }
             }
             val job = async{
