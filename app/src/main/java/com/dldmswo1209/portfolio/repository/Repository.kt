@@ -3,6 +3,7 @@ package com.dldmswo1209.portfolio.repository
 import android.content.Context
 import com.dldmswo1209.portfolio.database.MyPortfolioDB
 import com.dldmswo1209.portfolio.entity.CardEntity
+import com.dldmswo1209.portfolio.entity.ChatEntity
 
 class Repository(context: Context) {
     val db = MyPortfolioDB.getDatabase(context)
@@ -12,5 +13,9 @@ class Repository(context: Context) {
 
     // 카드 하나를 추가하는 메소드
     fun insertCard(card: CardEntity) = db.cardDao().insertCard(card)
+
+    fun getAllChat() = db.chatDao().getAllChat()
+
+    fun insertChat(chat: ChatEntity) = db.chatDao().insertChat(chat)
 
 }

@@ -3,11 +3,14 @@ package com.dldmswo1209.portfolio.database
 import android.content.Context
 import androidx.room.*
 import com.dldmswo1209.portfolio.dao.CardDao
+import com.dldmswo1209.portfolio.dao.ChatDao
 import com.dldmswo1209.portfolio.entity.CardEntity
+import com.dldmswo1209.portfolio.entity.ChatEntity
 
-@Database(entities = [CardEntity::class], version = 4)
+@Database(entities = [CardEntity::class, ChatEntity::class], version = 5)
 abstract class MyPortfolioDB : RoomDatabase() {
     abstract fun cardDao() : CardDao
+    abstract fun chatDao() : ChatDao
 
     companion object{
         @Volatile

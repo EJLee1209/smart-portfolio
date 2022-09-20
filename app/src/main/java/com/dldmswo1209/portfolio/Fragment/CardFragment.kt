@@ -35,6 +35,7 @@ class CardFragment : Fragment(R.layout.fragment_card) {
         viewModel.cardList.observe(viewLifecycleOwner, Observer {
             // cardList 의 데이터 변화를 관찰
             // getAllCard 에 의해서 최초 실행시 데이터 변경이 관찰 됨.
+            Log.d("testt", it.toString())
             binding.cardRecyclerView.adapter = cardAdapter
             cardAdapter.submitList(it)
             cardAdapter.notifyDataSetChanged()

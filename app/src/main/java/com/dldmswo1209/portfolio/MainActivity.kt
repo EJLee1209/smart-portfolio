@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         binding.mainViewPager.adapter = ViewPagerAdapter(this)
-        binding.pageIndicatorView.count = 4
+        binding.pageIndicatorView.count = 3
         binding.pageIndicatorView.selection = 0
 
         binding.mainViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
