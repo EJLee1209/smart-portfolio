@@ -2,7 +2,6 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_rectangle"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -10,7 +9,8 @@
         android:layout_height="match_parent"
         android:elevation="10dp"
         android:orientation="vertical"
-        android:layout_marginBottom="18dp">
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/card_rectangle">
 
         <TextView
             android:id="@+id/titleTextView"
@@ -28,7 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="10dp"
-            android:src="@color/black"/>
+            android:src="@color/black"
+            android:scaleType="fitXY"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <TextView
             android:id="@+id/cardDetailTextView"

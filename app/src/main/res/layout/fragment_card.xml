@@ -13,4 +13,12 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/plus"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="10dp"/>
+
 </FrameLayout>

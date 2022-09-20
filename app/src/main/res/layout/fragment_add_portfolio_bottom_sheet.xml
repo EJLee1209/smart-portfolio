@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:content=".fragment.AddPortfolioBottomSheet">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/closeButton"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/close"
+                android:layout_margin="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="포트폴리오 추가하기"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:id="@+id/addButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="추가"
+                android:textSize="16sp"
+                android:textColor="@color/main_blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/titleTextView"
+                app:layout_constraintBottom_toBottomOf="@id/titleTextView"
+                android:layout_marginEnd="15dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginTop="10dp"/>
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/addImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/image"
+            android:layout_margin="10dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <EditText
+            android:id="@+id/titleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="제목"
+            android:background="@null"
+            android:textSize="18sp"
+            android:padding="8dp"
+            android:layout_marginTop="5dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginTop="5dp"/>
+
+        <EditText
+            android:id="@+id/contentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="400dp"
+            android:hint="내용 작성"
+            android:background="@null"
+            android:padding="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="top"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
