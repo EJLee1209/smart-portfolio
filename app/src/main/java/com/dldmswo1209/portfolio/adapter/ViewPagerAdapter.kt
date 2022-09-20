@@ -6,16 +6,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dldmswo1209.portfolio.Fragment.CardFragment
 import com.dldmswo1209.portfolio.Fragment.ChatFragment
 import com.dldmswo1209.portfolio.Fragment.HomeFragment
-import com.dldmswo1209.portfolio.Fragment.TimeLineFragment
 
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> HomeFragment()
-            1 -> TimeLineFragment()
-            2 -> ChatFragment()
+            1 -> ChatFragment()
             else -> CardFragment()
         }
     }

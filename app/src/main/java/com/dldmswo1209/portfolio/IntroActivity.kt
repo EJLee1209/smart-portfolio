@@ -14,6 +14,7 @@ class IntroActivity : AppCompatActivity() {
 
         binding.startButton.setOnClickListener {
             startActivity(Intent(this, SplashActivity::class.java))
+            finish()
         }
     }
 }

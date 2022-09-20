@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.ChatFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="chat Fragment" />
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/interfaceLayout">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/modeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 모드"
+            android:textSize="22sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </FrameLayout>
+
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/interfaceLayout"
+        android:layout_width="0dp"
+        android:layout_height="95dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/main_blue"
+        android:padding="8dp">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/changeModeButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/exchange"
+            android:layout_marginEnd="8dp"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chat_box_rectangle"
+            android:padding="5dp">
+            <EditText
+                android:id="@+id/inputEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="메시지를 입력해주세요"
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
+            <androidx.constraintlayout.utils.widget.ImageFilterButton
+                android:id="@+id/sendButton"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/send_message"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
