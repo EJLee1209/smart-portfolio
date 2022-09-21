@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.dldmswo1209.portfolio.data.defaultCardList
+import com.dldmswo1209.portfolio.data.defaultChatList
+import com.dldmswo1209.portfolio.data.defaultImageUri
 import com.dldmswo1209.portfolio.databinding.ActivitySplashBinding
 import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
@@ -23,9 +26,6 @@ import kotlin.concurrent.thread
 class SplashActivity : AppCompatActivity() {
     private lateinit var viewModel : MainViewModel
     private lateinit var binding: ActivitySplashBinding
-    private val defaultImageUri = Uri.parse(
-        "android.resource://com.dldmswo1209.portfolio/"
-                + R.drawable.github)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,19 +36,24 @@ class SplashActivity : AppCompatActivity() {
         viewModel.getAllCard()
         viewModel.getAllChat()
 
-        val defaultCard = CardEntity(
-            0
-            ,defaultImageUri.toString()
-            ,"KBSC 소프트웨어 경진대회"
-            ,"심리상담 챗봇 안드로이드 앱 개발 참여(예선 심사 중)"
-            ,"https://github.com/EJLee1209/Chatbot")
+
 
         viewModel.chatList.observe(this, Observer {
+            if(it.isEmpty()){ // 초기 실행시 포트폴리오 채팅이 비어있으면
+                // 기본 채팅 리스트를 데이터베이스에 추가함
+                defaultChatList.forEach { chatEntity ->
+                    viewModel.insertChat(chatEntity)
+                }
+
+            }
         })
 
         viewModel.cardList.observe(this, Observer {
-            if(it.isEmpty()){
-                viewModel.insertCard(defaultCard)
+            if(it.isEmpty()){ // 초기 실행시 포트폴리오 카드가 비어있으면
+                // 기본 카드 리스트를 데이터베이스에 추가함
+                defaultCardList.forEach {  cardEntity->
+                    viewModel.insertCard(cardEntity)
+                }
             }
         })
 

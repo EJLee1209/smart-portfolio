@@ -43,14 +43,6 @@ class MainActivity : AppCompatActivity() {
                 .into(binding.mainProfileImageView)
         })
 
-        userInfoViewModel.userInfo.observe(this, Observer {
-            binding.nameTextView.text = it.name
-            Glide.with(this)
-                .load(it.profileImage?.toUri())
-                .circleCrop()
-                .into(binding.mainProfileImageView)
-        })
-
     }
     private fun initView(){
         binding.mainViewPager.adapter = ViewPagerAdapter(this)
@@ -102,4 +94,10 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onResume() {
+        super.onResume()
+        userInfoViewModel.getAllUser() //  이걸 해줘야 마이페이지에서 정보 수정시 정보 업데이트가 됨
+    }
+
 }
