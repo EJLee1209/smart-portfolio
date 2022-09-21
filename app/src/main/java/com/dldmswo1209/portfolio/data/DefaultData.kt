@@ -4,14 +4,22 @@ import android.net.Uri
 import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.entity.*
 
-// 내 기본 프로필 이미지 Uri
-val defaultImageUri = Uri.parse(
-    "android.resource://com.dldmswo1209.portfolio/"
-            + R.drawable.my_profile_image)
+fun imageResToUri(imageRes: Int) : Uri{
+    return Uri.parse(
+        "android.resource://com.dldmswo1209.portfolio/"
+                + imageRes)
+}
 
-val defaultCardImageUri = Uri.parse(
-    "android.resource://com.dldmswo1209.portfolio/"
-            + R.drawable.github)
+// 내 기본 프로필 이미지 Uri
+val defaultImageUri = imageResToUri(R.drawable.my_profile_image)
+
+val defaultCardImageUriGitHub = imageResToUri(R.drawable.github)
+
+val defaultCardImageUriKBSC = imageResToUri(R.drawable.kbsc)
+val defaultCardImageUriBlog = imageResToUri(R.drawable.velog)
+val defaultCardImageUriPortfolio = imageResToUri(R.drawable.smart_portfolio)
+
+
 
 const val DEFAULT_INTRO = "항상 새로운 것을 공부하고자 하는 열망이 있는 안드로이드 신입 개발자 이은재 입니다."
 const val DEFAULT_PHONE = "010-5878-1209"
@@ -25,27 +33,27 @@ val defaultUserInfo = UserEntity(0,DEFAULT_NAME,defaultImageUri.toString(),
 val defaultCardList = mutableListOf(
     CardEntity(
         0
-        ,defaultCardImageUri.toString()
+        ,defaultCardImageUriBlog.toString()
         ,"개인 공부 블로그"
         ,"블로그에 제가 공부한 내용을 정리해서 올리고 있습니다."
         ,"https://velog.io/@dldmswo1209"),
 
     CardEntity(
         0
-        ,defaultCardImageUri.toString()
+        ,defaultCardImageUriGitHub.toString()
         ,"GitHub"
         ,"제 깃허브 입니다."
         ,"https://github.com/EJLee1209"),
 
     CardEntity(
         0
-        ,defaultCardImageUri.toString()
+        ,defaultCardImageUriKBSC.toString()
         ,"KBSC 소프트웨어 경진대회"
         ,"심리상담 챗봇 안드로이드 앱 개발 참여(예선 심사 중)"
         ,"https://github.com/EJLee1209/Chatbot"),
     CardEntity(
         0
-        ,defaultCardImageUri.toString()
+        ,defaultCardImageUriPortfolio.toString()
         ,"Smart Portfolio"
         ,"포트폴리오를 관리하기 위한 스마트 포트폴리오 앱\n 더존비즈온 기업 연계 프로젝트"
         ,"https://github.com/EJLee1209/smart-protfolio")
