@@ -4,6 +4,7 @@ import android.content.Context
 import com.dldmswo1209.portfolio.database.MyPortfolioDB
 import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.entity.ChatEntity
+import com.dldmswo1209.portfolio.entity.UserEntity
 
 class Repository(context: Context) {
     val db = MyPortfolioDB.getDatabase(context)
@@ -17,5 +18,11 @@ class Repository(context: Context) {
     fun getAllChat() = db.chatDao().getAllChat()
 
     fun insertChat(chat: ChatEntity) = db.chatDao().insertChat(chat)
+
+    fun insertUser(user: UserEntity) = db.userDao().insertUser(user)
+
+    fun updateUser(user: UserEntity) = db.userDao().updateUser(user)
+
+    fun getAllUser() = db.userDao().getAllUser()
 
 }

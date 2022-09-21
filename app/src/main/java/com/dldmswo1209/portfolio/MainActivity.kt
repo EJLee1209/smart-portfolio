@@ -7,23 +7,52 @@ import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityMainBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
+import com.dldmswo1209.portfolio.viewModel.UserInfoViewModel
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private lateinit var viewModel: MainViewModel
+    private lateinit var userInfoViewModel : UserInfoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        initView()
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        userInfoViewModel = ViewModelProvider(this)[UserInfoViewModel::class.java]
 
+        userInfoViewModel.getAllUser()
+
+        userInfoViewModel.allUser.observe(this, Observer{
+            val user = it.first()
+            binding.nameTextView.text = user.name
+            Glide.with(this)
+                .load(user.profileImage?.toUri())
+                .circleCrop()
+                .into(binding.mainProfileImageView)
+        })
+
+        userInfoViewModel.userInfo.observe(this, Observer {
+            binding.nameTextView.text = it.name
+            Glide.with(this)
+                .load(it.profileImage?.toUri())
+                .circleCrop()
+                .into(binding.mainProfileImageView)
+        })
+
+    }
+    private fun initView(){
         binding.mainViewPager.adapter = ViewPagerAdapter(this)
         binding.pageIndicatorView.count = 3
         binding.pageIndicatorView.selection = 0
@@ -56,7 +85,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

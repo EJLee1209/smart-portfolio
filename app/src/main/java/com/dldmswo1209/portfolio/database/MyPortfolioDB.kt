@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.*
 import com.dldmswo1209.portfolio.dao.CardDao
 import com.dldmswo1209.portfolio.dao.ChatDao
+import com.dldmswo1209.portfolio.dao.UserDao
 import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.entity.ChatEntity
+import com.dldmswo1209.portfolio.entity.UserEntity
 
-@Database(entities = [CardEntity::class, ChatEntity::class], version = 5)
+@Database(entities = [CardEntity::class, ChatEntity::class, UserEntity::class], version = 6)
 abstract class MyPortfolioDB : RoomDatabase() {
     abstract fun cardDao() : CardDao
     abstract fun chatDao() : ChatDao
+    abstract fun userDao() : UserDao
 
     companion object{
         @Volatile
@@ -23,7 +26,7 @@ abstract class MyPortfolioDB : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     MyPortfolioDB::class.java,
-                    "text_database"
+                    "portfolioDB"
                 )
                     .fallbackToDestructiveMigration()
                     .build()

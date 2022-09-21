@@ -107,13 +107,15 @@
                     android:textColor="@color/main_blue" />
 
                 <TextView
+                    android:id="@+id/introTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text = "항상 새로운 것을 공부하고자 하는 열망이 있는 안드로이드 신입 개발자 이은재 입니다."
+                    android:text = "@string/default_introduce"
                     android:textSize="12sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="8dp"/>
                 <TextView
+                    android:id="@+id/nameTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Name : 이 은 재"
@@ -121,6 +123,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="18dp"/>
                 <TextView
+                    android:id="@+id/phoneTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Phone : 010-5878-1209"
@@ -128,6 +131,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="12dp"/>
                 <TextView
+                    android:id="@+id/emailTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="email : dldmswo1209@gmail.com"
@@ -135,6 +139,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="12dp"/>
                 <TextView
+                    android:id="@+id/addressTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Address : 강원도 춘천시"
