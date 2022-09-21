@@ -42,14 +42,15 @@ class IntroActivity : AppCompatActivity() {
                 viewModel.insertUser(UserEntity(0,"이은재",defaultImageUri.toString(),
                     "010-5878-1209","항상 새로운 것을 공부하고자 하는 열망이 있는 안드로이드 신입 개발자 이은재 입니다.", "dldmswo1209@gmail.com","강원도 춘천시"))
 
-            }
-            it.first().let { userEntity ->
-                // 마이페이지에서 유저 정보 변경시 업데이트
-                binding.introTextView.text = userEntity.intro
-                binding.nameTextView.text = "Name : ${userEntity.name}"
-                binding.phoneTextView.text = "Phone : ${userEntity.phone}"
-                binding.emailTextView.text = "Email : ${userEntity.email}"
-                binding.addressTextView.text = "Address : ${userEntity.address}"
+            }else {
+                it.first().let { userEntity ->
+                    // 마이페이지에서 유저 정보 변경시 업데이트
+                    binding.introTextView.text = userEntity.intro
+                    binding.nameTextView.text = "Name : ${userEntity.name}"
+                    binding.phoneTextView.text = "Phone : ${userEntity.phone}"
+                    binding.emailTextView.text = "Email : ${userEntity.email}"
+                    binding.addressTextView.text = "Address : ${userEntity.address}"
+                }
             }
 
 

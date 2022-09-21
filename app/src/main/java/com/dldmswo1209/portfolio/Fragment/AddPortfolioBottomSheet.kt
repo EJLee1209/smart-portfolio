@@ -34,6 +34,9 @@ class AddPortfolioBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddPortfolioBottomSheetBinding
     private val viewModel: MainViewModel by activityViewModels()
     private var imageUri: Uri? = null
+    private val defaultImageUri = Uri.parse(
+        "android.resource://com.dldmswo1209.portfolio/"
+                + R.drawable.github)
 
     companion object{
         // 갤러리 권한 요청
@@ -82,10 +85,15 @@ class AddPortfolioBottomSheet : BottomSheetDialogFragment() {
             // 아이템 추가시 이미지는 없어도 되지만, 제목과 내용은 있어야 함
             val title = binding.titleEditText.text.toString()
             val content = binding.contentEditText.text.toString()
+            val link = binding.linkEditText.text.toString()
             if(title == "" || content == "") return@setOnClickListener
 
             // 위 과정을 통과하면 CardEntity 를 생성
-            viewModel.insertCard(CardEntity(0,imageUri.toString(), title, content))
+            if(imageUri == null){
+                viewModel.insertCard(CardEntity(0,defaultImageUri.toString(), title, content,link))
+            }else{
+                viewModel.insertCard(CardEntity(0,imageUri.toString(), title, content,link))
+            }
             dialog?.dismiss()
         }
 

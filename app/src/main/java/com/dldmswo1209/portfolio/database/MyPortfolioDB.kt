@@ -9,7 +9,7 @@ import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.entity.ChatEntity
 import com.dldmswo1209.portfolio.entity.UserEntity
 
-@Database(entities = [CardEntity::class, ChatEntity::class, UserEntity::class], version = 6)
+@Database(entities = [CardEntity::class, ChatEntity::class, UserEntity::class], version = 7)
 abstract class MyPortfolioDB : RoomDatabase() {
     abstract fun cardDao() : CardDao
     abstract fun chatDao() : ChatDao

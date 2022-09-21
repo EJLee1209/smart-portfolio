@@ -15,3 +15,4 @@ interface CardDao{
     fun insertCard(card: CardEntity)
 
 }
+
