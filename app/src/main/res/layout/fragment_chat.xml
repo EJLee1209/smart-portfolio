@@ -65,10 +65,11 @@
                 android:hint="메시지를 입력해주세요"
                 android:textSize="18sp"
                 android:textColor="@color/white"/>
-            <androidx.constraintlayout.utils.widget.ImageFilterButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/sendButton"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:enabled="false"
                 android:background="@drawable/send_message"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
