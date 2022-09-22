@@ -17,6 +17,10 @@ class Repository(context: Context) {
 
     fun getAllChat() = db.chatDao().getAllChat()
 
+    fun updateCard(card: CardEntity) = db.cardDao().updateCard(card)
+
+    fun deleteCard(card: CardEntity) = db.cardDao().deleteCard(card)
+
     fun insertChat(chat: ChatEntity) = db.chatDao().insertChat(chat)
 
     fun insertUser(user: UserEntity) = db.userDao().insertUser(user)

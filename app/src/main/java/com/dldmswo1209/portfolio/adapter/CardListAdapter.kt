@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.databinding.CardItemBinding
 import com.dldmswo1209.portfolio.entity.CardEntity
 
-class CardListAdapter(val itemClick: (CardEntity)->(Unit)): ListAdapter<CardEntity, CardListAdapter.ViewHolder>(diffUtil) {
+class CardListAdapter(val itemClick: (CardEntity,Int)->(Unit)): ListAdapter<CardEntity, CardListAdapter.ViewHolder>(diffUtil) {
     inner class ViewHolder(val binding: CardItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(card: CardEntity){
             binding.titleTextView.text = card.title
@@ -21,7 +21,13 @@ class CardListAdapter(val itemClick: (CardEntity)->(Unit)): ListAdapter<CardEnti
                 .into(binding.cardImageView)
 
             binding.root.setOnClickListener {
-                itemClick(card)
+                itemClick(card,GO_HOMEPAGE)
+            }
+            binding.deleteCardTextView.setOnClickListener {
+                itemClick(card,DELETE_CARD)
+            }
+            binding.editCardTextView.setOnClickListener {
+                itemClick(card,EDIT_CARD)
             }
         }
     }
@@ -41,7 +47,9 @@ class CardListAdapter(val itemClick: (CardEntity)->(Unit)): ListAdapter<CardEnti
             override fun areContentsTheSame(oldItem: CardEntity, newItem: CardEntity): Boolean {
                 return oldItem == newItem
             }
-
         }
+        const val GO_HOMEPAGE = 0
+        const val EDIT_CARD = 1
+        const val DELETE_CARD = 2
     }
 }

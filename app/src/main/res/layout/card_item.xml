@@ -40,6 +40,37 @@
             android:layout_margin="10dp"
             android:text="가나다라마바사 아자차카타파하 에헤헤헤헤헤헤헤ㅔ헿ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ헤ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+
+            <TextView
+                android:id="@+id/editCardTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수정하기"
+                android:padding="15dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/main_blue"
+                android:layout_gravity="end" />
+
+            <TextView
+                android:id="@+id/deleteCardTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="삭제하기"
+                android:padding="15dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/main_blue"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="end" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
