@@ -30,7 +30,6 @@ class IntroActivity : AppCompatActivity() {
             startActivity(Intent(this, SplashActivity::class.java))
             finish()
         }
-
         viewModel.getAllUser()
 
         viewModel.allUser.observe(this, Observer {
@@ -49,8 +48,6 @@ class IntroActivity : AppCompatActivity() {
                     binding.addressTextView.text = "Address : ${userEntity.address}"
                 }
             }
-
-
         })
 
     }

@@ -123,7 +123,7 @@
                     android:text="Name : 이 은 재"
                     android:textSize="12sp"
                     android:textColor="@color/black"
-                    android:layout_marginTop="18dp"/>
+                    android:layout_marginTop="10dp"/>
                 <TextView
                     android:id="@+id/phoneTextView"
                     android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                     android:text="Phone : 010-5878-1209"
                     android:textSize="12sp"
                     android:textColor="@color/black"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginTop="8dp"/>
                 <TextView
                     android:id="@+id/emailTextView"
                     android:layout_width="match_parent"
@@ -139,7 +139,7 @@
                     android:text="email : dldmswo1209@gmail.com"
                     android:textSize="12sp"
                     android:textColor="@color/black"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginTop="8dp"/>
                 <TextView
                     android:id="@+id/addressTextView"
                     android:layout_width="match_parent"
@@ -147,7 +147,7 @@
                     android:text="Address : 강원도 춘천시"
                     android:textSize="12sp"
                     android:textColor="@color/black"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginTop="8dp"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
