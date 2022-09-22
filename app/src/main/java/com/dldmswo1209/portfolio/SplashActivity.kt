@@ -36,8 +36,6 @@ class SplashActivity : AppCompatActivity() {
         viewModel.getAllCard()
         viewModel.getAllChat()
 
-
-
         viewModel.chatList.observe(this, Observer {
             if(it.isEmpty()){ // 초기 실행시 포트폴리오 채팅이 비어있으면
                 // 기본 채팅 리스트를 데이터베이스에 추가함

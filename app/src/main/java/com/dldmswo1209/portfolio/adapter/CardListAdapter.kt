@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.databinding.CardItemBinding
 import com.dldmswo1209.portfolio.entity.CardEntity
 
-class CardListAdapter: ListAdapter<CardEntity, CardListAdapter.ViewHolder>(diffUtil) {
+class CardListAdapter(val itemClick: (CardEntity)->(Unit)): ListAdapter<CardEntity, CardListAdapter.ViewHolder>(diffUtil) {
     inner class ViewHolder(val binding: CardItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(card: CardEntity){
             binding.titleTextView.text = card.title
@@ -19,6 +19,10 @@ class CardListAdapter: ListAdapter<CardEntity, CardListAdapter.ViewHolder>(diffU
             Glide.with(binding.root)
                 .load(card.image?.toUri())
                 .into(binding.cardImageView)
+
+            binding.root.setOnClickListener {
+                itemClick(card)
+            }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
