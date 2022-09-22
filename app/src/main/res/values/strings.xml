@@ -2,4 +2,9 @@
     <string name="app_name">Smart Portfolio</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_introduce">항상 새로운 것을 공부하고자 하는 열망이 있는 안드로이드 신입 개발자 이은재 입니다.</string>
+    <string name="default_name">이은재</string>
+    <string name="default_phone">010-5878-1209</string>
+    <string name="default_email">dldmswo1209@gmail.com</string>
+    <string name="default_address">강원도 춘천시</string>
 </resources>

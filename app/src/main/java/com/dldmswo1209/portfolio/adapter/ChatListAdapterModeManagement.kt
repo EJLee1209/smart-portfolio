@@ -2,6 +2,7 @@ package com.dldmswo1209.portfolio.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,7 @@ import com.dldmswo1209.portfolio.databinding.OtherChatItemBinding
 import com.dldmswo1209.portfolio.entity.ChatEntity
 import com.dldmswo1209.portfolio.entity.MY_CHAT
 
-class ChatListAdapterModeManagement: ListAdapter<ChatEntity, RecyclerView.ViewHolder>(diffUtil) {
+class ChatListAdapterModeManagement(val itemClick : (ChatEntity, Int) -> (Unit) ): ListAdapter<ChatEntity, RecyclerView.ViewHolder>(diffUtil) {
 
     override fun getItemCount(): Int {
         return currentList.size
@@ -27,11 +28,27 @@ class ChatListAdapterModeManagement: ListAdapter<ChatEntity, RecyclerView.ViewHo
     inner class MyChatViewHolder(val binding: MyChatItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(chat: ChatEntity){
             binding.chatTextView.text = chat.content
+            binding.deleteButton.isVisible = true
+            binding.editButton.isVisible = true
+            binding.deleteButton.setOnClickListener {
+                itemClick(chat, DELETE_CHAT)
+            }
+            binding.editButton.setOnClickListener {
+                itemClick(chat, EDIT_CHAT)
+            }
         }
     }
     inner class OtherChatViewHolder(val binding: OtherChatItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(chat: ChatEntity){
             binding.chatTextView.text = chat.content
+            binding.deleteButton.isVisible = true
+            binding.editButton.isVisible = true
+            binding.deleteButton.setOnClickListener {
+                itemClick(chat, DELETE_CHAT)
+            }
+            binding.editButton.setOnClickListener {
+                itemClick(chat, EDIT_CHAT)
+            }
         }
     }
 
@@ -62,8 +79,10 @@ class ChatListAdapterModeManagement: ListAdapter<ChatEntity, RecyclerView.ViewHo
             override fun areContentsTheSame(oldItem: ChatEntity, newItem: ChatEntity): Boolean {
                 return oldItem == newItem
             }
-
         }
+
+        const val DELETE_CHAT = 0
+        const val EDIT_CHAT = 1
     }
 
 }

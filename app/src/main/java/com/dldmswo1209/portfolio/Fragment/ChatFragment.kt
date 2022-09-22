@@ -1,5 +1,7 @@
 package com.dldmswo1209.portfolio.Fragment
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,12 +10,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.dldmswo1209.portfolio.adapter.ChatListAdapterModeManagement
+import com.dldmswo1209.portfolio.adapter.ChatListAdapterModeManagement.Companion.DELETE_CHAT
 import com.dldmswo1209.portfolio.adapter.ChatListAdapterModeOrigin
 import com.dldmswo1209.portfolio.databinding.FragmentChatBinding
 import com.dldmswo1209.portfolio.entity.ChatEntity
@@ -80,7 +84,36 @@ class ChatFragment : Fragment() {
                     notifyDataSetChanged()
                 }
             }else{ // 현재 type 이 Other_Chat 이라면
-                val chatListAdapter = ChatListAdapterModeManagement() // 이 어답터를 적용함
+                val chatListAdapter = ChatListAdapterModeManagement{ chatEntity, type ->
+                    if(type == DELETE_CHAT){
+                        // 채팅 삭제
+                        val builder = AlertDialog.Builder(requireContext())
+                        builder.setTitle("포트폴리오 삭제")
+                            .setMessage("삭제 하시겠습니까?")
+                            .setPositiveButton("삭제", DialogInterface.OnClickListener { dialog, id ->
+                                viewModel.deleteChat(chatEntity)
+                                dialog.dismiss()
+                            })
+                            .setNegativeButton("취소", DialogInterface.OnClickListener { dialog, id ->
+                                dialog.dismiss()
+                            })
+                        builder.show()
+                    }else{
+                        // 채팅 수정
+                        val editText = EditText(requireContext())
+                        editText.setText(chatEntity.content)
+                        val builder = AlertDialog.Builder(requireContext())
+                        builder.setTitle("포트폴리오 수정")
+                            .setView(editText)
+                            .setPositiveButton("완료", DialogInterface.OnClickListener { dialogI, id ->
+                                val content = editText.text.toString()
+                                val newChatEntity = ChatEntity(chatEntity.id, content, chatEntity.type)
+                                viewModel.updateChat(newChatEntity)
+                            })
+                        builder.show()
+                    }
+
+                }
                 // 이 어답터를 적용하면, 상대방의 입장에서 채팅창 UI 를 보게 됨
                 binding.chatRecyclerView.adapter = chatListAdapter
                 chatListAdapter.apply {

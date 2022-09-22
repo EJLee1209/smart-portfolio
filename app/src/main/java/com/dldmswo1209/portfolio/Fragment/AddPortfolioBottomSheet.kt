@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -30,15 +31,21 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.selects.select
 import java.util.jar.Manifest
 
-class AddPortfolioBottomSheet : BottomSheetDialogFragment() {
+class AddPortfolioBottomSheet(val cardEntity: CardEntity? = null) : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddPortfolioBottomSheetBinding
     private val viewModel: MainViewModel by activityViewModels()
     private var imageUri: Uri? = null
+    private val defaultImageUri = Uri.parse(
+        "android.resource://com.dldmswo1209.portfolio/"
+                + R.drawable.github)
 
     companion object{
         // 갤러리 권한 요청
         const val REQ_GALLERY = 1
     }
+    // 새로 추가하는 카드인지 수정되는 카드인지 확인하기 위한 플래그
+    private var isUpdate = false
+    private var editCardId = 0
 
     // 이미지를 결과값으로 받는 변수
     private val imageResult = registerForActivityResult(
@@ -70,6 +77,20 @@ class AddPortfolioBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAddPortfolioBottomSheetBinding.bind(view)
 
+        if(cardEntity != null){
+            isUpdate = true
+            editCardId = cardEntity.id
+            binding.titleTextView.text = "포트폴리오 수정하기"
+            binding.addButton.text = "수정"
+            Glide.with(this)
+                .load(cardEntity.image?.toUri())
+                .centerCrop()
+                .into(binding.addImage)
+            binding.titleEditText.setText(cardEntity.title)
+            binding.linkEditText.setText(cardEntity.link)
+            binding.contentEditText.setText(cardEntity.content)
+            imageUri = cardEntity.image?.toUri()
+        }
         binding.closeButton.setOnClickListener {
             dialog?.dismiss()
         }
@@ -82,10 +103,26 @@ class AddPortfolioBottomSheet : BottomSheetDialogFragment() {
             // 아이템 추가시 이미지는 없어도 되지만, 제목과 내용은 있어야 함
             val title = binding.titleEditText.text.toString()
             val content = binding.contentEditText.text.toString()
+            val link = binding.linkEditText.text.toString()
             if(title == "" || content == "") return@setOnClickListener
 
-            // 위 과정을 통과하면 CardEntity 를 생성
-            viewModel.insertCard(CardEntity(0,imageUri.toString(), title, content))
+
+            if(isUpdate){ // 수정하는 경우
+                if (imageUri == null) {
+                    viewModel.updateCard(CardEntity(editCardId, defaultImageUri.toString(), title ,content, link))
+                    Log.d("testt", "업데이트 완료 image = null")
+                } else {
+                    viewModel.updateCard(CardEntity(editCardId,imageUri.toString(), title, content, link))
+                    Log.d("testt", "업데이트 완료 이미지 있음")
+                }
+            }else { // 새로 추가하는 경우
+                // 위 과정을 통과하면 CardEntity 를 생성
+                if (imageUri == null) {
+                    viewModel.insertCard(CardEntity(0, defaultImageUri.toString(), title, content, link))
+                } else {
+                    viewModel.insertCard(CardEntity(0, imageUri.toString(), title, content, link))
+                }
+            }
             dialog?.dismiss()
         }
 

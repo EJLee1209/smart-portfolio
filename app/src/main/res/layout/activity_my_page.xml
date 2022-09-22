@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MyPageActivity">
+    tools:context=".MyPageActivity"
+    android:padding="12dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,17 +14,13 @@
         android:text="마이 페이지"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="12dp"
+        android:textColor="@color/main_blue"
         android:layout_marginBottom="8dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/main_blue"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="5dp"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -32,20 +29,23 @@
         android:gravity="center_vertical"
         android:padding="8dp">
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImage"
             android:layout_width="60sp"
             android:layout_height="60sp"
-            android:src="@drawable/my_profile_image"
-            android:layout_marginStart="4dp"/>
+            android:src="@drawable/profile" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/profileName"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="이은재"
+            android:maxLines="1"
+            android:text="홍길동"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_marginStart="10dp"/>
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/editImageView"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/edit"
@@ -57,9 +57,29 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/main_blue"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/infoEditTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="개인정보 수정"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/logoutTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="로그아웃"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:padding="5dp"/>
+
+
 
 
 
