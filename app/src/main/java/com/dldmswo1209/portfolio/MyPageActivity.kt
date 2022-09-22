@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Fragment.AddPortfolioBottomSheet
+import com.dldmswo1209.portfolio.Fragment.EditUserInfoFragment
 import com.dldmswo1209.portfolio.Fragment.MyProfileBottomSheetFragment
 import com.dldmswo1209.portfolio.databinding.ActivityMainBinding
 import com.dldmswo1209.portfolio.databinding.ActivityMyPageBinding
@@ -37,6 +38,11 @@ class MyPageActivity : AppCompatActivity() {
 
         binding.editImageView.setOnClickListener {
             val bottomSheet = MyProfileBottomSheetFragment()
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        }
+
+        binding.infoEditTextView.setOnClickListener {
+            val bottomSheet = EditUserInfoFragment()
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
 
