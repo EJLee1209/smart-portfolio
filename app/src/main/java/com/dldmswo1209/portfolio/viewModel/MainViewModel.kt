@@ -75,6 +75,24 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun updateChat(chat: ChatEntity) = viewModelScope.launch(Dispatchers.IO) {
+        async {
+            repository.updateChat(chat)
+        }.await()
+        async {
+            getAllChat()
+        }
+    }
+
+    fun deleteChat(chat: ChatEntity) = viewModelScope.launch(Dispatchers.IO) {
+        async {
+            repository.deleteChat(chat)
+        }.await()
+        async {
+            getAllChat()
+        }
+    }
+
 
 
 }

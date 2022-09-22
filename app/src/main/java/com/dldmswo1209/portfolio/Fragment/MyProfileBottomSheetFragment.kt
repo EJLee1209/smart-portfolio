@@ -100,6 +100,7 @@ class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
                 .into(binding.profileImageView)
             binding.nameEditText.setText(user.name)
             binding.introEditText.setText(user.intro)
+            imageUri = user.profileImage?.toUri()
 
         })
     }
