@@ -17,6 +17,4 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapte
             else -> CardFragment()
         }
     }
-
-
 }
