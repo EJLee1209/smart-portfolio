@@ -1,5 +1,7 @@
 package com.dldmswo1209.portfolio.adapter
 
+
+// 카드 포트폴리오 리사이클러뷰 어답터
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.MotionEvent

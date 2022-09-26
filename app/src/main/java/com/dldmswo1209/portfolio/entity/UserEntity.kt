@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// user_info 테이블 구조 생성
 @Entity(tableName = "user_info")
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)

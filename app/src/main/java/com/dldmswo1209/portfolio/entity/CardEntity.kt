@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// card_portfolio 테이블 구조를 생성합니다.
 @Entity(tableName = "card_portfolio")
 data class CardEntity(
     @PrimaryKey(autoGenerate = true)

@@ -14,6 +14,7 @@ import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.dldmswo1209.portfolio.viewModel.UserInfoViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+// 개인 정보 수정 클릭시 나타나는 bottomSheetDialog
 class EditUserInfoFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentEditUserInfoBinding
@@ -33,6 +34,7 @@ class EditUserInfoFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getAllUser()
+
         viewModel.allUser.observe(this, Observer {
             user = it.first()
             binding.phoneEditText.setText(user.phone)

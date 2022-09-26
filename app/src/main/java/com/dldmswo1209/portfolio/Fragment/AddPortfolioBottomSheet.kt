@@ -31,6 +31,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.selects.select
 import java.util.jar.Manifest
 
+// CardFragment 에서 addButton 을 눌렀을 때 나타나는 BottomSheetDialog
+// 카드 포트폴리오를 추가하는 기능을 담고 있습니다.
 class AddPortfolioBottomSheet(val cardEntity: CardEntity? = null) : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddPortfolioBottomSheetBinding
     private val viewModel: MainViewModel by activityViewModels()
@@ -45,7 +47,8 @@ class AddPortfolioBottomSheet(val cardEntity: CardEntity? = null) : BottomSheetD
     }
     // 새로 추가하는 카드인지 수정되는 카드인지 확인하기 위한 플래그
     private var isUpdate = false
-    private var editCardId = 0
+
+    private var editCardId = 0 // 수정되는 카드일 경우 이 변수에 카드의 id 값을 저장
 
     // 이미지를 결과값으로 받는 변수
     private val imageResult = registerForActivityResult(
@@ -71,15 +74,18 @@ class AddPortfolioBottomSheet(val cardEntity: CardEntity? = null) : BottomSheetD
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_add_portfolio_bottom_sheet, container, false)
+    ): View {
+        binding = FragmentAddPortfolioBottomSheetBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentAddPortfolioBottomSheetBinding.bind(view)
 
-        if(cardEntity != null){
-            isUpdate = true
-            editCardId = cardEntity.id
+        if(cardEntity != null){ // 카드 수정하기를 누른 경우
+            isUpdate = true // 플래그 on
+            editCardId = cardEntity.id // 수정할 카드의 id 를 저장
+            // 수정하는 상황에 맞게 ui를 바꾸기
             binding.titleTextView.text = "포트폴리오 수정하기"
             binding.addButton.text = "수정"
             Glide.with(this)

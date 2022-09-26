@@ -25,6 +25,7 @@ import com.dldmswo1209.portfolio.entity.MY_CHAT
 import com.dldmswo1209.portfolio.entity.OTHER_CHAT
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 
+// 채팅 리스트를 보여주는 fragment
 class ChatFragment : Fragment() {
     private lateinit var binding: FragmentChatBinding
     private val viewModel: MainViewModel by activityViewModels()

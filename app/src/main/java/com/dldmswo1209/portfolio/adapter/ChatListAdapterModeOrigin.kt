@@ -10,6 +10,7 @@ import com.dldmswo1209.portfolio.databinding.OtherChatItemBinding
 import com.dldmswo1209.portfolio.entity.ChatEntity
 import com.dldmswo1209.portfolio.entity.MY_CHAT
 
+// 채팅 리스트 어답터(기본 모드)
 class ChatListAdapterModeOrigin: ListAdapter<ChatEntity, RecyclerView.ViewHolder>(diffUtil) {
 
     override fun getItemCount(): Int {

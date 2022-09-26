@@ -14,7 +14,7 @@ import com.dldmswo1209.portfolio.databinding.ActivityIntroBinding
 import com.dldmswo1209.portfolio.entity.UserEntity
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.dldmswo1209.portfolio.viewModel.UserInfoViewModel
-
+// 앱 실행시 보여지는 첫번째 화면
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
     lateinit var viewModel: UserInfoViewModel
@@ -30,16 +30,17 @@ class IntroActivity : AppCompatActivity() {
             startActivity(Intent(this, SplashActivity::class.java))
             finish()
         }
-        viewModel.getAllUser()
+        viewModel.getAllUser() // 모든 유저 정보를 가져옴
 
         viewModel.allUser.observe(this, Observer {
+            // 위에서 모든 유저 정보를 가져왔기 때문에 관찰자가 데이터를 확인합니다.
             if(it.isEmpty()){
                 // 유저 정보를 담는 db가 비어있으면
                 // 디폴트 값 저장
                 viewModel.insertUser(defaultUserInfo)
 
-            }else {
-                it.first().let { userEntity ->
+            }else { // 유저 정보가 존재하면
+                it.first().let { userEntity -> // 첫번째 데이터를 가져와서 ui를 업데이트 해줍니다.
                     // 마이페이지에서 유저 정보 변경시 업데이트
                     binding.introTextView.text = userEntity.intro
                     binding.nameTextView.text = "Name : ${userEntity.name}"

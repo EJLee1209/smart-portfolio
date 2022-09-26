@@ -8,6 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
+// 마이페이지에서 사용할 ViewModel
+// 유저 정보에 대한 데이터 관리를 이 ViewModel 에서 합니다.
 class UserInfoViewModel(application: Application): AndroidViewModel(application) {
     val context = getApplication<Application>().applicationContext
     private val repository = Repository(context)

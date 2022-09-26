@@ -72,6 +72,8 @@ class CardFragment : Fragment(R.layout.fragment_card) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCardBinding.bind(view)
 
+
+        // 카드 드래그 기능을 위해 콜백 연결
         val callback = ItemDragHelperCallback(cardAdapter)
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(binding.cardRecyclerView)

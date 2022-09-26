@@ -6,6 +6,7 @@ import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.entity.ChatEntity
 import com.dldmswo1209.portfolio.entity.UserEntity
 
+// 모든 데이터 베이스 접근 메소드는 여기서 관리합니다.
 class Repository(context: Context) {
     val db = MyPortfolioDB.getDatabase(context)
 
@@ -20,7 +21,6 @@ class Repository(context: Context) {
     fun deleteCard(card: CardEntity) = db.cardDao().deleteCard(card)
 
     // 채팅 관련 메소드
-
     fun getAllChat() = db.chatDao().getAllChat()
 
     fun insertChat(chat: ChatEntity) = db.chatDao().insertChat(chat)

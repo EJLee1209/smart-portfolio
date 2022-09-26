@@ -7,7 +7,9 @@ import com.dldmswo1209.portfolio.Fragment.CardFragment
 import com.dldmswo1209.portfolio.Fragment.ChatFragment
 import com.dldmswo1209.portfolio.Fragment.HomeFragment
 
+// 뷰페이져 어답터
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+    // fragment 의 수는 3개(홈, 채팅, 카드)
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {

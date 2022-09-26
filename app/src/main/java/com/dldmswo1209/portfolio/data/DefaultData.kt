@@ -4,6 +4,8 @@ import android.net.Uri
 import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.entity.*
 
+// 최초 앱 실행시 기본으로 넣어줄 데이터들 입니다.
+
 fun imageResToUri(imageRes: Int) : Uri{
     return Uri.parse(
         "android.resource://com.dldmswo1209.portfolio/"

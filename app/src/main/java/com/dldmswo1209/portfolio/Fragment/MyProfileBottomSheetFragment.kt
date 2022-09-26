@@ -28,15 +28,11 @@ import com.dldmswo1209.portfolio.viewModel.UserInfoViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.selects.select
 
+// 마이페이지에서 editImageView 클릭시 나타나는 bottomSheetDialog
 class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMyProfileBottomSheetBinding
     private val userInfoViewModel : UserInfoViewModel by activityViewModels()
     private var imageUri: Uri? = null
-
-    companion object{
-        // 갤러리 권한 요청
-        const val REQ_GALLERY = 1
-    }
 
     // 이미지를 결과값으로 받는 변수
     private val imageResult = registerForActivityResult(
