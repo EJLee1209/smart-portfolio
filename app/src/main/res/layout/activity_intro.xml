@@ -251,7 +251,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="2">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -301,14 +301,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="진행 중"
+                        android:text="심리 상담 챗봇 앱 개발"
                         android:textSize="14sp"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="8dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="심리 상담 챗봇 앱 개발 참여"
+                        android:text="수상"
                         android:textSize="12sp"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="8dp"/>

@@ -37,6 +37,8 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.lottieAnimationView.playAnimation() // lottie 애니메이션 재생
+
         // 뷰모델 가져오기
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getAllCard() // 모든 카드 리스트
