@@ -9,7 +9,7 @@ import com.dldmswo1209.portfolio.entity.CardEntity
 @Dao
 interface CardDao{
     // 모든 카드 리스트를 가져옴
-    @Query("SELECT * FROM card_portfolio")
+    @Query("SELECT * FROM card_portfolio ORDER BY id")
     fun getAllCard() : List<CardEntity>
 
     // 카드 추가

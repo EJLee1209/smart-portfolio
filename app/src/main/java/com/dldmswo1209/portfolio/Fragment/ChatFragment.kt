@@ -77,6 +77,10 @@ class ChatFragment : Fragment() {
 
         // LiveData 관찰자
         viewModel.chatList.observe(viewLifecycleOwner, Observer {
+            it.forEach { entity->
+                Log.d("testt,", entity.toString())
+            }
+
             if(type == MY_CHAT){// 현재 type 이 MY_CHAT 이라면
                 val chatListAdapter = ChatListAdapterModeOrigin() // 원래의 어답터를 적용하면 됨
                 binding.chatRecyclerView.adapter = chatListAdapter

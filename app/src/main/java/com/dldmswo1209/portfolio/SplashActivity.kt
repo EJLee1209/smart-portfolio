@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dldmswo1209.portfolio.data.defaultCardList
 import com.dldmswo1209.portfolio.data.defaultChatList
 import com.dldmswo1209.portfolio.data.defaultImageUri
+import com.dldmswo1209.portfolio.data.timeLineList
 import com.dldmswo1209.portfolio.databinding.ActivitySplashBinding
 import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
@@ -43,11 +44,13 @@ class SplashActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getAllCard() // 모든 카드 리스트
         viewModel.getAllChat() // 모든 채팅 리스트
+        viewModel.getAllTimeLine() // 모든 타임라인 리스트
 
         viewModel.chatList.observe(this, Observer {
             if(it.isEmpty()){ // 초기 실행시 포트폴리오 채팅이 비어있으면
                 // 기본 채팅 리스트를 데이터베이스에 추가함
                 defaultChatList.forEach { chatEntity ->
+                    Log.d("testt", chatEntity.toString())
                     viewModel.insertChat(chatEntity)
                 }
 
@@ -63,6 +66,15 @@ class SplashActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.timeLineList.observe(this, Observer {
+            if(it.isEmpty()){
+                timeLineList.forEach{ timeLineEntity ->
+                    viewModel.insertTimeLine(timeLineEntity)
+                }
+            }
+        })
+
+
         // 코루틴을 사용해서 로딩 구현
         CoroutineScope(Dispatchers.IO).launch {
             // 비동기 처리로 로딩과 job 을 동시에 수행
@@ -71,10 +83,9 @@ class SplashActivity : AppCompatActivity() {
                     loading()
                 }
             }
-            val job = async{
+            async{
                 delay(DURATION)
-            }
-            job.await() // job 을 다 수행할 때까지 기다림
+            }.await() // 다 수행할 때까지 기다림
 
             // 로딩시간이 끝나면 메인화면으로 이동
             val intent = Intent(this@SplashActivity, MainActivity::class.java)

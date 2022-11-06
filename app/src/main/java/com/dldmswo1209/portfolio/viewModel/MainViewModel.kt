@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.entity.ChatEntity
+import com.dldmswo1209.portfolio.entity.TimeLineEntity
 import com.dldmswo1209.portfolio.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -23,6 +24,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val chatList : LiveData<List<ChatEntity>>
         get() = _chatList
 
+    private var _timeLineList = MutableLiveData<List<TimeLineEntity>>()
+    val timeLineList : LiveData<List<TimeLineEntity>>
+        get() = _timeLineList
 
     // 모든 카드 리스트를 가져올 것을 repository 에게 요청하는 메소드
     // 코루틴으로 작업이 진행되고 있는 상황에서 다른 화면으로 넘어간 경우에
@@ -38,9 +42,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         async {
             repository.insertCard(card)
         }.await() // await() 으로 데이터 삽입이 완료 될 때 까지 기다리고 다음 작업을 한다.
-        async {
-            getAllCard() // 데이터 삽입이 완료된 상태에서 모든 데이터를 가져온다.
-        }
+        getAllCard()
         // await 을 하지 않고 비동기적으로 실행한다면, 데이터가 삽입되지 않은 채 데이터를 가져오는 오류를 일으킬 수 있다.
     }
     // card 업데이트 메서드
@@ -48,18 +50,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         async {
             repository.updateCard(card)
         }.await()
-        async {
-            getAllCard()
-        }
+        getAllCard()
     }
 
     fun deleteCard(card: CardEntity) = viewModelScope.launch(Dispatchers.IO){
         async {
             repository.deleteCard(card)
         }.await()
-        async {
-            getAllCard()
-        }
+        getAllCard()
     }
 
     // 모든 채팅 리스트를 가져올 것을 repository 에게 요청하는 메소드
@@ -72,29 +70,32 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         async {
             repository.insertChat(chat)
         }.await()
-        async {
-            getAllChat()
-        }
+        getAllChat()
     }
 
     fun updateChat(chat: ChatEntity) = viewModelScope.launch(Dispatchers.IO) {
         async {
             repository.updateChat(chat)
         }.await()
-        async {
-            getAllChat()
-        }
+        getAllChat()
     }
 
     fun deleteChat(chat: ChatEntity) = viewModelScope.launch(Dispatchers.IO) {
         async {
             repository.deleteChat(chat)
         }.await()
-        async {
-            getAllChat()
-        }
+        getAllChat()
     }
 
+    fun getAllTimeLine() = viewModelScope.launch(Dispatchers.IO) {
+        _timeLineList.postValue(repository.getAllTimeLine())
+    }
+    fun insertTimeLine(timeLine: TimeLineEntity) = viewModelScope.launch(Dispatchers.IO) {
+        async {
+            repository.insertTimeLine(timeLine)
+        }.await()
+        getAllTimeLine()
+    }
 
 
 }

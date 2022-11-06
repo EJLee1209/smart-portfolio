@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun initView(){
         // 뷰페이저 어답터 연결
         binding.mainViewPager.adapter = ViewPagerAdapter(this)
-        binding.pageIndicatorView.count = 3
+        binding.pageIndicatorView.count = 4
         binding.pageIndicatorView.selection = 0
 
         // 툴바 설정

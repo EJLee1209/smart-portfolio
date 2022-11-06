@@ -6,16 +6,18 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dldmswo1209.portfolio.Fragment.CardFragment
 import com.dldmswo1209.portfolio.Fragment.ChatFragment
 import com.dldmswo1209.portfolio.Fragment.HomeFragment
+import com.dldmswo1209.portfolio.Fragment.TimeLineFragment
 
 // 뷰페이져 어답터
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-    // fragment 의 수는 3개(홈, 채팅, 카드)
-    override fun getItemCount(): Int = 3
+    // fragment 의 수는 4개(홈, 타임라인, 채팅, 카드)
+    override fun getItemCount(): Int = 4
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> HomeFragment()
-            1 -> ChatFragment()
+            1 -> TimeLineFragment()
+            2 -> ChatFragment()
             else -> CardFragment()
         }
     }
