@@ -244,42 +244,28 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="8dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="KBSC 소프트웨어 경진대회"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="진행 중"
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="심리 상담 챗봇 앱 개발 참여"
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="교내 SW 전시"
-                        android:textSize="14sp"
+                        android:text="교내 학술동아리 씨애랑"
+                        android:textSize="16sp"
                         android:textColor="@color/black"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="8dp"/>
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="코드 공유 앱 개발 중"
-                        android:textSize="12sp"
+                        android:text="2022년 3월 1일~"
+                        android:textSize="14sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="동아리 부원으로 활동"
+                        android:textSize="14sp"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="8dp"/>
 

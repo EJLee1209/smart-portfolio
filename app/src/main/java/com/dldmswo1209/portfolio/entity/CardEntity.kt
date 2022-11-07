@@ -19,5 +19,9 @@ data class CardEntity(
     @ColumnInfo(name = "content")
     var content: String,
     @ColumnInfo(name = "link")
-    var link: String? = null
+    var link: String? = null,
+    @ColumnInfo(name = "start")
+    var start: String? = null,
+    @ColumnInfo(name = "end")
+    var end: String? = null
 )

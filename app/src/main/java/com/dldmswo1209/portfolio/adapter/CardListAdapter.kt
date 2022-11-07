@@ -5,6 +5,7 @@ package com.dldmswo1209.portfolio.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
@@ -26,12 +27,20 @@ class CardListAdapter(val itemClick: (CardEntity,Int)->(Unit)): ListAdapter<Card
         fun bind(card: CardEntity){
             binding.titleTextView.text = card.title
             binding.cardDetailTextView.text = card.content
+            if(card.start != null && card.end != null) {
+                binding.dateTextView.visibility = View.VISIBLE
+                binding.dateTextView.text = "${card.start} ~ ${card.end}"
+            }
+            else
+                binding.dateTextView.visibility = View.GONE
+
             Glide.with(binding.root)
                 .load(card.image?.toUri())
                 .into(binding.cardImageView)
 
             binding.root.setOnClickListener {
-                itemClick(card,GO_HOMEPAGE)
+                if(card.link != "" && card.link != null)
+                    itemClick(card,GO_HOMEPAGE)
             }
             binding.deleteCardTextView.setOnClickListener {
                 itemClick(card,DELETE_CARD)

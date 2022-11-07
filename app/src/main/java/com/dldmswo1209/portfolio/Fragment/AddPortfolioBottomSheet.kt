@@ -2,6 +2,7 @@ package com.dldmswo1209.portfolio.Fragment
 
 
 import android.app.Activity.RESULT_OK
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -29,6 +30,7 @@ import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.selects.select
+import java.time.LocalDate
 import java.util.jar.Manifest
 
 // CardFragment 에서 addButton 을 눌렀을 때 나타나는 BottomSheetDialog
@@ -95,6 +97,10 @@ class AddPortfolioBottomSheet(val cardEntity: CardEntity? = null) : BottomSheetD
             binding.titleEditText.setText(cardEntity.title)
             binding.linkEditText.setText(cardEntity.link)
             binding.contentEditText.setText(cardEntity.content)
+            if(cardEntity.start != null && cardEntity.end != null){
+                binding.startDateTextView.text = cardEntity.start
+                binding.endDateTextView.text = cardEntity.end
+            }
             imageUri = cardEntity.image?.toUri()
         }
         binding.closeButton.setOnClickListener {
@@ -105,28 +111,59 @@ class AddPortfolioBottomSheet(val cardEntity: CardEntity? = null) : BottomSheetD
             selectGallery()
         }
 
+        val currentDate = LocalDate.now().toString()
+        val splitDate = currentDate.split("-")
+        val year = splitDate[0].toInt()
+        val month = splitDate[1].toInt() - 1
+        val day = splitDate[2].toInt()
+        binding.startDateTextView.setOnClickListener {
+            DatePickerDialog(requireContext(),
+                {   p0, year, month, day ->
+                    val date = "$year-${String.format("%02d",month+1)}-${String.format("%02d",day)}"
+                    binding.startDateTextView.text = date
+                }, year, month, day).show()
+        }
+
+        binding.endDateTextView.setOnClickListener {
+            DatePickerDialog(requireContext(),
+                {   p0, year, month, day ->
+                    val date = "$year-${String.format("%02d",month+1)}-${String.format("%02d",day)}"
+                    binding.endDateTextView.text = date
+                }, year, month, day).show()
+        }
+
         binding.addButton.setOnClickListener {
             // 아이템 추가시 이미지는 없어도 되지만, 제목과 내용은 있어야 함
             val title = binding.titleEditText.text.toString()
             val content = binding.contentEditText.text.toString()
             val link = binding.linkEditText.text.toString()
-            if(title == "" || content == "") return@setOnClickListener
+            var start : String? = if(binding.startDateTextView.text.toString() == ""){
+                null
+            }else{
+                binding.startDateTextView.text.toString()
+            }
+            var end : String? = if(binding.endDateTextView.text.toString() == ""){
+                null
+            }else{
+                binding.endDateTextView.text.toString()
+            }
 
+            if(title == "" || content == "") return@setOnClickListener
 
             if(isUpdate){ // 수정하는 경우
                 if (imageUri == null) {
-                    viewModel.updateCard(CardEntity(editCardId, defaultImageUri.toString(), title ,content, link))
+                    viewModel.updateCard(CardEntity(editCardId, defaultImageUri.toString(), title ,content, link, start, end))
                     Log.d("testt", "업데이트 완료 image = null")
                 } else {
-                    viewModel.updateCard(CardEntity(editCardId,imageUri.toString(), title, content, link))
+                    viewModel.updateCard(CardEntity(editCardId,imageUri.toString(), title, content, link, start, end))
                     Log.d("testt", "업데이트 완료 이미지 있음")
                 }
             }else { // 새로 추가하는 경우
                 // 위 과정을 통과하면 CardEntity 를 생성
                 if (imageUri == null) {
-                    viewModel.insertCard(CardEntity(0, defaultImageUri.toString(), title, content, link))
+                    viewModel.insertCard(CardEntity(0, defaultImageUri.toString(), title, content, link, start, end))
                 } else {
-                    viewModel.insertCard(CardEntity(0, imageUri.toString(), title, content, link))
+                    viewModel.insertCard(CardEntity(0, imageUri.toString(), title, content, link, start, end))
                 }
             }
             dialog?.dismiss()

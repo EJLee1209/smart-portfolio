@@ -100,6 +100,37 @@
             android:background="@color/gray"
             android:layout_marginTop="5dp"/>
 
+        <TextView
+            android:id="@+id/startDateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:hint="시작 날짜(선택 사항)"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/endDateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:hint="종료 날짜(선택 사항)"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginTop="5dp"/>
+
+
         <EditText
             android:id="@+id/contentEditText"
             android:layout_width="match_parent"
