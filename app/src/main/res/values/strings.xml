@@ -7,4 +7,8 @@
     <string name="default_phone">010-5878-1209</string>
     <string name="default_email">dldmswo1209@gmail.com</string>
     <string name="default_address">강원도 춘천시</string>
+    <string name="motto_content">저는 심한 저체중이었고, 마른몸이 콤플렉스였습니다.\n제 삶을 변화시키기 위해 운동을 시작했습니다.\n운동을 시작하면서 체력과 집중력이 좋아졌습니다.\n 저는 주로 저녁에 운동을 즐겨합니다.</string>
+    <string name="motto">일상을 바꾸기 전에는 삶을 변화시킬 수 없다.\n 성공의 비밀은 일상에 있다.</string>
+    <string name="who_am_i">저는 \"마음 먹으면 끝까지 해내는 사람\" 입니다.</string>
+    <string name="dream">남들보다 뛰어난 개발자가 되고 싶지만, 그렇지 않더라도 \"맡은 일에 대해서 꾸준히 공부하고, 노력하는 개발자\" 가 되고 싶습니다.</string>
 </resources>
