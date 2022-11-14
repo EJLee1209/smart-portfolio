@@ -13,11 +13,14 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/main_blue"
+        android:src="@android:drawable/ic_input_add"
+        app:tint="@color/white"
+        app:borderWidth="0dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="10dp"/>
 

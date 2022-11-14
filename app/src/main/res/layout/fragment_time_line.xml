@@ -15,10 +15,10 @@
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="bottom|end"
         android:backgroundTint="@color/main_blue"
-        android:src="@drawable/ic_baseline_add_24"
+        android:src="@android:drawable/ic_input_add"
+        app:tint="@color/white"
         android:layout_margin="12dp"/>
 
 </FrameLayout>
