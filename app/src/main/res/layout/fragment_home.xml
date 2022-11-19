@@ -7,12 +7,17 @@
     tools:context=".Fragment.HomeFragment"
     android:orientation="vertical">
 
-
-    <WebView
-        android:id="@+id/homeWebView"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/webViewLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="120dp"/>
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/homeWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <androidx.appcompat.widget.LinearLayoutCompat

@@ -1,12 +1,16 @@
 package com.dldmswo1209.portfolio.Fragment
 
+import android.app.ActionBar
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebSettings
+import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.MainActivity
@@ -43,10 +47,22 @@ class HomeFragment : Fragment() {
         viewModel.getUser(uid).observe(viewLifecycleOwner){
             // 웹뷰 실행
             binding.homeWebView.loadUrl(it.profile?.resumeUrl.toString())
-            if(it.profile?.email == "dldmswo1209@gmail.com") // 개발자의 계정인 경우
+            if(it.profile?.email == "dldmswo1209@gmail.com") { // 개발자의 계정인 경우
                 binding.homeBottomSheet.visibility = View.VISIBLE // bottomSheetDialog 를 보여줌
 
+                // margin 동적 할당
+                val layoutParams = CoordinatorLayout.LayoutParams(
+                    CoordinatorLayout.LayoutParams.MATCH_PARENT,
+                    CoordinatorLayout.LayoutParams.MATCH_PARENT
+                )
 
+                layoutParams.bottomMargin = changeDP(120)
+                binding.webViewLayout.layoutParams = layoutParams
+            }
+            else{ // bottomSheetDialog 숨기기
+                binding.homeBottomSheet.visibility = View.GONE
+
+            }
         }
 
         Glide.with(binding.root) // 이미지를 circleCrop 하기 위해서 Glide 사용
@@ -75,5 +91,10 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun changeDP(value : Int) : Int{
+        var displayMetrics = resources.displayMetrics
+        var dp = Math.round(value * displayMetrics.density)
+        return dp
+    }
 
 }
