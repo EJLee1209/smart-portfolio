@@ -53,7 +53,8 @@ class CardFragment : Fragment(R.layout.fragment_card) {
             builder.setTitle("포트폴리오 삭제")
                 .setMessage("삭제 하시겠습니까?")
                 .setPositiveButton("삭제", DialogInterface.OnClickListener { dialog, id ->
-                    viewModel.deleteCard(cardEntity)
+
+
                     dialog.dismiss()
                 })
                 .setNegativeButton("취소", DialogInterface.OnClickListener { dialog, id ->
@@ -85,16 +86,9 @@ class CardFragment : Fragment(R.layout.fragment_card) {
         })
 
         // 모든 카드리스트 데이터 요청
-        viewModel.getAllCard()
 
-        viewModel.cardList.observe(viewLifecycleOwner, Observer {
-            // cardList 의 데이터 변화를 관찰
-            // getAllCard 에 의해서 최초 실행시 데이터 변경이 관찰 됨.
-            Log.d("testt", it.toString())
-            cardAdapter.submitList(it)
-            binding.cardRecyclerView.adapter = cardAdapter
-            cardAdapter.notifyDataSetChanged()
-        })
+
+
 
         binding.addButton.setOnClickListener {
             val bottomSheet = AddPortfolioBottomSheet()

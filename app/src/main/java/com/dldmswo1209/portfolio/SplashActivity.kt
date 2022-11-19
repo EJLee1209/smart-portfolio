@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.data.defaultCardList
 import com.dldmswo1209.portfolio.data.defaultChatList
 import com.dldmswo1209.portfolio.data.defaultImageUri
@@ -18,6 +19,8 @@ import com.dldmswo1209.portfolio.data.timeLineList
 import com.dldmswo1209.portfolio.databinding.ActivitySplashBinding
 import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 import java.lang.Math.random
 import java.lang.String
@@ -31,6 +34,7 @@ import kotlin.concurrent.thread
 // 로딩 시간은 1~3초 랜덤하게
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
+    private val dbRef = Firebase.database.reference.child("User")
     val DURATION = randomSec() // 로딩 시간
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +61,21 @@ class SplashActivity : AppCompatActivity() {
 
             // 로딩시간이 끝나면 메인화면 or 로그인 화면으로 이동
             if(uid != ""){ // 이전에 로그인을 했었음
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(intent)
+                // 일반 사용자인지 채용 담당자인지에 따라 다른 화면을 보여줘야 함
+                dbRef.child(uid).get()
+                    .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            val user = it.result.getValue(User::class.java) ?: return@addOnCompleteListener
+                            var intent : Intent
+                            if(user.isSuperUser){ // 채용 담당자
+                                intent = Intent(this@SplashActivity, SuperActivity::class.java)
+                            }else{ // 일반 사용자
+                                intent = Intent(this@SplashActivity, MainActivity::class.java)
+                            }
+                            startActivity(intent)
+                        }
+                    }
+
             }else{ // 로그인을 안했음
                 val intent = Intent(this@SplashActivity, IntroActivity::class.java)
                 startActivity(intent)

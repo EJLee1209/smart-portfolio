@@ -1,50 +1,54 @@
 package com.dldmswo1209.portfolio
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityMainBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
-import com.dldmswo1209.portfolio.viewModel.UserInfoViewModel
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private lateinit var viewModel: MainViewModel
-    private lateinit var userInfoViewModel : UserInfoViewModel
+    private val viewModel by lazy{
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
+    var uid  = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initView()
 
-        // viewModel 을 둘다 가져옵니다.
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        userInfoViewModel = ViewModelProvider(this)[UserInfoViewModel::class.java]
+        val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+        uid = sharedPreferences.getString("uid","").toString()
 
-        // 모든 유저 정보를 가져오고
-        userInfoViewModel.getAllUser()
+        viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
+            // 유저 정보가 변경되면 알아서 가져와짐
+            binding.nameTextView.text = it.name
+            if(it.profile?.image != ""){ // 프사가 있으면
+                Glide.with(this)
+                    .load(it.profile?.image)
+                    .circleCrop()
+                    .into(binding.mainProfileImageView)
+            }else{
+                Glide.with(this)
+                    .load(R.drawable.profile)
+                    .circleCrop()
+                    .into(binding.mainProfileImageView)
+            }
 
-        // 모든 유저 정보에 대한 데이터를 관찰
-        userInfoViewModel.allUser.observe(this, Observer{
-            val user = it.first() // 첫번째 유저 정보를 가져와서 ui를 업데이트 합니다.
-            binding.nameTextView.text = user.name
-            Glide.with(this)
-                .load(user.profileImage?.toUri())
-                .circleCrop()
-                .into(binding.mainProfileImageView)
-        })
+        }
+
+
 
     }
     // 뷰 초기화 메서드
@@ -107,7 +111,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        userInfoViewModel.getAllUser() //  마이페이지에서 정보 수정시 정보 업데이트를 해주기 위함
     }
 
 }

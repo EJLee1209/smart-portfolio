@@ -31,17 +31,17 @@ class TimeLineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.timeLineList.observe(viewLifecycleOwner, Observer {
-            timeLineAdapter.submitList(it)
-        })
-
-        viewModel.getAllTimeLine()
-        binding.timeLineRecyclerView.adapter = timeLineAdapter
-
+//        viewModel.timeLineList.observe(viewLifecycleOwner, Observer {
+//            timeLineAdapter.submitList(it)
+//        })
+//
+//        viewModel.getAllTimeLine()
+//        binding.timeLineRecyclerView.adapter = timeLineAdapter
+//
         binding.addButton.setOnClickListener{
             val dlg = AddDialog((activity as MainActivity))
             dlg.show{
-                viewModel.insertTimeLine(it)
+//                viewModel.insertTimeLine(it)
             }
         }
 

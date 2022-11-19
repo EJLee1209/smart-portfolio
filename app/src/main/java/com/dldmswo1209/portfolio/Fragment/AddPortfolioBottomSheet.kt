@@ -152,18 +152,16 @@ class AddPortfolioBottomSheet(val cardEntity: CardEntity? = null) : BottomSheetD
 
             if(isUpdate){ // 수정하는 경우
                 if (imageUri == null) {
-                    viewModel.updateCard(CardEntity(editCardId, defaultImageUri.toString(), title ,content, link, start, end))
-                    Log.d("testt", "업데이트 완료 image = null")
+
                 } else {
-                    viewModel.updateCard(CardEntity(editCardId,imageUri.toString(), title, content, link, start, end))
-                    Log.d("testt", "업데이트 완료 이미지 있음")
+
                 }
             }else { // 새로 추가하는 경우
                 // 위 과정을 통과하면 CardEntity 를 생성
                 if (imageUri == null) {
-                    viewModel.insertCard(CardEntity(0, defaultImageUri.toString(), title, content, link, start, end))
+
                 } else {
-                    viewModel.insertCard(CardEntity(0, imageUri.toString(), title, content, link, start, end))
+
                 }
             }
             dialog?.dismiss()

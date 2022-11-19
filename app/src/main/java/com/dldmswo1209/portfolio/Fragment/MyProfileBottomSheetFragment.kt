@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,22 +17,23 @@ import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.dldmswo1209.portfolio.MainActivity
+import com.dldmswo1209.portfolio.Model.User
+import com.dldmswo1209.portfolio.Model.UserProfile
 import com.dldmswo1209.portfolio.MyPageActivity
 import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.FragmentMyProfileBottomSheetBinding
 import com.dldmswo1209.portfolio.entity.UserEntity
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
-import com.dldmswo1209.portfolio.viewModel.UserInfoViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.selects.select
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 // 마이페이지에서 editImageView 클릭시 나타나는 bottomSheetDialog
 class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMyProfileBottomSheetBinding
-    private val userInfoViewModel : UserInfoViewModel by activityViewModels()
     private var imageUri: Uri? = null
+    private val viewModel: MainViewModel by activityViewModels()
+    private lateinit var user: User
 
     // 이미지를 결과값으로 받는 변수
     private val imageResult = registerForActivityResult(
@@ -74,10 +75,18 @@ class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
         binding.okButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             val intro = binding.introEditText.text.toString()
-            val userInfo = userInfoViewModel.allUser.value?.first() ?: return@setOnClickListener
-            val newUserInfo = UserEntity(userInfo.id, name, imageUri.toString(), userInfo.phone, intro, userInfo.email, userInfo.address)
+            val newUser = user
 
-            userInfoViewModel.updateUser(newUserInfo)
+            if(newUser.profile == null){
+                // 생성된 profile 이 없는 경우
+                val profile = UserProfile()
+                newUser.profile = profile // 프로필을 생성해서 할당해줌
+            }
+            newUser.profile?.introduce = intro
+            newUser.profile?.imageUri = imageUri.toString()
+            newUser.name = name
+
+            viewModel.updateProfile(newUser, imageUri)
 
             dialog?.dismiss()
         }
@@ -85,20 +94,22 @@ class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
 
     }
     private fun initView(){
-        userInfoViewModel.getAllUser()
-
-        userInfoViewModel.allUser.observe(this, Observer {
-            val user = it.first()
-
-            Glide.with(this)
-                .load(user.profileImage?.toUri())
-                .circleCrop()
-                .into(binding.profileImageView)
-            binding.nameEditText.setText(user.name)
-            binding.introEditText.setText(user.intro)
-            imageUri = user.profileImage?.toUri()
-
-        })
+        viewModel.getUser((activity as MyPageActivity).uid).observe(this){
+            user = it
+            binding.nameEditText.setText(it.name)
+            binding.introEditText.setText(it.profile?.introduce)
+            if(it.profile?.image != ""){ // 프로필 이미지가 존재
+                Glide.with(this)
+                    .load(user.profile?.image)
+                    .circleCrop()
+                    .into(binding.profileImageView)
+            }else{ // 프로필 이미지 없음
+                Glide.with(this)
+                    .load(R.drawable.profile)
+                    .circleCrop()
+                    .into(binding.profileImageView)
+            }
+        }
     }
     // 갤러리를 부르는 메서드
     private fun selectGallery(){

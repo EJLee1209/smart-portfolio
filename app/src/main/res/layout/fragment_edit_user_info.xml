@@ -70,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="전화 번호"
+                android:textSize="14sp"
                 android:gravity="center"
                 android:inputType="phone"/>
 
@@ -97,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="이메일"
+                android:textSize="14sp"
                 android:gravity="center"
                 android:inputType="textEmailAddress"/>
 
@@ -124,6 +126,35 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="주소"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:inputType="text"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Resume : "
+                android:textSize="18sp"
+                android:textColor="@color/main_blue"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:id="@+id/resumeEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="이력서 링크(ejlee1209.Github.io)"
+                android:textSize="14sp"
                 android:gravity="center"
                 android:inputType="text"/>
 

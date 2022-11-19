@@ -1,21 +1,17 @@
 package com.dldmswo1209.portfolio
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.core.net.toUri
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.dldmswo1209.portfolio.Fragment.AddPortfolioBottomSheet
 import com.dldmswo1209.portfolio.Fragment.EditUserInfoFragment
 import com.dldmswo1209.portfolio.Fragment.MyProfileBottomSheetFragment
-import com.dldmswo1209.portfolio.databinding.ActivityMainBinding
 import com.dldmswo1209.portfolio.databinding.ActivityMyPageBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
-import com.dldmswo1209.portfolio.viewModel.UserInfoViewModel
 
 // 마이페이지 액티비티
 // 로그아웃, 프로필 수정 기능 포함
@@ -24,15 +20,35 @@ class MyPageActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMyPageBinding.inflate(layoutInflater)
     }
-    lateinit var userInfoViewModel: UserInfoViewModel
+    private val viewModel by lazy{
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
+    var uid = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // ViewModel 가져오기
-        userInfoViewModel = ViewModelProvider(this)[UserInfoViewModel::class.java]
-        userInfoViewModel.getAllUser()
+        val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+        uid = sharedPreferences.getString("uid","").toString()
+
+
+        viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
+            // 유저 정보가 변경되면 알아서 가져와짐
+            binding.profileName.text = it.name
+            if(it.profile?.image != ""){ // 프사가 있으면
+                Glide.with(this)
+                    .load(it.profile?.image)
+                    .circleCrop()
+                    .into(binding.profileImage)
+            }else{
+                Glide.with(this)
+                    .load(R.drawable.profile)
+                    .circleCrop()
+                    .into(binding.profileImage)
+            }
+        }
 
         // 로그아웃 클릭
         binding.logoutTextView.setOnClickListener {
@@ -53,23 +69,6 @@ class MyPageActivity : AppCompatActivity() {
             val bottomSheet = EditUserInfoFragment()
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
-
-        userInfoViewModel.allUser.observe(this, Observer {
-            val user = it.first()
-            binding.profileName.text = user.name
-            Glide.with(this)
-                .load(user.profileImage?.toUri())
-                .circleCrop()
-                .into(binding.profileImage)
-        })
-
-        userInfoViewModel.userInfo.observe(this, Observer {
-            binding.profileName.text = it.name
-            Glide.with(this)
-                .load(it.profileImage?.toUri())
-                .circleCrop()
-                .into(binding.profileImage)
-        })
 
 
     }

@@ -8,46 +8,23 @@ import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.dldmswo1209.portfolio.MainActivity
 import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.FragmentHomeBinding
-import com.dldmswo1209.portfolio.viewModel.UserInfoViewModel
+import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val userInfoViewModel : UserInfoViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val viewModel: MainViewModel by activityViewModels()
+    private var uid = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        userInfoViewModel.getAllUser()
-
-//        userInfoViewModel.allUser.observe(viewLifecycleOwner, Observer {
-//            it.first().let { userEntity->
-//                binding.introTextView.text = userEntity.intro
-//                binding.nameTextView.text = "Name : ${userEntity.name}"
-//                binding.phoneTextView.text = "Phone : ${userEntity.phone}"
-//                binding.emailTextView.text = "Email : ${userEntity.email}"
-//                binding.addressTextView.text = "Address : ${userEntity.address}"
-//            }
-//
-//        })
-
         // 웹뷰 세팅
         binding.homeWebView.apply {
             webViewClient = WebViewClient()
@@ -55,8 +32,22 @@ class HomeFragment : Fragment() {
             settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         }
 
-        // 웹뷰 실행
-        binding.homeWebView.loadUrl("https://ejlee1209.github.io")
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        uid = (activity as MainActivity).uid
+
+        viewModel.getUser(uid).observe(viewLifecycleOwner){
+            // 웹뷰 실행
+            binding.homeWebView.loadUrl(it.profile?.resumeUrl.toString())
+            if(it.profile?.email == "dldmswo1209@gmail.com") // 개발자의 계정인 경우
+                binding.homeBottomSheet.visibility = View.VISIBLE // bottomSheetDialog 를 보여줌
+
+
+        }
 
         Glide.with(binding.root) // 이미지를 circleCrop 하기 위해서 Glide 사용
             .load(R.drawable.health_me)

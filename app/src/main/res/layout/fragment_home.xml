@@ -27,7 +27,8 @@
         android:paddingEnd="15dp"
         android:paddingBottom="15dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        android:background="@drawable/top_radius_white_background">
+        android:background="@drawable/top_radius_white_background"
+        android:visibility="gone">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/upAnim"
