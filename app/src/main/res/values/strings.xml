@@ -11,4 +11,6 @@
     <string name="motto">일상을 바꾸기 전에는 삶을 변화시킬 수 없다.\n 성공의 비밀은 일상에 있다.</string>
     <string name="who_am_i">저는 \"마음 먹으면 끝까지 해내는 사람\" 입니다.</string>
     <string name="dream">남들보다 뛰어난 개발자가 되고 싶지만, 그렇지 않더라도 \"맡은 일에 대해서 꾸준히 공부하고, 노력하는 개발자\" 가 되고 싶습니다.</string>
+    <string name="recommend_signup">아이디가 없으신가요? 회원가입 하러가기</string>
+    <string name="goto_sign_in">이미 계정이 있으신가요? 로그인 하러 가기</string>
 </resources>

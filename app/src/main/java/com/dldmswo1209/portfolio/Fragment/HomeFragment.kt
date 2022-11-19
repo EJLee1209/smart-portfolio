@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
+import android.webkit.WebViewClient
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -35,16 +37,26 @@ class HomeFragment : Fragment() {
 
         userInfoViewModel.getAllUser()
 
-        userInfoViewModel.allUser.observe(viewLifecycleOwner, Observer {
-            it.first().let { userEntity->
-                binding.introTextView.text = userEntity.intro
-                binding.nameTextView.text = "Name : ${userEntity.name}"
-                binding.phoneTextView.text = "Phone : ${userEntity.phone}"
-                binding.emailTextView.text = "Email : ${userEntity.email}"
-                binding.addressTextView.text = "Address : ${userEntity.address}"
-            }
+//        userInfoViewModel.allUser.observe(viewLifecycleOwner, Observer {
+//            it.first().let { userEntity->
+//                binding.introTextView.text = userEntity.intro
+//                binding.nameTextView.text = "Name : ${userEntity.name}"
+//                binding.phoneTextView.text = "Phone : ${userEntity.phone}"
+//                binding.emailTextView.text = "Email : ${userEntity.email}"
+//                binding.addressTextView.text = "Address : ${userEntity.address}"
+//            }
+//
+//        })
 
-        })
+        // 웹뷰 세팅
+        binding.homeWebView.apply {
+            webViewClient = WebViewClient()
+            settings.javaScriptEnabled = true
+            settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+        }
+
+        // 웹뷰 실행
+        binding.homeWebView.loadUrl("https://ejlee1209.github.io")
 
         Glide.with(binding.root) // 이미지를 circleCrop 하기 위해서 Glide 사용
             .load(R.drawable.health_me)

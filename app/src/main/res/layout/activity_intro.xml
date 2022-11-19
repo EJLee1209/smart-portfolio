@@ -17,7 +17,7 @@
             android:background="@color/white"
             app:contentScrim="@color/main_blue"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="Lee Eun Jae"
+            app:title="Smart Portfolio"
             app:collapsedTitleTextColor="@color/white"
             app:collapsedTitleGravity="start"
             app:expandedTitleGravity="center"
@@ -26,7 +26,7 @@
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/my_profile_image"
+                android:src="@drawable/business"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"/>
 
@@ -45,21 +45,21 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/introduceLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/aboutMeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="About Me"
+                android:text="Developer"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="18dp"/>
 
             <View
                 android:id="@+id/line"
@@ -69,7 +69,6 @@
                 app:layout_constraintTop_toBottomOf="@id/aboutMeTextView"
                 app:layout_constraintEnd_toEndOf="@id/aboutMeTextView"
                 android:background="@color/main_blue"
-                android:layout_marginEnd="30dp"
                 android:layout_marginTop="5dp"/>
 
             <ImageView
@@ -101,7 +100,7 @@
                     android:id="@+id/introTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text = "@string/default_introduce"
+                    android:text = "안녕하세요 안드로이드 앱 \n개발자 이은재입니다."
                     android:textSize="12sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="8dp"/>
@@ -117,7 +116,7 @@
                     android:id="@+id/phoneTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone : 010-5878-1209"
+                    android:text="Github : https://github.com/EJLee1209"
                     android:textSize="12sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="8dp"/>
@@ -141,185 +140,123 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
-                android:id="@+id/activityTextView"
+                android:id="@+id/loginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Education &amp; activities"
-                android:textColor="@color/black"
-                android:textSize="24sp"
+                android:text="로그인"
+                android:textColor="@color/main_blue"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/profileImage"
                 app:layout_constraintTop_toBottomOf="@id/profileImage"
-                android:layout_marginTop="10dp"/>
-
-            <View
-                android:id="@+id/line2"
-                android:layout_width="0dp"
-                android:layout_height="3dp"
-                app:layout_constraintStart_toStartOf="@id/activityTextView"
-                app:layout_constraintTop_toBottomOf="@id/activityTextView"
-                app:layout_constraintEnd_toEndOf="@id/activityTextView"
-                android:background="@color/main_blue"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="5dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="50dp"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/educationLinearLayout"
-                android:layout_width="0dp"
+                android:id="@+id/idLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/loginTitle"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/input_rectangle">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_person_24"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray"/>
+
+                <EditText
+                    android:id="@+id/emailEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:background="@null"
+                    android:layout_gravity="center"
+                    android:hint="이메일"
+                    android:inputType="textEmailAddress"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/passwordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/idLayout"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/input_rectangle">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_vpn_key_24"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray"/>
+
+                <EditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:background="@null"
+                    android:layout_gravity="center"
+                    android:hint="패스워드"
+                    android:inputType="textPassword"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_blue"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/line2"
-                android:layout_marginTop="10dp">
+                android:text="@string/recommend_signup"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/passwordLayout"/>
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Education"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="강원고등학교"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2014-2017"
-                        android:textSize="14sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="강원고등학교 졸업"
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="한림대학교"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2018~"
-                        android:textSize="14sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3학년 2학기 재학"
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-
-
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Activities"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="창업동아리 DAWN"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2022년 6월 1일~"
-                        android:textSize="14sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LINC 3.0 사업단 선정(6월 31일)"
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="현재 패션 플랫폼 주제로 안드로이드 개발 진행 중"
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="교내 학술동아리 씨애랑"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2022년 3월 1일~"
-                        android:textSize="14sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="동아리 부원으로 활동"
-                        android:textSize="14sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="8dp"/>
-
-
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/startButton"
+                android:id="@+id/loginButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/start_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/educationLinearLayout"
-                android:text="Go Smart Portfolio"
+                app:layout_constraintTop_toBottomOf="@id/registerButton"
+                android:text="로그인"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintTop_toBottomOf="@id/loginButton"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 
