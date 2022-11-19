@@ -8,25 +8,11 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.dldmswo1209.portfolio.Model.User
-import com.dldmswo1209.portfolio.data.defaultCardList
-import com.dldmswo1209.portfolio.data.defaultChatList
-import com.dldmswo1209.portfolio.data.defaultImageUri
-import com.dldmswo1209.portfolio.data.timeLineList
 import com.dldmswo1209.portfolio.databinding.ActivitySplashBinding
-import com.dldmswo1209.portfolio.entity.CardEntity
-import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
-import java.lang.Math.random
-import java.lang.String
-import java.time.Duration
-import kotlin.Throwable
-import kotlin.concurrent.thread
 // Splash 화면
 
 // 요구사항

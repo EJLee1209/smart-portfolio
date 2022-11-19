@@ -27,8 +27,6 @@ const val DEFAULT_NAME = "이은재"
 const val DEFAULT_ADDRESS = "강원도 춘천시"
 const val DEFAULT_EMAIL = "dldmswo1209@gmail.com"
 
-val defaultUserInfo = UserEntity(0,DEFAULT_NAME,defaultImageUri.toString(),
-    DEFAULT_PHONE, DEFAULT_INTRO, DEFAULT_EMAIL,DEFAULT_ADDRESS)
 
 val defaultCardList = mutableListOf(
     CardEntity(
@@ -134,11 +132,11 @@ val defaultChatList = mutableListOf(
     )
 )
 
-val timeLineList = mutableListOf<TimeLineEntity>(
-    TimeLineEntity(1,"강원고등학교 입학", "2015-03-01"),
-    TimeLineEntity(2,"한림대학교 입학", "2018-03-01"),
-    TimeLineEntity(3,"안드로이드 공부 시작", "2022-03-01"),
-    TimeLineEntity(4,"Github 이력서 해커톤 대회(동상)", "2022-11-03"),
-    TimeLineEntity(5,"교내 대회 서공제 공모전(은상)", "2022-11-04"),
-    TimeLineEntity(6,"KBSC 소프트웨어 경진대회(장려상)", "2022-11-05")
-)
+//val timeLineList = mutableListOf<TimeLineEntity>(
+//    TimeLineEntity(1,"강원고등학교 입학", "2015-03-01"),
+//    TimeLineEntity(2,"한림대학교 입학", "2018-03-01"),
+//    TimeLineEntity(3,"안드로이드 공부 시작", "2022-03-01"),
+//    TimeLineEntity(4,"Github 이력서 해커톤 대회(동상)", "2022-11-03"),
+//    TimeLineEntity(5,"교내 대회 서공제 공모전(은상)", "2022-11-04"),
+//    TimeLineEntity(6,"KBSC 소프트웨어 경진대회(장려상)", "2022-11-05")
+//)

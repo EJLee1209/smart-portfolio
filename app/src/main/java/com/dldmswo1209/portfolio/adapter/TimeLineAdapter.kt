@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.dldmswo1209.portfolio.Model.TimeLine
 import com.dldmswo1209.portfolio.databinding.TimelineItemBinding
-import com.dldmswo1209.portfolio.entity.TimeLineEntity
 
-class TimeLineAdapter : ListAdapter<TimeLineEntity, TimeLineAdapter.ViewHolder>(diffUtil) {
+class TimeLineAdapter : ListAdapter<TimeLine, TimeLineAdapter.ViewHolder>(diffUtil) {
     inner class ViewHolder(val binding: TimelineItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(item: TimeLineEntity){
+        fun bind(item: TimeLine){
             binding.contentTextView.text = item.content
             binding.dateTextView.text = item.date
         }
@@ -23,11 +23,11 @@ class TimeLineAdapter : ListAdapter<TimeLineEntity, TimeLineAdapter.ViewHolder>(
         holder.bind(currentList[position])
     }
     companion object{
-        private val diffUtil = object: DiffUtil.ItemCallback<TimeLineEntity>(){
-            override fun areItemsTheSame(oldItem: TimeLineEntity, newItem: TimeLineEntity): Boolean {
-                return oldItem.id == newItem.id
+        private val diffUtil = object: DiffUtil.ItemCallback<TimeLine>(){
+            override fun areItemsTheSame(oldItem: TimeLine, newItem: TimeLine): Boolean {
+                return oldItem.key == newItem.key
             }
-            override fun areContentsTheSame(oldItem: TimeLineEntity, newItem: TimeLineEntity): Boolean {
+            override fun areContentsTheSame(oldItem: TimeLine, newItem: TimeLine): Boolean {
                 return oldItem == newItem
             }
         }

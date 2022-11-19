@@ -2,11 +2,10 @@ package com.dldmswo1209.portfolio
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.util.Log
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import com.dldmswo1209.portfolio.Model.TimeLine
 import com.dldmswo1209.portfolio.databinding.AddDialogBinding
-import com.dldmswo1209.portfolio.entity.TimeLineEntity
 import java.time.LocalDate
 
 // 타임라인 추가버튼을 누르면 뜨는 커스텀 다이얼로그
@@ -17,7 +16,7 @@ class AddDialog(private val context: AppCompatActivity){
     private val dialog = Dialog(context)
 
     // 다이얼로그를 보여주는 함수
-    fun show(addClick: (TimeLineEntity)->(Unit)){
+    fun show(addClick: (TimeLine)->(Unit)){
         // 현재 날짜 가져오기
         val currentDate = LocalDate.now().toString().split("-")
         val year = currentDate[0].toInt()
@@ -42,7 +41,7 @@ class AddDialog(private val context: AppCompatActivity){
             val content = binding.contentEditText.text.toString()
             val date = binding.dateTextView.text.toString()
             if(content == "" || date == "") return@setOnClickListener // 내용이 비어있는 경우 추가하지 않음
-            val newItem = TimeLineEntity(0,content, date)
+            val newItem = TimeLine(content, date)
             addClick(newItem)
 
             dialog.dismiss() // 다이얼로그 끄기

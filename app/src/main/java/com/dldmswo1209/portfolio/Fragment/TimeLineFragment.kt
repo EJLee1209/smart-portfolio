@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import com.dldmswo1209.portfolio.AddDialog
 import com.dldmswo1209.portfolio.MainActivity
 import com.dldmswo1209.portfolio.adapter.TimeLineAdapter
-import com.dldmswo1209.portfolio.data.timeLineList
 import com.dldmswo1209.portfolio.databinding.FragmentTimeLineBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 
@@ -19,6 +18,7 @@ class TimeLineFragment : Fragment() {
     private lateinit var binding: FragmentTimeLineBinding
     private val viewModel: MainViewModel by activityViewModels()
     private val timeLineAdapter = TimeLineAdapter()
+    private var uid = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,17 +31,18 @@ class TimeLineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel.timeLineList.observe(viewLifecycleOwner, Observer {
-//            timeLineAdapter.submitList(it)
-//        })
-//
-//        viewModel.getAllTimeLine()
-//        binding.timeLineRecyclerView.adapter = timeLineAdapter
-//
+        uid = (activity as MainActivity).uid
+
+        binding.timeLineRecyclerView.adapter = timeLineAdapter
+
+        viewModel.getTimeLine(uid).observe(viewLifecycleOwner){
+            timeLineAdapter.submitList(it)
+        }
+
         binding.addButton.setOnClickListener{
             val dlg = AddDialog((activity as MainActivity))
-            dlg.show{
-//                viewModel.insertTimeLine(it)
+            dlg.show{ timeLine->
+                viewModel.createTimeLine(uid, timeLine)
             }
         }
 

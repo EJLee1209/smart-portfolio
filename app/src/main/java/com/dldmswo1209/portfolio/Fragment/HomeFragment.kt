@@ -61,7 +61,6 @@ class HomeFragment : Fragment() {
             }
             else{ // bottomSheetDialog 숨기기
                 binding.homeBottomSheet.visibility = View.GONE
-
             }
         }
 

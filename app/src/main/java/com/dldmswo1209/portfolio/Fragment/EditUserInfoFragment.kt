@@ -5,14 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.Model.UserProfile
 import com.dldmswo1209.portfolio.MyPageActivity
-import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.FragmentEditUserInfoBinding
-import com.dldmswo1209.portfolio.entity.UserEntity
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

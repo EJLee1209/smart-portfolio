@@ -6,27 +6,21 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.Model.UserProfile
 import com.dldmswo1209.portfolio.MyPageActivity
 import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.FragmentMyProfileBottomSheetBinding
-import com.dldmswo1209.portfolio.entity.UserEntity
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 // 마이페이지에서 editImageView 클릭시 나타나는 bottomSheetDialog
 class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
