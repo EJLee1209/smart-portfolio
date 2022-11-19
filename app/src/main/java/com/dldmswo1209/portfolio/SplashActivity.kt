@@ -1,5 +1,6 @@
 package com.dldmswo1209.portfolio
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -29,7 +30,6 @@ import kotlin.concurrent.thread
 // Thread 를 활용하여 ProgressBar 를 0~100 까지 로딩 할 수 있도록 구현
 // 로딩 시간은 1~3초 랜덤하게
 class SplashActivity : AppCompatActivity() {
-    private lateinit var viewModel : MainViewModel
     private lateinit var binding: ActivitySplashBinding
     val DURATION = randomSec() // 로딩 시간
 
@@ -38,42 +38,10 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+        val uid = sharedPreferences.getString("uid", "").toString()
+
         binding.lottieAnimationView.playAnimation() // lottie 애니메이션 재생
-
-        // 뷰모델 가져오기
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        viewModel.getAllCard() // 모든 카드 리스트
-        viewModel.getAllChat() // 모든 채팅 리스트
-        viewModel.getAllTimeLine() // 모든 타임라인 리스트
-
-        viewModel.chatList.observe(this, Observer {
-            if(it.isEmpty()){ // 초기 실행시 포트폴리오 채팅이 비어있으면
-                // 기본 채팅 리스트를 데이터베이스에 추가함
-                defaultChatList.forEach { chatEntity ->
-                    Log.d("testt", chatEntity.toString())
-                    viewModel.insertChat(chatEntity)
-                }
-
-            }
-        })
-
-        viewModel.cardList.observe(this, Observer {
-            if(it.isEmpty()){ // 초기 실행시 포트폴리오 카드가 비어있으면
-                // 기본 카드 리스트를 데이터베이스에 추가함
-                defaultCardList.forEach {  cardEntity->
-                    viewModel.insertCard(cardEntity)
-                }
-            }
-        })
-
-        viewModel.timeLineList.observe(this, Observer {
-            if(it.isEmpty()){
-                timeLineList.forEach{ timeLineEntity ->
-                    viewModel.insertTimeLine(timeLineEntity)
-                }
-            }
-        })
-
 
         // 코루틴을 사용해서 로딩 구현
         CoroutineScope(Dispatchers.IO).launch {
@@ -87,9 +55,15 @@ class SplashActivity : AppCompatActivity() {
                 delay(DURATION)
             }.await() // 다 수행할 때까지 기다림
 
-            // 로딩시간이 끝나면 메인화면으로 이동
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
-            startActivity(intent)
+            // 로딩시간이 끝나면 메인화면 or 로그인 화면으로 이동
+            if(uid != ""){ // 이전에 로그인을 했었음
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+            }else{ // 로그인을 안했음
+                val intent = Intent(this@SplashActivity, IntroActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
 
