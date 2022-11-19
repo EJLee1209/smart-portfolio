@@ -2,6 +2,7 @@ package com.dldmswo1209.portfolio.viewModel
 
 import android.net.Uri
 import androidx.lifecycle.*
+import com.dldmswo1209.portfolio.Model.Chat
 import com.dldmswo1209.portfolio.Model.TimeLine
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.Model.UserProfile
@@ -21,14 +22,7 @@ class MainViewModel(): ViewModel() {
         return user
     }
 
-    fun getTimeLine(uid: String) : LiveData<MutableList<TimeLine>> {
-        val timeLines = MutableLiveData<MutableList<TimeLine>>()
-        repository.getTimeLine(uid).observeForever{
-            timeLines.postValue(it)
-        }
 
-        return timeLines
-    }
     fun updateProfile(user: User, imageUri: Uri?){
         repository.updateUser(user, imageUri)
     }
@@ -37,9 +31,46 @@ class MainViewModel(): ViewModel() {
         repository.updatePrivacyInfo(uid, profile)
     }
 
+    // 타임라인 가져오기
+    fun getTimeLine(uid: String) : LiveData<MutableList<TimeLine>> {
+        val timeLines = MutableLiveData<MutableList<TimeLine>>()
+        repository.getTimeLine(uid).observeForever{
+            timeLines.postValue(it)
+        }
+
+        return timeLines
+    }
+
+    // 타임라인 생성
     fun createTimeLine(uid: String, timeLine: TimeLine){
         repository.createTimeLine(uid, timeLine)
     }
 
+    // 채팅 가져오기
+    fun getChat(uid: String) : LiveData<MutableList<Chat>> {
+        val chatList = MutableLiveData<MutableList<Chat>>()
+        repository.getChat(uid).observeForever{
+            chatList.postValue(it)
+        }
 
+        return chatList
+    }
+
+    // 채팅 보내기
+    fun sendChat(uid: String, chat: Chat){
+        repository.sendChat(uid, chat)
+    }
+    // 채팅 삭제
+    fun deleteChat(uid: String, key: String){
+        repository.deleteChat(uid, key)
+    }
+
+    // 채팅 수정
+    fun modifyChat(uid: String, chat: Chat){
+        repository.modifyChat(uid, chat)
+    }
+
+    fun refreshChat(uid: String){
+        repository.refreshChat(uid)
+    }
 }

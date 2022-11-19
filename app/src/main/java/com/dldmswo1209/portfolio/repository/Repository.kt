@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.dldmswo1209.portfolio.Model.Chat
 import com.dldmswo1209.portfolio.Model.TimeLine
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.Model.UserProfile
@@ -35,27 +36,6 @@ class Repository() {
         })
 
         return user
-    }
-    // 타임라인 가져오기
-    fun getTimeLine(uid: String) : LiveData<MutableList<TimeLine>> {
-        val timeLines = MutableLiveData<MutableList<TimeLine>>()
-
-        database.child("Portfolio/${uid}/TimeLine")
-            .addValueEventListener(object: ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val dataList = mutableListOf<TimeLine>()
-                    if(snapshot.exists()){
-                        snapshot.children.forEach {
-                            val data = it.getValue(TimeLine::class.java) ?: return@forEach
-                            dataList.add(data)
-                        }
-                        timeLines.postValue(dataList)
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {}
-            })
-
-        return timeLines
     }
 
     // 프로필 수정하기
@@ -89,12 +69,87 @@ class Repository() {
         database.child("User/${uid}/profile").setValue(profile)
     }
 
+    // 타임라인 가져오기
+    fun getTimeLine(uid: String) : LiveData<MutableList<TimeLine>> {
+        val timeLines = MutableLiveData<MutableList<TimeLine>>()
+
+        database.child("Portfolio/${uid}/TimeLine")
+            .addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val dataList = mutableListOf<TimeLine>()
+                    if(snapshot.exists()){
+                        snapshot.children.forEach {
+                            val data = it.getValue(TimeLine::class.java) ?: return@forEach
+                            dataList.add(data)
+                        }
+                        timeLines.postValue(dataList)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+
+        return timeLines
+    }
+
+    // 타임라인 생성
     fun createTimeLine(uid: String, timeLine: TimeLine){
         val db = database.child("Portfolio/${uid}/TimeLine").push()
-        val key = db.push().key // 새로운 키 생성
+        val key = db.key // 새로운 키 생성
 
         timeLine.key = key.toString()
         db.setValue(timeLine)
+
+    }
+
+    fun getChat(uid: String): LiveData<MutableList<Chat>> {
+        val chatList = MutableLiveData<MutableList<Chat>>()
+
+        database.child("Portfolio/${uid}/Chat")
+            .addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val dataList = mutableListOf<Chat>()
+                    if(snapshot.exists()){
+                        snapshot.children.forEach {
+                            val data = it.getValue(Chat::class.java) ?: return@forEach
+                            dataList.add(data)
+                        }
+                        chatList.postValue(dataList)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+
+        return chatList
+    }
+
+    // 채팅 포트폴리오 아이템 생성
+    fun sendChat(uid: String, chat: Chat){
+        val db = database.child("Portfolio/${uid}/Chat").push()
+        val key = db.key // 새로운 키 생성
+
+        chat.key = key.toString()
+        db.setValue(chat)
+    }
+
+    // 채팅 삭제
+    fun deleteChat(uid: String, key: String){
+        database.child("Portfolio/${uid}/Chat/${key}").removeValue()
+    }
+
+    // 채팅 수정
+    fun modifyChat(uid: String, chat: Chat){
+        database.child("Portfolio/${uid}/Chat/${chat.key}").setValue(chat)
+    }
+
+    fun refreshChat(uid: String){
+        val db = database.child("Portfolio/${uid}/Chat").push()
+        val key = db.key.toString() // 새로운 키 생성
+
+        val dummyChat = Chat("",0,key)
+        db.setValue(dummyChat)
+            .addOnSuccessListener {
+                db.removeValue()
+            }
 
     }
 

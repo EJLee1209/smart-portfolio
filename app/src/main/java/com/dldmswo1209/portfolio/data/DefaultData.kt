@@ -79,58 +79,58 @@ val defaultCardList = mutableListOf(
         ,"https://github.com/EJLee1209/smart-protfolio")
 )
 
-val defaultChatList = mutableListOf(
-    ChatEntity(
-        1,
-        "이름",
-        OTHER_CHAT
-    ),
-    ChatEntity(
-        2,
-        "이은재",
-        MY_CHAT
-    ),
-    ChatEntity(
-        3,
-        "생년월일",
-        OTHER_CHAT
-    ),
-    ChatEntity(
-        4,
-        "1999년 12월 9일",
-        MY_CHAT
-    ),
-    ChatEntity(
-        5,
-        "자기소개",
-        OTHER_CHAT
-    ),
-    ChatEntity(
-        6,
-        "안녕하세요. 저는 안드로이드 개발자 이은재 라고 합니다.",
-        MY_CHAT
-    ),
-    ChatEntity(
-        7,
-        "취미",
-        OTHER_CHAT
-    ),
-    ChatEntity(
-        8,
-        "제 취미는 헬스 입니다. 개발자는 장시간 동안 의자에 앉아 있어야 하는 직업으로 알고 있습니다. 그래서 저는 매일매일 자세 교정과 체력 증진을 위해 운동을 꾸준히 하고 있습니다.",
-        MY_CHAT
-    ),
-    ChatEntity(
-        9,
-        "좌우명",
-        OTHER_CHAT
-    ),
-    ChatEntity(
-        10,
-        "제 좌우명은 \"일상을 바꾸기 전에는 삶을 변화시킬 수 없다. 성공의 비밀은 자기 일상에 있다.\" 입니다. 저는 제 일상을 바꾸기 위해 운동을 시작했습니다. 운동을 하면서 체력도 늘고, 집중력도 높아질 수 있었습니다.",
-        MY_CHAT
-    )
-)
+//val defaultChatList = mutableListOf(
+//    ChatEntity(
+//        1,
+//        "이름",
+//        OTHER_CHAT
+//    ),
+//    ChatEntity(
+//        2,
+//        "이은재",
+//        MY_CHAT
+//    ),
+//    ChatEntity(
+//        3,
+//        "생년월일",
+//        OTHER_CHAT
+//    ),
+//    ChatEntity(
+//        4,
+//        "1999년 12월 9일",
+//        MY_CHAT
+//    ),
+//    ChatEntity(
+//        5,
+//        "자기소개",
+//        OTHER_CHAT
+//    ),
+//    ChatEntity(
+//        6,
+//        "안녕하세요. 저는 안드로이드 개발자 이은재 라고 합니다.",
+//        MY_CHAT
+//    ),
+//    ChatEntity(
+//        7,
+//        "취미",
+//        OTHER_CHAT
+//    ),
+//    ChatEntity(
+//        8,
+//        "제 취미는 헬스 입니다. 개발자는 장시간 동안 의자에 앉아 있어야 하는 직업으로 알고 있습니다. 그래서 저는 매일매일 자세 교정과 체력 증진을 위해 운동을 꾸준히 하고 있습니다.",
+//        MY_CHAT
+//    ),
+//    ChatEntity(
+//        9,
+//        "좌우명",
+//        OTHER_CHAT
+//    ),
+//    ChatEntity(
+//        10,
+//        "제 좌우명은 \"일상을 바꾸기 전에는 삶을 변화시킬 수 없다. 성공의 비밀은 자기 일상에 있다.\" 입니다. 저는 제 일상을 바꾸기 위해 운동을 시작했습니다. 운동을 하면서 체력도 늘고, 집중력도 높아질 수 있었습니다.",
+//        MY_CHAT
+//    )
+//)
 
 //val timeLineList = mutableListOf<TimeLineEntity>(
 //    TimeLineEntity(1,"강원고등학교 입학", "2015-03-01"),

@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.dldmswo1209.portfolio.Model.Chat
+import com.dldmswo1209.portfolio.Model.MY_CHAT
 import com.dldmswo1209.portfolio.databinding.MyChatItemBinding
 import com.dldmswo1209.portfolio.databinding.OtherChatItemBinding
-import com.dldmswo1209.portfolio.entity.ChatEntity
-import com.dldmswo1209.portfolio.entity.MY_CHAT
 
 // 채팅 리스트 어답터(기본 모드)
-class ChatListAdapterModeOrigin: ListAdapter<ChatEntity, RecyclerView.ViewHolder>(diffUtil) {
+class ChatListAdapterModeOrigin: ListAdapter<Chat, RecyclerView.ViewHolder>(diffUtil) {
 
     override fun getItemCount(): Int {
         return currentList.size
@@ -26,12 +26,12 @@ class ChatListAdapterModeOrigin: ListAdapter<ChatEntity, RecyclerView.ViewHolder
     }
 
     inner class MyChatViewHolder(val binding: MyChatItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(chat: ChatEntity){
+        fun bind(chat: Chat){
             binding.chatTextView.text = chat.content
         }
     }
     inner class OtherChatViewHolder(val binding: OtherChatItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(chat: ChatEntity){
+        fun bind(chat: Chat){
             binding.chatTextView.text = chat.content
         }
     }
@@ -55,12 +55,12 @@ class ChatListAdapterModeOrigin: ListAdapter<ChatEntity, RecyclerView.ViewHolder
         }
     }
     companion object{
-        private val diffUtil = object: DiffUtil.ItemCallback<ChatEntity>(){
-            override fun areItemsTheSame(oldItem: ChatEntity, newItem: ChatEntity): Boolean {
-                return oldItem.id == newItem.id
+        private val diffUtil = object: DiffUtil.ItemCallback<Chat>(){
+            override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
+                return oldItem.key == newItem.key
             }
 
-            override fun areContentsTheSame(oldItem: ChatEntity, newItem: ChatEntity): Boolean {
+            override fun areContentsTheSame(oldItem: Chat, newItem: Chat): Boolean {
                 return oldItem == newItem
             }
 
