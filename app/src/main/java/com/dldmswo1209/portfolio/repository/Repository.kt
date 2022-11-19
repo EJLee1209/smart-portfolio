@@ -3,12 +3,10 @@ package com.dldmswo1209.portfolio.repository
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dldmswo1209.portfolio.Model.Chat
-import com.dldmswo1209.portfolio.Model.TimeLine
-import com.dldmswo1209.portfolio.Model.User
-import com.dldmswo1209.portfolio.Model.UserProfile
+import com.dldmswo1209.portfolio.Model.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -141,6 +139,7 @@ class Repository() {
         database.child("Portfolio/${uid}/Chat/${chat.key}").setValue(chat)
     }
 
+    // 채팅 새로고침
     fun refreshChat(uid: String){
         val db = database.child("Portfolio/${uid}/Chat").push()
         val key = db.key.toString() // 새로운 키 생성
@@ -150,7 +149,54 @@ class Repository() {
             .addOnSuccessListener {
                 db.removeValue()
             }
+    }
 
+    // 카드 가져오기
+    fun getCard(uid: String) : LiveData<MutableList<Card>> {
+        val cardList = MutableLiveData<MutableList<Card>>()
+
+        database.child("Portfolio/${uid}/Card")
+            .addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val dataList = mutableListOf<Card>()
+                    if(snapshot.exists()){
+                        snapshot.children.forEach {
+                            val data = it.getValue(Card::class.java) ?: return@forEach
+                            dataList.add(data)
+                        }
+                        cardList.postValue(dataList)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+
+        return cardList
+    }
+
+    // 카드 생성
+    fun createCard(uid: String, card: Card){
+        val db = database.child("Portfolio/${uid}/Card").push()
+        val key = db.key // 새로운 키 생성
+        card.key = key.toString()
+
+        if(card.imageUri == null){ // 프로필 사진이 아예 없음
+            db.setValue(card) // 새로운 데이터 저장
+        }
+        else{
+            val imgFileName = "${card.imageUri?.toUri()?.lastPathSegment}.png"
+            val imagePath = "Portfolio_Images/${uid}/${imgFileName}.png"
+
+            storage.child(imagePath).putFile(card.imageUri!!.toUri()) // 이미지 업로드
+                .addOnSuccessListener {
+                    storage.child(imagePath).downloadUrl.addOnSuccessListener { uri ->
+                        // 이미지 다운로드
+                        val newCard = card
+                        newCard.image = uri.toString() // 다운로드 받은 이미지 uri 저장
+                        db.setValue(card) // 새로운 데이터 저장
+                    }
+
+                }
+        }
     }
 
 }

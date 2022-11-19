@@ -2,10 +2,7 @@ package com.dldmswo1209.portfolio.viewModel
 
 import android.net.Uri
 import androidx.lifecycle.*
-import com.dldmswo1209.portfolio.Model.Chat
-import com.dldmswo1209.portfolio.Model.TimeLine
-import com.dldmswo1209.portfolio.Model.User
-import com.dldmswo1209.portfolio.Model.UserProfile
+import com.dldmswo1209.portfolio.Model.*
 import com.dldmswo1209.portfolio.repository.Repository
 
 // 메인 액티비티에서 사용할 ViewModel
@@ -72,5 +69,18 @@ class MainViewModel(): ViewModel() {
 
     fun refreshChat(uid: String){
         repository.refreshChat(uid)
+    }
+
+    fun getCard(uid: String): LiveData<MutableList<Card>> {
+        val cardList = MutableLiveData<MutableList<Card>>()
+        repository.getCard(uid).observeForever{
+            cardList.postValue(it)
+        }
+
+        return cardList
+    }
+
+    fun createCard(uid: String, card: Card){
+        repository.createCard(uid, card)
     }
 }

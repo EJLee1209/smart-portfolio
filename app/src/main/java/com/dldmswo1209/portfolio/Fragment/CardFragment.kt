@@ -26,7 +26,9 @@ import com.dldmswo1209.portfolio.viewModel.MainViewModel
 class CardFragment : Fragment(R.layout.fragment_card) {
     private lateinit var binding : FragmentCardBinding
     private val viewModel: MainViewModel by activityViewModels()
-    val cardAdapter = CardListAdapter { cardEntity, type ->
+    private var uid = ""
+
+    val cardAdapter = CardListAdapter { card, type ->
         // 어답터를 생성할 때 아이템 클릭 이벤트를 정의함
         if(type == GO_HOMEPAGE) {
             // 아이템 클릭시 다이얼로그를 띄워 웹을 띄울 방법(내부/외부)을 선택
@@ -35,17 +37,17 @@ class CardFragment : Fragment(R.layout.fragment_card) {
                 .setMessage("내부 웹뷰 또는 외부 웹 브라우저를 선택해주세요.")
                 .setPositiveButton("내부", DialogInterface.OnClickListener { dialog, id ->
                     val intent = Intent(requireContext(), WebViewActivity::class.java)
-                    intent.putExtra("url", cardEntity.link)
+                    intent.putExtra("url", card.link)
                     startActivity(intent)
                 })
                 .setNegativeButton("외부", DialogInterface.OnClickListener { dialog, id ->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(cardEntity.link))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(card.link))
                     startActivity(intent)
                 })
             builder.show()
         }else if(type == EDIT_CARD){
             // 수정하기
-            val bottomSheet = AddPortfolioBottomSheet(cardEntity)
+            val bottomSheet = AddPortfolioBottomSheet(card)
             bottomSheet.show((activity as MainActivity).supportFragmentManager, bottomSheet.tag)
         }else{
             // 삭제하기
@@ -65,14 +67,17 @@ class CardFragment : Fragment(R.layout.fragment_card) {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_card, container, false)
-
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentCardBinding.inflate(inflater, container, false)
+        return binding.root
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentCardBinding.bind(view)
 
+        uid = (activity as MainActivity).uid
 
         // 카드 드래그 기능을 위해 콜백 연결
         val callback = ItemDragHelperCallback(cardAdapter)
@@ -85,9 +90,11 @@ class CardFragment : Fragment(R.layout.fragment_card) {
 
         })
 
+        binding.cardRecyclerView.adapter = cardAdapter
         // 모든 카드리스트 데이터 요청
-
-
+        viewModel.getCard(uid).observe(viewLifecycleOwner){
+            cardAdapter.submitList(it)
+        }
 
 
         binding.addButton.setOnClickListener {

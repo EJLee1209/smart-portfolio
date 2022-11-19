@@ -12,19 +12,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dldmswo1209.portfolio.Model.Card
 import com.dldmswo1209.portfolio.databinding.CardItemBinding
 import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.swipeHelper.ItemDragHelperCallback
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CardListAdapter(val itemClick: (CardEntity,Int)->(Unit)): ListAdapter<CardEntity, CardListAdapter.ViewHolder>(diffUtil), ItemDragHelperCallback.OnItemMoveListener{
+class CardListAdapter(val itemClick: (Card,Int)->(Unit)): ListAdapter<Card, CardListAdapter.ViewHolder>(diffUtil), ItemDragHelperCallback.OnItemMoveListener{
 
     private lateinit var dragListener: OnStartDragListener
 
     inner class ViewHolder(val binding: CardItemBinding): RecyclerView.ViewHolder(binding.root){
         @SuppressLint("ClickableViewAccessibility")
-        fun bind(card: CardEntity){
+        fun bind(card: Card){
             binding.titleTextView.text = card.title
             binding.cardDetailTextView.text = card.content
             if(card.start != null && card.end != null) {
@@ -36,6 +37,7 @@ class CardListAdapter(val itemClick: (CardEntity,Int)->(Unit)): ListAdapter<Card
 
             Glide.with(binding.root)
                 .load(card.image?.toUri())
+                .centerCrop()
                 .into(binding.cardImageView)
 
             binding.root.setOnClickListener {
@@ -65,12 +67,12 @@ class CardListAdapter(val itemClick: (CardEntity,Int)->(Unit)): ListAdapter<Card
     }
 
     companion object{
-        private val diffUtil = object: DiffUtil.ItemCallback<CardEntity>(){
-            override fun areItemsTheSame(oldItem: CardEntity, newItem: CardEntity): Boolean {
-                return oldItem.id == newItem.id
+        private val diffUtil = object: DiffUtil.ItemCallback<Card>(){
+            override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
+                return oldItem.key == newItem.key
             }
 
-            override fun areContentsTheSame(oldItem: CardEntity, newItem: CardEntity): Boolean {
+            override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
                 return oldItem == newItem
             }
         }
@@ -89,7 +91,7 @@ class CardListAdapter(val itemClick: (CardEntity,Int)->(Unit)): ListAdapter<Card
 
     override fun onItemMoved(fromPosition: Int, toPosition: Int) {
         val item = currentList[fromPosition]
-        val newList = ArrayList<CardEntity>()
+        val newList = ArrayList<Card>()
         newList.addAll(currentList)
         newList.removeAt(fromPosition)
         newList.add(toPosition, item)
