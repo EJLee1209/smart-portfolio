@@ -55,8 +55,7 @@ class CardFragment : Fragment(R.layout.fragment_card) {
             builder.setTitle("포트폴리오 삭제")
                 .setMessage("삭제 하시겠습니까?")
                 .setPositiveButton("삭제", DialogInterface.OnClickListener { dialog, id ->
-
-
+                    viewModel.deleteCard(uid, card)
                     dialog.dismiss()
                 })
                 .setNegativeButton("취소", DialogInterface.OnClickListener { dialog, id ->

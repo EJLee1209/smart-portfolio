@@ -83,4 +83,8 @@ class MainViewModel(): ViewModel() {
     fun createCard(uid: String, card: Card){
         repository.createCard(uid, card)
     }
+
+    fun deleteCard(uid: String, card: Card){
+        repository.deleteCard(uid, card)
+    }
 }

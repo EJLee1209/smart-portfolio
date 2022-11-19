@@ -199,4 +199,15 @@ class Repository() {
         }
     }
 
+    // 카드 삭제
+    fun deleteCard(uid: String, card: Card){
+        database.child("Portfolio/${uid}/Card/${card.key}").removeValue()
+        // 사진도 지워야 함
+        if(card.imageUri != "" && card.imageUri != null){
+            val imgFileName = "${card.imageUri?.toUri()?.lastPathSegment}.png"
+            val imagePath = "Portfolio_Images/${uid}/${imgFileName}.png"
+            storage.child(imagePath).delete()
+        }
+    }
+
 }
