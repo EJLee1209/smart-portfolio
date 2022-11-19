@@ -56,7 +56,6 @@ class Repository() {
                         val newProfile = user
                         newProfile.profile?.image = uri.toString() // 다운로드 받은 이미지 uri 저장
                         database.child("User/${newProfile.uid}").setValue(newProfile) // 새로운 데이터 저장
-
                     }
 
                 }
@@ -80,8 +79,8 @@ class Repository() {
                             val data = it.getValue(TimeLine::class.java) ?: return@forEach
                             dataList.add(data)
                         }
-                        timeLines.postValue(dataList)
                     }
+                    timeLines.postValue(dataList)
                 }
                 override fun onCancelled(error: DatabaseError) {}
             })
@@ -111,8 +110,8 @@ class Repository() {
                             val data = it.getValue(Chat::class.java) ?: return@forEach
                             dataList.add(data)
                         }
-                        chatList.postValue(dataList)
                     }
+                    chatList.postValue(dataList)
                 }
                 override fun onCancelled(error: DatabaseError) {}
             })
@@ -164,10 +163,11 @@ class Repository() {
                             val data = it.getValue(Card::class.java) ?: return@forEach
                             dataList.add(data)
                         }
-                        cardList.postValue(dataList)
                     }
+                    cardList.postValue(dataList)
                 }
-                override fun onCancelled(error: DatabaseError) {}
+                override fun onCancelled(error: DatabaseError) {
+                }
             })
 
         return cardList
@@ -179,7 +179,7 @@ class Repository() {
         val key = db.key // 새로운 키 생성
         card.key = key.toString()
 
-        if(card.imageUri == null){ // 프로필 사진이 아예 없음
+        if(card.imageUri == null){ // 사진이 아예 없음
             db.setValue(card) // 새로운 데이터 저장
         }
         else{
@@ -207,6 +207,30 @@ class Repository() {
             val imgFileName = "${card.imageUri?.toUri()?.lastPathSegment}.png"
             val imagePath = "Portfolio_Images/${uid}/${imgFileName}.png"
             storage.child(imagePath).delete()
+        }
+    }
+
+    // 카드 수정
+    fun updateCard(uid: String, card: Card){
+        val db = database.child("Portfolio/${uid}/Card/${card.key}")
+
+        if(card.imageUri == null){ // 사진이 아예 없음
+            db.setValue(card) // 새로운 데이터 저장
+        }
+        else{
+            val imgFileName = "${card.imageUri?.toUri()?.lastPathSegment}.png"
+            val imagePath = "Portfolio_Images/${uid}/${imgFileName}.png"
+
+            storage.child(imagePath).putFile(card.imageUri!!.toUri()) // 이미지 업로드
+                .addOnSuccessListener {
+                    storage.child(imagePath).downloadUrl.addOnSuccessListener { uri ->
+                        // 이미지 다운로드
+                        val newCard = card
+                        newCard.image = uri.toString() // 다운로드 받은 이미지 uri 저장
+                        db.setValue(card) // 새로운 데이터 저장
+                    }
+
+                }
         }
     }
 

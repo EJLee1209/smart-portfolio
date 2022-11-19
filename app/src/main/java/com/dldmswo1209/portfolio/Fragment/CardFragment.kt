@@ -93,6 +93,7 @@ class CardFragment : Fragment(R.layout.fragment_card) {
         // 모든 카드리스트 데이터 요청
         viewModel.getCard(uid).observe(viewLifecycleOwner){
             cardAdapter.submitList(it)
+            Log.d("testt", "observe : ${it.size}")
         }
 
 

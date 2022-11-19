@@ -148,19 +148,21 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
 
 
             if(isUpdate){ // 수정하는 경우
+                var newCard : Card
                 if (imageUri == null) {
-
+                    newCard = Card(title, content, card!!.key, null, null, link, start, end)
                 } else {
-
+                    newCard = Card(title, content, card!!.key , null, imageUri.toString(), link, start, end)
                 }
+                viewModel.updateCard(uid, newCard)
             }else { // 새로 추가하는 경우
                 // 위 과정을 통과하면 Card 를 생성
                 var newCard : Card
                 if (imageUri == null) {
-                    newCard = Card(title, content,link, null, null, link, start, end)
+                    newCard = Card(title, content,"", null, null, link, start, end)
 
                 } else {
-                    newCard = Card(title, content,link, null, imageUri.toString(), link, start, end)
+                    newCard = Card(title, content,"", null, imageUri.toString(), link, start, end)
                 }
                 viewModel.createCard(uid, newCard)
             }
