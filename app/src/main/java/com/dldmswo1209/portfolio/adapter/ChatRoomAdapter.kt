@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Model.ChatRoom
 import com.dldmswo1209.portfolio.Model.User
+import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.UserItemBinding
 
 class ChatRoomAdapter(val currentUser: User, val itemClicked : (ChatRoom)->(Unit)): ListAdapter<ChatRoom, ChatRoomAdapter.ViewHolder>(diffUtil) {
@@ -22,6 +23,13 @@ class ChatRoomAdapter(val currentUser: User, val itemClicked : (ChatRoom)->(Unit
                     .load(room.receiver.profile?.image)
                     .circleCrop()
                     .into(binding.profileImageView)
+                if(room.receiver.profile?.image == "" || room.receiver.profile?.image == null){
+                    Glide.with(binding.root)
+                        .load(R.drawable.profile)
+                        .circleCrop()
+                        .into(binding.profileImageView)
+                }
+
                 binding.introTextView.text = room.lastMessage // user_item 재활용이라 이름이 안맞음
                 binding.timeTextView.text = room.lastTime
             }else{
@@ -31,6 +39,13 @@ class ChatRoomAdapter(val currentUser: User, val itemClicked : (ChatRoom)->(Unit
                     .load(room.sender.profile?.image)
                     .circleCrop()
                     .into(binding.profileImageView)
+                if(room.sender.profile?.image == "" || room.sender.profile?.image == null){
+                    Glide.with(binding.root)
+                        .load(R.drawable.profile)
+                        .circleCrop()
+                        .into(binding.profileImageView)
+                }
+
                 binding.introTextView.text = room.lastMessage // user_item 재활용이라 이름이 안맞음
                 binding.timeTextView.text = room.lastTime
             }
