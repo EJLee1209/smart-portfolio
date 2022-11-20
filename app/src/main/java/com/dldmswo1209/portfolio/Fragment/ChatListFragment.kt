@@ -1,5 +1,6 @@
 package com.dldmswo1209.portfolio.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.dldmswo1209.portfolio.ChatActivity
 import com.dldmswo1209.portfolio.Model.ChatRoom
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.R
@@ -35,6 +37,11 @@ class ChatListFragment : Fragment() {
         currentUser = (activity as SuperActivity).currentUser
         roomAdapter = ChatRoomAdapter(currentUser){
             // 채팅방 클릭 이벤트
+            val intent = Intent(requireContext(), ChatActivity::class.java)
+            intent.putExtra("sender", it.sender)
+            intent.putExtra("receiver", it.receiver)
+            intent.putExtra("key", it.key)
+            startActivity(intent)
         }
         binding.roomRecyclerView.adapter = roomAdapter
 

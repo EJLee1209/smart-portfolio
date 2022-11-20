@@ -34,6 +34,10 @@ class ChatRoomAdapter(val currentUser: User, val itemClicked : (ChatRoom)->(Unit
                 binding.introTextView.text = room.lastMessage // user_item 재활용이라 이름이 안맞음
                 binding.timeTextView.text = room.lastTime
             }
+
+            binding.root.setOnClickListener {
+                itemClicked(room)
+            }
         }
     }
 

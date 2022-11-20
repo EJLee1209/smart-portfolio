@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
@@ -257,6 +258,7 @@ class Repository() {
         }
     }
 
+    // 내 모든 채팅방 가져오기
     fun getChatRooms(user: User): LiveData<MutableList<ChatRoom>> {
         val rooms = MutableLiveData<MutableList<ChatRoom>>()
 
@@ -279,7 +281,7 @@ class Repository() {
         return rooms
     }
 
-
+    // 채팅방 생성
     fun createChatRooms(sender: User, receiver: User){
         val path = "${sender.uid}_${receiver.uid}"
         val db = database.child("ChatRooms/${path}/info")
@@ -293,6 +295,36 @@ class Repository() {
 
             }
         }
+    }
+
+    fun getAllChat(key: String): LiveData<MutableList<RealChat>>{
+        val chats = MutableLiveData<MutableList<RealChat>>()
+
+        database.child("ChatRooms/${key}/comment")
+            .addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val dataList = mutableListOf<RealChat>()
+                    if(snapshot.exists()){
+                        snapshot.children.forEach {
+                            val data = it.getValue(RealChat::class.java) ?: return@forEach
+                            dataList.add(data)
+                        }
+                    }
+                    chats.postValue(dataList)
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+
+        return chats
+    }
+
+    // 메세지 보내기
+    fun sendMessage(chat: RealChat, key: String){
+        val db = database.child("ChatRooms/${key}/comment").push()
+        val chatKey = db.key
+        chat.key = chatKey.toString()
+
+        db.setValue(chat)
     }
 
 }

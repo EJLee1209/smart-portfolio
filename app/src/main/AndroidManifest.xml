@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS"/>
+    <uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Portfolio"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
         <activity
             android:name=".SuperActivity"
             android:exported="false" />

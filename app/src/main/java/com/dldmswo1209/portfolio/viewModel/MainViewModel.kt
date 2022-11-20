@@ -107,7 +107,6 @@ class MainViewModel(): ViewModel() {
     fun createChatRoom(sender: User, receiver: User){
         repository.createChatRooms(sender, receiver)
     }
-
     fun getChatRooms(user: User): LiveData<MutableList<ChatRoom>>{
         val rooms = MutableLiveData<MutableList<ChatRoom>>()
         repository.getChatRooms(user).observeForever {
@@ -115,4 +114,18 @@ class MainViewModel(): ViewModel() {
         }
         return rooms
     }
+
+    fun getAllChat(key: String): LiveData<MutableList<RealChat>>{
+        val chats = MutableLiveData<MutableList<RealChat>>()
+        repository.getAllChat(key).observeForever {
+            chats.postValue(it)
+        }
+        return chats
+    }
+
+    fun sendMessage(chat: RealChat, key: String){
+        repository.sendMessage(chat, key)
+    }
+
+
 }
