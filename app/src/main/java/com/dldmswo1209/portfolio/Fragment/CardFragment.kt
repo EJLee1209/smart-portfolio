@@ -32,10 +32,6 @@ class CardFragment : Fragment(R.layout.fragment_card) {
 
     val cardAdapter = CardListAdapter { card, type ->
         // 어답터를 생성할 때 아이템 클릭 이벤트를 정의함
-        if(isSuperShow){ // 채용 담당자가 보는 중
-            Toast.makeText(requireContext(), "권한이 없습니다.", Toast.LENGTH_SHORT).show()
-            return@CardListAdapter
-        }
         if(type == GO_HOMEPAGE) {
             // 아이템 클릭시 다이얼로그를 띄워 웹을 띄울 방법(내부/외부)을 선택
             val builder = AlertDialog.Builder(requireContext())
@@ -51,12 +47,21 @@ class CardFragment : Fragment(R.layout.fragment_card) {
                     startActivity(intent)
                 })
             builder.show()
-        }else if(type == EDIT_CARD){
+        }
+        else if(type == EDIT_CARD){
             // 수정하기
+            if(isSuperShow){ // 채용 담당자가 보는 중
+                Toast.makeText(requireContext(), "권한이 없습니다.", Toast.LENGTH_SHORT).show()
+                return@CardListAdapter
+            }
             val bottomSheet = AddPortfolioBottomSheet(card)
             bottomSheet.show((activity as MainActivity).supportFragmentManager, bottomSheet.tag)
         }else{
             // 삭제하기
+            if(isSuperShow){ // 채용 담당자가 보는 중
+                Toast.makeText(requireContext(), "권한이 없습니다.", Toast.LENGTH_SHORT).show()
+                return@CardListAdapter
+            }
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("포트폴리오 삭제")
                 .setMessage("삭제 하시겠습니까?")
