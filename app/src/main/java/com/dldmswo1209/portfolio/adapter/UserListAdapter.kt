@@ -19,7 +19,7 @@ class UserListAdapter(val itemClicked : (User)->(Unit)): ListAdapter<User, UserL
             binding.introTextView.text = user.profile?.introduce
             if(binding.introTextView.text.toString() == "")
                 binding.introTextView.visibility = View.GONE
-
+            
             Glide.with(binding.root)
                 .load(user.profile?.image)
                 .circleCrop()

@@ -9,7 +9,7 @@ import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.adapter.ChatRoomAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityChatListNormalBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
-
+// 일반 사용자를 위한 채팅방 목록 화면
 class ChatListActivityNormal : AppCompatActivity() {
     private val binding by lazy{
         ActivityChatListNormalBinding.inflate(layoutInflater)
@@ -31,10 +31,6 @@ class ChatListActivityNormal : AppCompatActivity() {
 
         val roomAdapter = ChatRoomAdapter(currentUser){
             // 채팅방 클릭 이벤트 처리
-//            sender = intent.getSerializableExtra("sender") as User
-//            receiver = intent.getSerializableExtra("receiver") as User
-//            key = intent.getStringExtra("key").toString()
-
             val intent = Intent(this, ChatActivity::class.java)
             // 채용 담당자가 채팅방을 생성해야만 채팅방이 생성됨
             // 그러므로 it.sender 에는 채용담당자가, it.receiver 에는 채용인이 저장되어 있음

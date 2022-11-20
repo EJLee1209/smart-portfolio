@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.dldmswo1209.portfolio.ChatActivity
+import com.dldmswo1209.portfolio.Model.ChatRoom
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.SplashActivity
@@ -23,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class UserDetailBottomSheet(val user: User) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentUserDetailBottomSheetBinding
     private val viewModel: MainViewModel by activityViewModels()
+    private var chatRooms = mutableListOf<ChatRoom>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme).apply {
@@ -52,8 +55,39 @@ class UserDetailBottomSheet(val user: User) : BottomSheetDialogFragment() {
         }
 
         binding.chatButton.setOnClickListener {
-            viewModel.createChatRoom(currentUser, user)
+            var key : String? = null
+
+            chatRooms.forEach { room->
+                if(currentUser.uid == room.sender.uid && user.uid == room.receiver.uid){
+                    key = room.key
+                    return@forEach
+                }
+            }
+            val intent = Intent(requireContext(), ChatActivity::class.java)
+            intent.putExtra("sender", currentUser)
+            intent.putExtra("receiver", user)
+            if(key != null){
+                viewModel.getRoom(currentUser.uid, key!!).observe(viewLifecycleOwner){ room ->
+                    // 채팅방이 이미 존재하는 경우
+                    intent.putExtra("key", room.key)
+                    startActivity(intent)
+                }
+            }else{
+                viewModel.createChatRoom(currentUser, user).observe(viewLifecycleOwner){ newKey ->
+                    // 채팅방이 존재하지 않아 새로 생성
+                    intent.putExtra("key", newKey)
+                    startActivity(intent)
+                }
+            }
+
         }
+
+
+        viewModel.getChatRooms(currentUser).observe(viewLifecycleOwner){
+            chatRooms = it
+        }
+
+
 
         binding.callButton.setOnClickListener {
 

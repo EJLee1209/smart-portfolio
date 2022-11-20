@@ -281,20 +281,41 @@ class Repository() {
         return rooms
     }
 
+    fun getRoom(uid: String, key: String): LiveData<ChatRoom>{
+        val room = MutableLiveData<ChatRoom>()
+
+        database.child("User/${uid}/chatRooms/${key}")
+            .addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()){
+                        room.postValue(snapshot.getValue(ChatRoom::class.java))
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+        return room
+    }
+
     // 채팅방 생성
-    fun createChatRooms(sender: User, receiver: User){
+    fun createChatRooms(sender: User, receiver: User): LiveData<String>{
+        val createdRoomKey = MutableLiveData<String>()
+
         val path = "${sender.uid}_${receiver.uid}"
         val db = database.child("ChatRooms/${path}/info")
 
         val room = ChatRoom(sender, receiver, key = path)
+
         db.setValue(room).addOnCompleteListener {
             if(it.isSuccessful){ // 채팅방 생성
                 // sender 와 receiver 에 채팅방 정보를 저장해줘야 함(path 저장)
+                createdRoomKey.postValue(path)
                 database.child("User/${sender.uid}/chatRooms/$path").setValue(room)
                 database.child("User/${receiver.uid}/chatRooms/$path").setValue(room)
-
             }
         }
+
+        return createdRoomKey
     }
 
     fun getAllChat(key: String): LiveData<MutableList<RealChat>>{
@@ -325,6 +346,12 @@ class Repository() {
         chat.key = chatKey.toString()
 
         db.setValue(chat)
+
+        val room = ChatRoom(chat.sender, chat.receiver, chat.message ,chat.date_time, key)
+
+        database.child("User/${chat.sender.uid}/chatRooms/$key").setValue(room)
+        database.child("User/${chat.receiver.uid}/chatRooms/$key").setValue(room)
+
     }
 
 }

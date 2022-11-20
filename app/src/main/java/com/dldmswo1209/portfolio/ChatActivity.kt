@@ -12,7 +12,7 @@ import com.dldmswo1209.portfolio.adapter.RealChatListAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityChatBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import java.time.LocalDateTime
-
+// 채팅방 화면
 class ChatActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivityChatBinding.inflate(layoutInflater)
@@ -50,8 +50,19 @@ class ChatActivity : AppCompatActivity() {
 
         binding.sendButton.setOnClickListener {
             val message = binding.inputEditText.text.toString()
-            val date = LocalDateTime.now().toString()
-            val chat = RealChat(message, date, sender, receiver, key)
+            val localDateTime = LocalDateTime.now().toString().split("T")
+            val date = localDateTime[0]
+            val time = localDateTime[1].split(":")
+            val hour = time[0]
+            val min = time[1]
+            var realTime = ""
+            if(hour.toInt() >= 12){
+                realTime = "$date \n오후 ${hour.toInt()-12}:$min"
+            }else{
+                realTime = "$date \n오전 $hour:$min"
+            }
+
+            val chat = RealChat(message, realTime, sender, receiver, key)
             Log.d("testt", "send : ${message}")
 
             viewModel.sendMessage(chat,key)

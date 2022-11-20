@@ -104,9 +104,21 @@ class MainViewModel(): ViewModel() {
         repository.updateCard(uid, card)
     }
 
-    fun createChatRoom(sender: User, receiver: User){
-        repository.createChatRooms(sender, receiver)
+    fun createChatRoom(sender: User, receiver: User): LiveData<String>{
+        val createdRoomKey = MutableLiveData<String>()
+        repository.createChatRooms(sender, receiver).observeForever {
+            createdRoomKey.postValue(it)
+        }
+        return createdRoomKey
     }
+    fun getRoom(uid: String, key: String): LiveData<ChatRoom>{
+        val room = MutableLiveData<ChatRoom>()
+        repository.getRoom(uid, key).observeForever {
+            room.postValue(it)
+        }
+        return room
+    }
+
     fun getChatRooms(user: User): LiveData<MutableList<ChatRoom>>{
         val rooms = MutableLiveData<MutableList<ChatRoom>>()
         repository.getChatRooms(user).observeForever {
