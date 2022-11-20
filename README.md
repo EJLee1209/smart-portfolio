@@ -33,7 +33,7 @@
 수정 또는 삭제가 가능합니다. <br>
 
  ## 📌프로필 사진 및 개인 정보 저장 기능
- <img src="https://user-images.githubusercontent.com/101651909/202912470-f5e2bc97-f932-45b7-b70f-6e4b454c7543.jpg" height="40%"/>
+ <img src="https://user-images.githubusercontent.com/101651909/202912470-f5e2bc97-f932-45b7-b70f-6e4b454c7543.jpg" width="60%"/>
  
 프로필 사진과 개인 정보를 수정할 수 있는 마이페이지 입니다. <br>
 채용담당자에게 개성넘치는 프로필로 어필할 수 있습니다. <br>
@@ -50,5 +50,11 @@
 채용 담당자에게 메세지가 오면, 채팅방이 생성되고 채팅방 목록을 한 눈에 확인 할 수 있습니다.
 
 # 🛠 Tech Stack
-
+- Android Studio
+- Kotlin
+- Firebase Realtime Database
+- Firebase Authentication
+- Firebase Storage
+- Glide
+- Coroutine
 
