@@ -2,6 +2,7 @@ package com.dldmswo1209.portfolio.repository
 
 import android.content.Context
 import android.net.Uri
+import android.os.Message
 import android.util.Log
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
@@ -253,6 +254,44 @@ class Repository() {
                     }
 
                 }
+        }
+    }
+
+    fun getChatRooms(user: User): LiveData<MutableList<ChatRoom>> {
+        val rooms = MutableLiveData<MutableList<ChatRoom>>()
+
+        database.child("User/${user.uid}/chatRooms")
+            .addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val dataList = mutableListOf<ChatRoom>()
+                    if(snapshot.exists()){
+                        snapshot.children.forEach {
+                            val data = it.getValue(ChatRoom::class.java) ?: return@forEach
+                            dataList.add(data)
+                        }
+                    }
+                    rooms.postValue(dataList)
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+
+        return rooms
+    }
+
+
+    fun createChatRooms(sender: User, receiver: User){
+        val path = "${sender.uid}_${receiver.uid}"
+        val db = database.child("ChatRooms/${path}/info")
+
+        val room = ChatRoom(sender, receiver, key = path)
+        db.setValue(room).addOnCompleteListener {
+            if(it.isSuccessful){ // 채팅방 생성
+                // sender 와 receiver 에 채팅방 정보를 저장해줘야 함(path 저장)
+                database.child("User/${sender.uid}/chatRooms/$path").setValue(room)
+                database.child("User/${receiver.uid}/chatRooms/$path").setValue(room)
+
+            }
         }
     }
 

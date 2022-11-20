@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.adapter.MODE_SUPER
 import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
 import com.dldmswo1209.portfolio.databinding.ActivitySuperBinding
@@ -24,6 +25,8 @@ class SuperActivity : AppCompatActivity() {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
     var uid = ""
+    lateinit var currentUser: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -32,6 +35,11 @@ class SuperActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
         uid = sharedPreferences.getString("uid","").toString()
+
+        viewModel.getUser(uid).observe(this){
+            currentUser = it
+        }
+
         // 툴바 설정
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바의 기본 타이틀을 숨김

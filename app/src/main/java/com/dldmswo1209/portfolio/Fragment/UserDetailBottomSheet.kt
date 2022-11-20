@@ -8,18 +8,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.SplashActivity
 import com.dldmswo1209.portfolio.SuperActivity
 import com.dldmswo1209.portfolio.databinding.FragmentUserDetailBottomSheetBinding
+import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class UserDetailBottomSheet(val user: User) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentUserDetailBottomSheetBinding
+    private val viewModel: MainViewModel by activityViewModels()
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme).apply {
             behavior.state =
@@ -41,12 +45,14 @@ class UserDetailBottomSheet(val user: User) : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentUser = (activity as SuperActivity).currentUser
+
         binding.closeButton.setOnClickListener {
             dialog?.dismiss()
         }
 
         binding.chatButton.setOnClickListener {
-
+            viewModel.createChatRoom(currentUser, user)
         }
 
         binding.callButton.setOnClickListener {
