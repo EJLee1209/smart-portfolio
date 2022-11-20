@@ -64,8 +64,12 @@ class Repository() {
     fun updateUser(user: User, imageUri: Uri?){
         Log.d("testt", "updateUser: ${imageUri}")
         if(imageUri == null){ // 프로필 사진이 아예 없음
-            Log.d("testt", "updateUser: ${user}")
-            database.child("User/${user.uid}").setValue(user) // 새로운 데이터 저장
+            val mapData = mapOf<String, Any?>(
+                "name" to user.name,
+                "profile" to user.profile
+            )
+            database.child("User/${user.uid}").updateChildren(mapData)
+//            database.child("User/${user.uid}").setValue(user) // 새로운 데이터 저장
         }
         else{
             val imgFileName = "${imageUri.lastPathSegment}.png"
@@ -79,7 +83,12 @@ class Repository() {
                         Log.d("testt", "download image : ${uri}")
                         val newProfile = user
                         newProfile.profile?.image = uri.toString() // 다운로드 받은 이미지 uri 저장
-                        database.child("User/${newProfile.uid}").setValue(newProfile) // 새로운 데이터 저장
+
+                        val mapData = mapOf<String, Any?>(
+                            "name" to newProfile.name,
+                            "profile" to newProfile.profile
+                        )
+                        database.child("User/${newProfile.uid}").updateChildren(mapData) // 새로운 데이터 저장
                     }
 
                 }

@@ -32,6 +32,8 @@ class ChatActivity : AppCompatActivity() {
         receiver = intent.getSerializableExtra("receiver") as User
         key = intent.getStringExtra("key").toString()
 
+        binding.titleTextView.text = receiver.name
+
         val chatAdapter = RealChatListAdapter(sender)
         binding.chatRecyclerView.adapter = chatAdapter
 
@@ -67,6 +69,10 @@ class ChatActivity : AppCompatActivity() {
 
             viewModel.sendMessage(chat,key)
             binding.inputEditText.text.clear()
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()
         }
     }
 }
