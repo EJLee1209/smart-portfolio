@@ -15,6 +15,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import java.io.FileNotFoundException
 
 class Repository() {
     val database = Firebase.database.reference
@@ -69,11 +70,10 @@ class Repository() {
                 "profile" to user.profile
             )
             database.child("User/${user.uid}").updateChildren(mapData)
-//            database.child("User/${user.uid}").setValue(user) // 새로운 데이터 저장
         }
         else{
             val imgFileName = "${imageUri.lastPathSegment}.png"
-            val imagePath = "Profile_Images/${user.uid}/${imgFileName}.png"
+            val imagePath = "Profile_Images/${user.uid}/${imgFileName}"
 
             storage.child(imagePath).putFile(imageUri) // 이미지 업로드
                 .addOnSuccessListener {
@@ -90,7 +90,6 @@ class Repository() {
                         )
                         database.child("User/${newProfile.uid}").updateChildren(mapData) // 새로운 데이터 저장
                     }
-
                 }
         }
     }
@@ -217,7 +216,7 @@ class Repository() {
         }
         else{
             val imgFileName = "${card.imageUri?.toUri()?.lastPathSegment}.png"
-            val imagePath = "Portfolio_Images/${uid}/${imgFileName}.png"
+            val imagePath = "Portfolio_Images/${uid}/${imgFileName}"
 
             storage.child(imagePath).putFile(card.imageUri!!.toUri()) // 이미지 업로드
                 .addOnSuccessListener {
@@ -238,7 +237,7 @@ class Repository() {
         // 사진도 지워야 함
         if(card.imageUri != "" && card.imageUri != null){
             val imgFileName = "${card.imageUri?.toUri()?.lastPathSegment}.png"
-            val imagePath = "Portfolio_Images/${uid}/${imgFileName}.png"
+            val imagePath = "Portfolio_Images/${uid}/${imgFileName}"
             storage.child(imagePath).delete()
         }
     }
@@ -252,7 +251,7 @@ class Repository() {
         }
         else{
             val imgFileName = "${card.imageUri?.toUri()?.lastPathSegment}.png"
-            val imagePath = "Portfolio_Images/${uid}/${imgFileName}.png"
+            val imagePath = "Portfolio_Images/${uid}/${imgFileName}"
 
             storage.child(imagePath).putFile(card.imageUri!!.toUri()) // 이미지 업로드
                 .addOnSuccessListener {
@@ -262,7 +261,12 @@ class Repository() {
                         newCard.image = uri.toString() // 다운로드 받은 이미지 uri 저장
                         db.setValue(card) // 새로운 데이터 저장
                     }
-
+                }
+                .addOnFailureListener{
+                    // 다른 핸드폰에서 이미지 카드를 업로드 했는데
+                    // 또 다른 핸드폰에서 수정하려 할 경우
+                    // 해당 핸드폰에는 저장되어있는 Uri 경로를 통해 사진을 불러올 수 없어서 FileNotFoundException 발생
+                    db.setValue(card)
                 }
         }
     }

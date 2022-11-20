@@ -97,7 +97,7 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
                 binding.startDateTextView.text = card.start
                 binding.endDateTextView.text = card.end
             }
-            imageUri = card.image?.toUri()
+            imageUri = card.imageUri?.toUri()
         }
         binding.closeButton.setOnClickListener {
             dialog?.dismiss()
@@ -150,9 +150,9 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
             if(isUpdate){ // 수정하는 경우
                 var newCard : Card
                 if (imageUri == null) {
-                    newCard = Card(title, content, card!!.key, null, null, link, start, end)
+                    newCard = Card(title, content, card!!.key, card.image, null, link, start, end)
                 } else {
-                    newCard = Card(title, content, card!!.key , null, imageUri.toString(), link, start, end)
+                    newCard = Card(title, content, card!!.key , card.image, imageUri.toString(), link, start, end)
                 }
                 viewModel.updateCard(uid, newCard)
             }else { // 새로 추가하는 경우
