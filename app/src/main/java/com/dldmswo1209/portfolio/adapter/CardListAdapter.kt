@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Model.Card
 import com.dldmswo1209.portfolio.databinding.CardItemBinding
-import com.dldmswo1209.portfolio.entity.CardEntity
 import com.dldmswo1209.portfolio.swipeHelper.ItemDragHelperCallback
-import java.util.*
 import kotlin.collections.ArrayList
 
 class CardListAdapter(val itemClick: (Card,Int)->(Unit)): ListAdapter<Card, CardListAdapter.ViewHolder>(diffUtil), ItemDragHelperCallback.OnItemMoveListener{
