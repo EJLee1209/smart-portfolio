@@ -1,5 +1,5 @@
 # Smart-Portfolio
-![Collage Maker-21-Nov-2022-12 53-AM](https://user-images.githubusercontent.com/101651909/202912194-587b2d14-a521-4afe-9cd9-ab3adb979964.jpg)
+<img src="https://user-images.githubusercontent.com/101651909/202912194-587b2d14-a521-4afe-9cd9-ab3adb979964.jpg" width="60%"/>
 
 # 앱 주요 기능
 
