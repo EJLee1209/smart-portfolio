@@ -19,6 +19,7 @@ class TimeLineFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private val timeLineAdapter = TimeLineAdapter()
     private var uid = ""
+    private var isSuperShow = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +33,10 @@ class TimeLineFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         uid = (activity as MainActivity).uid
+        isSuperShow = (activity as MainActivity).isSuperShow
+
+        if(isSuperShow) // 채용 담당자가 보고 있음
+            binding.addButton.visibility = View.GONE // 포트폴리오 추가 버튼 숨기기
 
         binding.timeLineRecyclerView.adapter = timeLineAdapter
 
@@ -45,6 +50,8 @@ class TimeLineFragment : Fragment() {
                 viewModel.createTimeLine(uid, timeLine)
             }
         }
+
+
 
     }
 

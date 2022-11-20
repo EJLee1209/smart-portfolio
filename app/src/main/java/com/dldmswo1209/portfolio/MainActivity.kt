@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Model.User
+import com.dldmswo1209.portfolio.adapter.MODE_NORMAL
 import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityMainBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
     var uid  = ""
+    var isSuperShow = false // 채용 담당자가 보는 중인가?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
         uid = sharedPreferences.getString("uid","").toString()
+
+        isSuperShow = intent.getBooleanExtra("isSuperShow", false)
+        if(isSuperShow){ // 채용 담당자가 보는 중
+            val sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
+            uid = sharedPreferences2.getString("showUid","").toString()
+        }
 
         viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
             // 유저 정보가 변경되면 알아서 가져와짐
@@ -54,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     // 뷰 초기화 메서드
     private fun initView(){
         // 뷰페이저 어답터 연결
-        binding.mainViewPager.adapter = ViewPagerAdapter(this)
+        binding.mainViewPager.adapter = ViewPagerAdapter(this, MODE_NORMAL)
         binding.pageIndicatorView.count = 4
         binding.pageIndicatorView.selection = 0
 

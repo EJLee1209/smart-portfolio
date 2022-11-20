@@ -32,6 +32,7 @@ class ChatFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private var type = MY_CHAT
     private var uid = ""
+    private var isSuperShow = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +46,13 @@ class ChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         uid = (activity as MainActivity).uid
+        isSuperShow = (activity as MainActivity).isSuperShow
 
+        if(isSuperShow){ // 채용 담당자가 보는 중
+            binding.changeModeButton.isEnabled = false
+            binding.inputEditText.isEnabled = false
+            binding.sendButton.isEnabled = false
+        }
         // 모드 변경 버튼 클릭 이벤트
         binding.changeModeButton.setOnClickListener {
             type = if(type == MY_CHAT){

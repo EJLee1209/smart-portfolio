@@ -22,6 +22,7 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     private val dbRef = Firebase.database.reference.child("User")
     val DURATION = randomSec() // 로딩 시간
+    private var isSuperShow = false // 채용 담당자가 보고있는지?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,15 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
-        val uid = sharedPreferences.getString("uid", "").toString()
+        var uid = sharedPreferences.getString("uid", "").toString()
+
+        isSuperShow = intent.getBooleanExtra("isSuperShow", false)
+
+        if(isSuperShow){ // 채용 담당자가 보는 중
+            val sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
+            uid = sharedPreferences2.getString("showUid","").toString()
+            Log.d("testt", "isSuperShow: ${uid}")
+        }
 
         binding.lottieAnimationView.playAnimation() // lottie 애니메이션 재생
 
@@ -58,6 +67,7 @@ class SplashActivity : AppCompatActivity() {
                             }else{ // 일반 사용자
                                 intent = Intent(this@SplashActivity, MainActivity::class.java)
                             }
+                            intent.putExtra("isSuperShow", isSuperShow)
                             startActivity(intent)
                         }
                     }

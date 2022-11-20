@@ -18,6 +18,28 @@ class Repository() {
     val database = Firebase.database.reference
     val storage = FirebaseStorage.getInstance().reference
 
+    // 모든 일반 사용자 정보 가져오기(채용 담당자 제외)
+    fun getAllUser() : LiveData<MutableList<User>>{
+        val userList = MutableLiveData<MutableList<User>>()
+
+        val dbRef = database.child("User")
+        dbRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val dataList = mutableListOf<User>()
+                if(snapshot.exists()){
+                    snapshot.children.forEach { data->
+                        val user = data.getValue(User::class.java)?:return@forEach
+                        if(!user.isSuperUser) // 일반 사용자만
+                            dataList.add(user)
+                    }
+                }
+                userList.postValue(dataList)
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+        return userList
+    }
+
     // 유저 정보 가져오기
     fun getUser(uid: String): LiveData<User>{
         val user = MutableLiveData<User>()

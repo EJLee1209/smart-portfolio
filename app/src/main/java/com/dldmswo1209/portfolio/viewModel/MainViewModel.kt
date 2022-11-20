@@ -10,6 +10,7 @@ import com.dldmswo1209.portfolio.repository.Repository
 class MainViewModel(): ViewModel() {
     private val repository = Repository()
 
+    // 특정 사용자 데이터 가져오기
     fun getUser(uid: String) : LiveData<User>{
         val user = MutableLiveData<User>()
         repository.getUser(uid).observeForever{
@@ -19,11 +20,22 @@ class MainViewModel(): ViewModel() {
         return user
     }
 
+    // 모든 일반 사용자 정보 가져오기
+    fun getAllUser(): LiveData<MutableList<User>>{
+        val userList = MutableLiveData<MutableList<User>>()
+        repository.getAllUser().observeForever{
+            userList.value = it
+        }
 
+        return userList
+    }
+
+    // 프로필 정보 변경(이름, 소개, 사진)
     fun updateProfile(user: User, imageUri: Uri?){
         repository.updateUser(user, imageUri)
     }
 
+    // 개인 정보 수정 (주소, 번호, 깃허브 이력서...)
     fun updatePrivacyInfo(uid: String, profile: UserProfile){
         repository.updatePrivacyInfo(uid, profile)
     }

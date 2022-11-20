@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -27,9 +28,14 @@ class CardFragment : Fragment(R.layout.fragment_card) {
     private lateinit var binding : FragmentCardBinding
     private val viewModel: MainViewModel by activityViewModels()
     private var uid = ""
+    private var isSuperShow = false
 
     val cardAdapter = CardListAdapter { card, type ->
         // 어답터를 생성할 때 아이템 클릭 이벤트를 정의함
+        if(isSuperShow){ // 채용 담당자가 보는 중
+            Toast.makeText(requireContext(), "권한이 없습니다.", Toast.LENGTH_SHORT).show()
+            return@CardListAdapter
+        }
         if(type == GO_HOMEPAGE) {
             // 아이템 클릭시 다이얼로그를 띄워 웹을 띄울 방법(내부/외부)을 선택
             val builder = AlertDialog.Builder(requireContext())
@@ -77,6 +83,11 @@ class CardFragment : Fragment(R.layout.fragment_card) {
         super.onViewCreated(view, savedInstanceState)
 
         uid = (activity as MainActivity).uid
+        isSuperShow = (activity as MainActivity).isSuperShow
+
+        if(isSuperShow){ // 채용 담당자가 보는 중
+            binding.addButton.visibility = View.GONE
+        }
 
         // 카드 드래그 기능을 위해 콜백 연결
         val callback = ItemDragHelperCallback(cardAdapter)
