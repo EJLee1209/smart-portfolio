@@ -47,8 +47,7 @@
 ## 📌 채용담당자와 일반 사용자(채용인) 간 메세지 기능
 ![Collage Maker-21-Nov-2022-12 57-AM](https://user-images.githubusercontent.com/101651909/202912441-4ee15bd4-743e-4f2d-b6fa-c26cfad80642.jpg)
 채용인은 채용 담당자에게 먼저 메세지를 보낼 수 없고, 채용 담당자가 채용인에게 메세지를 보내면서 대화를 시작할 수 있습니다.
-![KakaoTalk_20221121_003939529_15](https://user-images.githubusercontent.com/101651909/202913037-bde33269-4161-4bf1-a94c-c9644024f747.jpg)
-
+<img src="https://user-images.githubusercontent.com/101651909/202913037-bde33269-4161-4bf1-a94c-c9644024f747.jpg" height="60%"/> <br>
 채용 담당자에게 메세지가 오면, 채팅방이 생성되고 채팅방 목록을 한 눈에 확인 할 수 있습니다.
 
 # 🛠 Tech Stack
