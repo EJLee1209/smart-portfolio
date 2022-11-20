@@ -7,6 +7,9 @@
         <item
             android:id="@+id/myPage"
             android:title="마이페이지"/>
+        <item
+            android:id="@+id/message"
+            android:title="메세지"/>
 
     </group>
 

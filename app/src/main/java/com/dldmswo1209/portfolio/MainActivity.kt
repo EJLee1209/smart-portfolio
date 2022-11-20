@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
     var uid  = ""
     var isSuperShow = false // 채용 담당자가 보는 중인가?
+    lateinit var currentUser : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,10 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
         uid = sharedPreferences.getString("uid","").toString()
+
+        viewModel.getUser(uid).observe(this){
+            currentUser = it
+        }
 
         isSuperShow = intent.getBooleanExtra("isSuperShow", false)
         if(isSuperShow){ // 채용 담당자가 보는 중
@@ -95,6 +100,12 @@ class MainActivity : AppCompatActivity() {
                     binding.drawerLayout.closeDrawers() // drawer 를 닫고
                     startActivity(Intent(this, MyPageActivity::class.java)) // 마이페이지 액티비티로 이동
                 }
+                R.id.message ->{ // 메세지 클릭
+                    binding.drawerLayout.closeDrawers()
+                    val intent = Intent(this, ChatListActivityNormal::class.java)
+                    intent.putExtra("currentUser",currentUser)
+                    startActivity(intent) // 마이페이지 액티비티로 이동
+                }
             }
             true
         }
@@ -110,7 +121,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.menu_icon->{
-                Log.d("testt", "menu clicked!")
                 binding.drawerLayout.openDrawer(GravityCompat.END)
             }
         }

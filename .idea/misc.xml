@@ -39,6 +39,7 @@
         <entry key="app/src/main/res/drawable/circle.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/input_rectangle.xml" value="0.154" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.23505434782608695" />
+        <entry key="app/src/main/res/layout/activity_chat_list_normal.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.2613677978515625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23063507080078124" />
         <entry key="app/src/main/res/layout/activity_my_page.xml" value="0.15070921985815602" />
@@ -64,6 +65,7 @@
         <entry key="app/src/main/res/layout/other_chat_item.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/timeline_item.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/user_item.xml" value="0.23713564665421194" />
+        <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.2273956298828125" />
         <entry key="app/src/main/res/menu/toolbar.xml" value="0.22291666666666668" />
       </map>
     </option>
