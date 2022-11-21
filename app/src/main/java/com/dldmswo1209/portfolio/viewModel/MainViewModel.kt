@@ -55,6 +55,15 @@ class MainViewModel(): ViewModel() {
         repository.createTimeLine(uid, timeLine)
     }
 
+    // 타임라인 삭제
+    fun deleteTimeLine(uid: String, key: String){
+        repository.deleteTimeLine(uid, key)
+    }
+
+    fun updateTimeLine(uid: String, timeLine: TimeLine){
+        repository.updateTimeLine(uid, timeLine)
+    }
+
     // 채팅 가져오기
     fun getChat(uid: String) : LiveData<MutableList<Chat>> {
         val chatList = MutableLiveData<MutableList<Chat>>()

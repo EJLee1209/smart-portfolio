@@ -110,9 +110,25 @@ class UserDetailBottomSheet(val user: User) : BottomSheetDialogFragment() {
     private fun initView(){
         binding.nameTextView.text = user.name
         binding.stateMsgTextView.text = user.profile?.introduce
-        Glide.with(this)
-            .load(user.profile?.image)
-            .circleCrop()
-            .into(binding.profileImageView)
+        if(user.profile != null){ // 아예 프로필 설정을 안한 경우 (회원가입 후 초기 상태)
+            if(user.profile?.image == "" || user.profile?.image == null){
+                // 프로필은 있지만, 사진이 없는 경우
+                Glide.with(this)
+                    .load(R.drawable.profile)
+                    .circleCrop()
+                    .into(binding.profileImageView)
+            }else{
+                Glide.with(this)
+                    .load(user.profile?.image)
+                    .circleCrop()
+                    .into(binding.profileImageView)
+            }
+
+        }else{
+            Glide.with(this)
+                .load(R.drawable.profile)
+                .circleCrop()
+                .into(binding.profileImageView)
+        }
     }
 }

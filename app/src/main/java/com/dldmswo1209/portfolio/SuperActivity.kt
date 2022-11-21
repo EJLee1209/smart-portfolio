@@ -44,22 +44,6 @@ class SuperActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바의 기본 타이틀을 숨김
 
-        // navigationDrawer 의 메뉴 선택 리스너
-        binding.navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.logout ->{ // 로그아웃 클릭
-                    binding.drawerLayout.closeDrawers() // drawer 를 닫고
-                    startActivity(Intent(this, IntroActivity::class.java)) // 초기 화면으로 이동
-                    finish() // 현재 액티비티를 종료
-                }
-                R.id.myPage ->{ // 마이페이지 클릭
-                    binding.drawerLayout.closeDrawers() // drawer 를 닫고
-                    startActivity(Intent(this, MyPageActivity::class.java)) // 마이페이지 액티비티로 이동
-                }
-            }
-            true
-        }
-
         viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
             // 유저 정보가 변경되면 알아서 가져와짐
             binding.nameTextView.text = it.name
@@ -137,8 +121,15 @@ class SuperActivity : AppCompatActivity() {
                     finish() // 현재 액티비티를 종료
                 }
                 R.id.myPage ->{ // 마이페이지 클릭
+                    Log.d("testt", "navigation: mypage clicked!")
                     binding.drawerLayout.closeDrawers() // drawer 를 닫고
                     startActivity(Intent(this, MyPageActivity::class.java)) // 마이페이지 액티비티로 이동
+                }
+
+                R.id.message ->{ // 메세지 클릭
+                    Log.d("testt", "navigation: message clicked!")
+                    binding.drawerLayout.closeDrawers()
+                    binding.mainViewPager.setCurrentItem(1, true)
                 }
             }
             true

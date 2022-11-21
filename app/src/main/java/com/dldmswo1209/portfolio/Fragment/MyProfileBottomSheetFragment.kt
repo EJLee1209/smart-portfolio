@@ -92,12 +92,21 @@ class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
             user = it
             binding.nameEditText.setText(it.name)
             binding.introEditText.setText(it.profile?.introduce)
-            if(it.profile?.image != ""){ // 프로필 이미지가 존재
-                Glide.with(this)
-                    .load(user.profile?.image)
-                    .circleCrop()
-                    .into(binding.profileImageView)
-            }else{ // 프로필 이미지 없음
+            if(it.profile != null){ // 아예 프로필 설정을 안한 경우 (회원가입 후 초기 상태)
+                if(it.profile?.image == "" || it.profile?.image == null){
+                    // 프로필은 있지만, 사진이 없는 경우
+                    Glide.with(this)
+                        .load(R.drawable.profile)
+                        .circleCrop()
+                        .into(binding.profileImageView)
+                }else{
+                    Glide.with(this)
+                        .load(it.profile?.image)
+                        .circleCrop()
+                        .into(binding.profileImageView)
+                }
+
+            }else{
                 Glide.with(this)
                     .load(R.drawable.profile)
                     .circleCrop()

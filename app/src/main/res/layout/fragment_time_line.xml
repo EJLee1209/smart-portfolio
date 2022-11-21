@@ -11,14 +11,53 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addButton"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom|end"
-        android:backgroundTint="@color/main_blue"
-        android:src="@android:drawable/ic_input_add"
-        app:tint="@color/white"
-        android:layout_margin="12dp"/>
+        android:layout_margin="12dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/main_blue"
+            android:src="@drawable/ic_baseline_delete_24"
+            app:fabSize="mini"
+            app:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/mainFab"
+            app:layout_constraintTop_toTopOf="@id/mainFab"
+            app:layout_constraintStart_toStartOf="@id/mainFab"
+            app:layout_constraintEnd_toEndOf="@id/mainFab"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/main_blue"
+            android:src="@drawable/edit"
+            app:fabSize="mini"
+            app:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/mainFab"
+            app:layout_constraintTop_toTopOf="@id/mainFab"
+            app:layout_constraintStart_toStartOf="@id/mainFab"
+            app:layout_constraintEnd_toEndOf="@id/mainFab"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mainFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/main_blue"
+            android:src="@android:drawable/ic_input_add"
+            app:tint="@color/white"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </FrameLayout>

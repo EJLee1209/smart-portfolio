@@ -127,7 +127,22 @@ class Repository() {
 
         timeLine.key = key.toString()
         db.setValue(timeLine)
+    }
 
+    // 타임라인 삭제
+    fun deleteTimeLine(uid: String, key: String){
+        database.child("Portfolio/${uid}/TimeLine/${key}").removeValue()
+    }
+
+    // 타임라인 수정
+    fun updateTimeLine(uid: String, timeLine: TimeLine){
+        val updateData = mapOf<String, Any?>(
+            "content" to timeLine.content,
+            "date" to timeLine.date
+        )
+
+        database.child("Portfolio/${uid}/TimeLine/${timeLine.key}")
+            .updateChildren(updateData)
     }
 
     fun getChat(uid: String): LiveData<MutableList<Chat>> {
