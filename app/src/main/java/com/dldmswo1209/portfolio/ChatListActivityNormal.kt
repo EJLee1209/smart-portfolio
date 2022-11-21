@@ -19,6 +19,7 @@ class ChatListActivityNormal : AppCompatActivity() {
     }
     lateinit var currentUser : User
     var uid = ""
+    var superUid = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,13 +30,21 @@ class ChatListActivityNormal : AppCompatActivity() {
         uid = sharedPreferences.getString("uid","").toString()
         currentUser = intent.getSerializableExtra("currentUser") as User
 
+        val sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
+        superUid = sharedPreferences2.getString("showUid","").toString()
+
         val roomAdapter = ChatRoomAdapter(currentUser){
             // 채팅방 클릭 이벤트 처리
             val intent = Intent(this, ChatActivity::class.java)
             // 채용 담당자가 채팅방을 생성해야만 채팅방이 생성됨
             // 그러므로 it.sender 에는 채용담당자가, it.receiver 에는 채용인이 저장되어 있음
-            intent.putExtra("sender", it.receiver)
-            intent.putExtra("receiver", it.sender)
+            if(superUid == "") { // 채용 담당자가 보고있는 경우
+                intent.putExtra("sender", it.receiver)
+                intent.putExtra("receiver", it.sender)
+            }else{ // 일반 사용자
+                intent.putExtra("sender", it.sender)
+                intent.putExtra("receiver", it.receiver)
+            }
             intent.putExtra("key", it.key)
             startActivity(intent)
         }
