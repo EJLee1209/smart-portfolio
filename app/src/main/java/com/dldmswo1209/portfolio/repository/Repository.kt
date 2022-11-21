@@ -138,11 +138,11 @@ class Repository() {
     fun updateTimeLine(uid: String, timeLine: TimeLine){
         val updateData = mapOf<String, Any?>(
             "content" to timeLine.content,
-            "date" to timeLine.date
+            "date" to timeLine.date,
+            "selected" to false
         )
 
-        database.child("Portfolio/${uid}/TimeLine/${timeLine.key}")
-            .updateChildren(updateData)
+        database.child("Portfolio/${uid}/TimeLine/${timeLine.key}").updateChildren(updateData)
     }
 
     fun getChat(uid: String): LiveData<MutableList<Chat>> {

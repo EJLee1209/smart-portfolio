@@ -19,6 +19,19 @@
         android:layout_margin="12dp">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/updateFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/exchange"
+            app:fabSize="mini"
+            app:tint="@color/white"
+            android:backgroundTint="@color/main_blue"
+            app:layout_constraintBottom_toBottomOf="@id/mainFab"
+            app:layout_constraintTop_toTopOf="@id/mainFab"
+            app:layout_constraintStart_toStartOf="@id/mainFab"
+            app:layout_constraintEnd_toEndOf="@id/mainFab"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/deleteFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.dldmswo1209.portfolio.AddDialog
@@ -71,7 +72,11 @@ class TimeLineFragment : Fragment() {
         // 삭제 버튼
         binding.deleteFab.setOnClickListener{
             // 여러 타임라인을 선택해서 한 번에 삭제 가능하도록 구현
-            Log.d("testt", "delete button click : ${selectedTimeLines}")
+            if(selectedTimeLines.size == 0){ //선택된 타임라인이 0개임
+                Toast.makeText(requireContext(),"삭제할 타임라인을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             AlertDialog.Builder(requireContext())
                 .setTitle("타임라인 ${selectedTimeLines.size}개 삭제")
                 .setMessage("정말로 삭제하시겠습니까?")
@@ -86,6 +91,26 @@ class TimeLineFragment : Fragment() {
                 .show()
         }
 
+        // 수정 버튼
+        binding.updateFab.setOnClickListener {
+            if(selectedTimeLines.size == 0){
+                Toast.makeText(requireContext(),"수정할 타임라인을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if(selectedTimeLines.size > 1){
+                Toast.makeText(requireContext(),"수정은 한번에 한개만 가능합니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val updateItem = selectedTimeLines.first()
+            val dlg = AddDialog((activity as MainActivity), updateItem)
+            dlg.show{ timeLine->
+                viewModel.updateTimeLine(uid, timeLine)
+                selectedTimeLines.clear()
+            }
+
+
+        }
+
         // 플로팅 버튼 클릭시 애니메이션 동작
         binding.mainFab.setOnClickListener{
             toggleFab()
@@ -96,18 +121,21 @@ class TimeLineFragment : Fragment() {
     }
 
 
+
     private fun toggleFab(){
         // 플로팅 액션 버튼 닫기
         if(isFabOpen){
             ObjectAnimator.ofFloat(binding.deleteFab, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(binding.addFab, "translationY", 0f).apply { start() }
+            ObjectAnimator.ofFloat(binding.updateFab, "translationY", 0f).apply { start() }
             binding.mainFab.setImageResource(R.drawable.ic_baseline_add_24)
 
 
         }else{ // 플로팅 액션 버튼 열기
             ObjectAnimator.ofFloat(binding.deleteFab, "translationY", -200f).apply { start() }
-            ObjectAnimator.ofFloat(binding.addFab, "translationY", -350f).apply { start() }
-            binding.mainFab.setImageResource(R.drawable.ic_baseline_add_24)
+            ObjectAnimator.ofFloat(binding.updateFab, "translationY", -350f).apply { start() }
+            ObjectAnimator.ofFloat(binding.addFab, "translationY", -500f).apply { start() }
+            binding.mainFab.setImageResource(R.drawable.close)
         }
 
         isFabOpen = !isFabOpen
