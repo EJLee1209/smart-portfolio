@@ -2,6 +2,7 @@ package com.dldmswo1209.portfolio
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ class SuperActivity : AppCompatActivity() {
     }
     var uid = ""
     lateinit var currentUser: User
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,7 @@ class SuperActivity : AppCompatActivity() {
 
         initView()
 
-        val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
         uid = sharedPreferences.getString("uid","").toString()
 
         viewModel.getUser(uid).observe(this){
@@ -117,6 +119,9 @@ class SuperActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.logout ->{ // 로그아웃 클릭
                     binding.drawerLayout.closeDrawers() // drawer 를 닫고
+                    val editor = sharedPreferences.edit()
+                    editor.putString("uid","").apply()
+
                     startActivity(Intent(this, IntroActivity::class.java)) // 초기 화면으로 이동
                     finish() // 현재 액티비티를 종료
                 }

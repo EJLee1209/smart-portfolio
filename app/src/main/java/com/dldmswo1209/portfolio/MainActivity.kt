@@ -2,6 +2,7 @@ package com.dldmswo1209.portfolio
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,13 +26,16 @@ class MainActivity : AppCompatActivity() {
     var uid  = ""
     var isSuperShow = false // 채용 담당자가 보는 중인가?
     lateinit var currentUser : User
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPreferences2: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initView()
 
-        val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+        sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
         uid = sharedPreferences.getString("uid","").toString()
 
         viewModel.getUser(uid).observe(this){
@@ -40,7 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         isSuperShow = intent.getBooleanExtra("isSuperShow", false)
         if(isSuperShow){ // 채용 담당자가 보는 중
-            val sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
             uid = sharedPreferences2.getString("showUid","").toString()
         }
 
@@ -102,6 +105,11 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.logout ->{ // 로그아웃 클릭
                     binding.drawerLayout.closeDrawers() // drawer 를 닫고
+                    val editor = sharedPreferences.edit()
+                    editor.putString("uid","").apply() // 저장되어있던 uid 삭제
+                    val editor2 = sharedPreferences2.edit()
+                    editor2.putString("showUid", "").apply()
+
                     startActivity(Intent(this, IntroActivity::class.java)) // 초기 화면으로 이동
                     finish() // 현재 액티비티를 종료
                 }

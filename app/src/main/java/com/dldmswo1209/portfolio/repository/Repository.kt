@@ -376,11 +376,14 @@ class Repository() {
 
         db.setValue(chat)
 
-        val room = ChatRoom(chat.sender, chat.receiver, chat.message ,chat.date_time, key)
+        val updateData = mapOf<String, Any?>(
+            "lastMessage" to chat.message,
+            "lastTime" to chat.date_time
+        )
 
         // 유저 데이터에도 정보를 업데이트 시켜줘야 함
-        database.child("User/${chat.sender.uid}/chatRooms/$key").setValue(room)
-        database.child("User/${chat.receiver.uid}/chatRooms/$key").setValue(room)
+        database.child("User/${chat.sender.uid}/chatRooms/$key").updateChildren(updateData)
+        database.child("User/${chat.receiver.uid}/chatRooms/$key").updateChildren(updateData)
 
     }
 

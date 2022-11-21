@@ -33,9 +33,6 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
     private val viewModel: MainViewModel by activityViewModels()
     private var imageUri: Uri? = null
     private var uid = ""
-    private val defaultImageUri = Uri.parse(
-        "android.resource://com.dldmswo1209.portfolio/"
-                + R.drawable.github)
 
     companion object{
         // 갤러리 권한 요청

@@ -14,9 +14,6 @@ import com.dldmswo1209.portfolio.databinding.OtherChatItemBinding
 
 class RealChatListAdapter(val currentUser: User): ListAdapter<RealChat, RecyclerView.ViewHolder>(diffUtil) {
 
-    override fun getItemCount(): Int {
-        return currentList.size
-    }
 
     override fun getItemViewType(position: Int): Int {
         return if(currentList[position].sender.uid == currentUser.uid){ // 내 채팅

@@ -38,6 +38,7 @@
         <entry key="app/src/main/res/drawable/chat_box_rectangle.xml" value="0.13" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/input_rectangle.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/start_button.xml" value="0.154" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/activity_chat_list_normal.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.2613677978515625" />
