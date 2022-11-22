@@ -121,6 +121,8 @@ class SuperActivity : AppCompatActivity() {
                     binding.drawerLayout.closeDrawers() // drawer 를 닫고
                     val editor = sharedPreferences.edit()
                     editor.putString("uid","").apply()
+                    val sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
+                    sharedPreferences2.edit().putString("superUid","").apply()
 
                     startActivity(Intent(this, IntroActivity::class.java)) // 초기 화면으로 이동
                     finish() // 현재 액티비티를 종료

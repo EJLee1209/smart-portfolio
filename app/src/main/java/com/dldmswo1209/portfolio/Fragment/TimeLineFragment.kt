@@ -26,14 +26,7 @@ class TimeLineFragment : Fragment() {
     private lateinit var binding: FragmentTimeLineBinding
     private val viewModel: MainViewModel by activityViewModels()
     private val selectedTimeLines = mutableListOf<TimeLine>()
-    private val timeLineAdapter = TimeLineAdapter{ timeLine ->
-        // 타임라인 아이템 클릭 이벤트
-        if(timeLine.isSelected){
-            selectedTimeLines.add(timeLine)
-        }else{
-            selectedTimeLines.remove(timeLine)
-        }
-    }
+    private lateinit var timeLineAdapter : TimeLineAdapter
     private var uid = ""
     private var isSuperShow = false
     private var isFabOpen = false
@@ -52,9 +45,20 @@ class TimeLineFragment : Fragment() {
         uid = (activity as MainActivity).uid
         isSuperShow = (activity as MainActivity).isSuperShow
 
-        if(isSuperShow) // 채용 담당자가 보고 있음
+        if(isSuperShow) {// 채용 담당자가 보고 있음
             binding.mainFab.visibility = View.GONE // 포트폴리오 추가 버튼 숨기기
-
+            binding.addFab.visibility = View.GONE
+            binding.updateFab.visibility = View.GONE
+            binding.deleteFab.visibility = View.GONE
+        }
+        timeLineAdapter = TimeLineAdapter{ timeLine ->
+            // 타임라인 아이템 클릭 이벤트
+            if(timeLine.isSelected){
+                selectedTimeLines.add(timeLine)
+            }else{
+                selectedTimeLines.remove(timeLine)
+            }
+        }
         binding.timeLineRecyclerView.adapter = timeLineAdapter
 
         viewModel.getTimeLine(uid).observe(viewLifecycleOwner){
@@ -115,9 +119,6 @@ class TimeLineFragment : Fragment() {
         binding.mainFab.setOnClickListener{
             toggleFab()
         }
-
-
-
     }
 
 
