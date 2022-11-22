@@ -59,5 +59,6 @@
 - Google Cloud Platform Compute Engine
 - Glide
 - Coroutine
+- Retrofit2
 
 ### [푸시메세지 서버 코드](https://github.com/EJLee1209/fcm-server)
