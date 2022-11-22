@@ -17,6 +17,8 @@ import com.dldmswo1209.portfolio.adapter.MODE_NORMAL
 import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityMainBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -37,6 +39,19 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
         sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
         uid = sharedPreferences.getString("uid","").toString()
+
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if(!it.isSuccessful){
+                Log.d("testt", "Fetching FCM registration token failed", it.exception)
+                return@addOnCompleteListener
+            }
+
+            val token = it.result
+            Log.d("testt", "token : ${token}")
+
+            viewModel.registerToken(uid, token)
+        }
 
         viewModel.getUser(uid).observe(this){
             currentUser = it

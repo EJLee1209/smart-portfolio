@@ -1,5 +1,7 @@
 package com.dldmswo1209.portfolio
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +13,7 @@ import com.dldmswo1209.portfolio.Model.RealChat
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.adapter.RealChatListAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityChatBinding
+import com.dldmswo1209.portfolio.retrofitApi.PushBody
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import kotlinx.coroutines.*
 import java.time.LocalDateTime
@@ -27,8 +30,8 @@ class ChatActivity : AppCompatActivity() {
     }
     private var chatList = mutableListOf<RealChat>()
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
-
-
+    private lateinit var pref : SharedPreferences
+    private var uid = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,9 @@ class ChatActivity : AppCompatActivity() {
 
         sender = intent.getSerializableExtra("sender") as User // 채용 담당자
         receiver = intent.getSerializableExtra("receiver") as User // 채용인
+
+        pref = getSharedPreferences("login", Context.MODE_PRIVATE)
+        uid = pref.getString("uid","").toString()
 
         Log.d("testt", "onCreate: ${sender.name}")
         Log.d("testt", "onCreate: ${receiver.name}")
@@ -73,6 +79,7 @@ class ChatActivity : AppCompatActivity() {
         })
 
         binding.sendButton.setOnClickListener {
+            var chat: RealChat
             val message = binding.inputEditText.text.toString()
             val localDateTime = LocalDateTime.now().toString().split("T")
             val date = localDateTime[0]
@@ -86,10 +93,17 @@ class ChatActivity : AppCompatActivity() {
                 realTime = "$date \n오전 $hour:$min"
             }
 
-            val chat = RealChat(message, realTime, sender, receiver, key)
-            Log.d("testt", "send : ${message}")
-
+            if(uid == sender.uid){
+                chat = RealChat(message, realTime, sender, receiver, key)
+            }else{
+                chat = RealChat(message, realTime, receiver, sender, key)
+            }
             viewModel.sendMessage(chat,key)
+
+            val pushBody = PushBody(chat.receiver.token, chat.sender.name, chat.message)
+            Log.d("testt", "push body: ${pushBody}")
+            viewModel.sendPushMessage(pushBody)
+
             binding.inputEditText.text.clear()
         }
 

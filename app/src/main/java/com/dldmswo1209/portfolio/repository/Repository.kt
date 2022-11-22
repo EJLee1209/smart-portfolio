@@ -8,6 +8,9 @@ import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dldmswo1209.portfolio.Model.*
+import com.dldmswo1209.portfolio.retrofitApi.MyApi
+import com.dldmswo1209.portfolio.retrofitApi.PushBody
+import com.dldmswo1209.portfolio.retrofitApi.RetrofitInstance
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -15,11 +18,13 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import retrofit2.Retrofit
 import java.io.FileNotFoundException
 
 class Repository() {
-    val database = Firebase.database.reference
-    val storage = FirebaseStorage.getInstance().reference
+    private val database = Firebase.database.reference
+    private val storage = FirebaseStorage.getInstance().reference
+    private val retrofit = RetrofitInstance.getInstance().create(MyApi::class.java)
 
     // 모든 일반 사용자 정보 가져오기(채용 담당자 제외)
     fun getAllUser() : LiveData<MutableList<User>>{
@@ -387,4 +392,13 @@ class Repository() {
 
     }
 
+    // 푸시 메세지 알림 보내기(메세지 전송시 상대방에게 푸시 알림)
+    suspend fun sendPushMessage(pushBody: PushBody) = retrofit.sendPushMessage(pushBody)
+
+    fun registerToken(uid: String, token: String){
+        val dataMap = mapOf<String, String>(
+            "token" to token
+        )
+        val db = database.child("User/${uid}").updateChildren(dataMap)
+    }
 }

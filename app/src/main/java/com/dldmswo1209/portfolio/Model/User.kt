@@ -8,7 +8,8 @@ data class User(
     var password: String,
     var name: String,
     var isSuperUser: Boolean,
-    var profile: UserProfile? = null
+    var profile: UserProfile? = null,
+    val token: String = ""
 ): Serializable{
     constructor() : this("","","","",false)
 }

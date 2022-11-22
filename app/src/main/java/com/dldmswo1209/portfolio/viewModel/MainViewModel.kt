@@ -4,6 +4,8 @@ import android.net.Uri
 import androidx.lifecycle.*
 import com.dldmswo1209.portfolio.Model.*
 import com.dldmswo1209.portfolio.repository.Repository
+import com.dldmswo1209.portfolio.retrofitApi.PushBody
+import kotlinx.coroutines.launch
 
 // 메인 액티비티에서 사용할 ViewModel
 // 포트폴리오의 데이터 관리를 이 ViewModel 에서 합니다.
@@ -146,6 +148,14 @@ class MainViewModel(): ViewModel() {
 
     fun sendMessage(chat: RealChat, key: String){
         repository.sendMessage(chat, key)
+    }
+
+    fun sendPushMessage(pushBody: PushBody) = viewModelScope.launch {
+        repository.sendPushMessage(pushBody)
+    }
+
+    fun registerToken(uid: String, token: String){
+        repository.registerToken(uid, token)
     }
 
 
