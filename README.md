@@ -52,9 +52,13 @@
 # 🛠 사용 기술 및 라이브러리
 - Android Studio
 - Kotlin
+- Visual Studio Code
+- Node.js
 - Firebase Realtime Database
-- Firebase Authentication
+- Firebase Authentication 
 - Firebase Storage
+- Firebase Cloud Messaging
+- Google Cloud Platform Compute Engine
 - Glide
 - Coroutine
 
