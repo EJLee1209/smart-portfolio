@@ -396,9 +396,9 @@ class Repository() {
     suspend fun sendPushMessage(pushBody: PushBody) = retrofit.sendPushMessage(pushBody)
 
     fun registerToken(uid: String, token: String){
-        val dataMap = mapOf<String, String>(
+        val dataMap = mapOf(
             "token" to token
         )
-        val db = database.child("User/${uid}").updateChildren(dataMap)
+        database.child("User/${uid}").updateChildren(dataMap)
     }
 }

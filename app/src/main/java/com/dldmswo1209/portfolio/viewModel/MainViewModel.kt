@@ -1,11 +1,13 @@
 package com.dldmswo1209.portfolio.viewModel
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.*
 import com.dldmswo1209.portfolio.Model.*
 import com.dldmswo1209.portfolio.repository.Repository
 import com.dldmswo1209.portfolio.retrofitApi.PushBody
 import kotlinx.coroutines.launch
+import java.net.ConnectException
 
 // 메인 액티비티에서 사용할 ViewModel
 // 포트폴리오의 데이터 관리를 이 ViewModel 에서 합니다.
@@ -151,7 +153,11 @@ class MainViewModel(): ViewModel() {
     }
 
     fun sendPushMessage(pushBody: PushBody) = viewModelScope.launch {
-        repository.sendPushMessage(pushBody)
+        try{
+            repository.sendPushMessage(pushBody)
+        }catch (e: ConnectException){
+            Log.d("testt", "sendPushMessage: ${e.message}")
+        }
     }
 
     fun registerToken(uid: String, token: String){
