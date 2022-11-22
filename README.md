@@ -51,6 +51,7 @@
 
 # 🛠 사용 기술 및 라이브러리
 - Android Studio(Kotlin)
+ - 안드로이드 앱 개발
 - Visual Studio Code(Node.js)
 - Firebase Realtime Database
 - Firebase Authentication 
