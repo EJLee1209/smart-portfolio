@@ -9,6 +9,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.dldmswo1209.portfolio.MainActivity
 import com.dldmswo1209.portfolio.R
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -40,37 +41,29 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     // 알림 생성(아이콘, 알림 소리 등)
     private fun sendNotification(remoteMessage: RemoteMessage){
-        // RemoteCode, ID 를 고유값으로 지정하여 알림이 개별 표시 되도록 함
-        val uniId = (System.currentTimeMillis() / 7).toInt()
+        val notificationManager = NotificationManagerCompat.from(applicationContext)
 
-        // 일회용 PendingIntent
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, uniId, intent, PendingIntent.FLAG_ONE_SHOT)
+        val builder: NotificationCompat.Builder
 
-        // 알림 채널 이름
-        val channelId = getString(R.string.firebase_notification_channel_id)
-
-        // 알림 소리
-        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-
-        // 알림에 대한 UI 정보와 작업을 지정
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(remoteMessage.data["body"].toString())
-            .setContentText(remoteMessage.data["title"].toString())
-            .setAutoCancel(true)
-            .setSound(soundUri)
-            .setContentIntent(pendingIntent)
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // 오레오 버전 이후부터는 채널이 필요
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val channel = NotificationChannel(channelId, "Notice", NotificationManager.IMPORTANCE_DEFAULT)
-            notificationManager.createNotificationChannel(channel)
+            if(notificationManager.getNotificationChannel(CHANNEL_ID) == null){
+                val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+                notificationManager.createNotificationChannel(channel)
+            }
+            builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+        }else{
+            builder = NotificationCompat.Builder(applicationContext)
         }
 
-        notificationManager.notify(uniId, notificationBuilder.build())
+        val title = remoteMessage.notification?.title
+        val body = remoteMessage.notification?.body
+
+        builder.setContentTitle(title)
+            .setContentText(body)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setAutoCancel(true)
+
+        val notification = builder.build()
+        notificationManager.notify(1, notification)
     }
 }
