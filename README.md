@@ -50,10 +50,8 @@
 채용 담당자에게 메세지가 오면, 채팅방이 생성되고 채팅방 목록을 한 눈에 확인 할 수 있습니다.
 
 # 🛠 사용 기술 및 라이브러리
-- Android Studio
-- Kotlin
-- Visual Studio Code
-- Node.js
+- Android Studio(Kotlin)
+- Visual Studio Code(Node.js)
 - Firebase Realtime Database
 - Firebase Authentication 
 - Firebase Storage
