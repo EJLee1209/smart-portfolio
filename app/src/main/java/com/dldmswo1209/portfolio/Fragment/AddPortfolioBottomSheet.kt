@@ -33,6 +33,11 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
     private val viewModel: MainViewModel by activityViewModels()
     private var imageUri: Uri? = null
     private var uid = ""
+    val currentDate = LocalDate.now().toString()
+    val splitDate = currentDate.split("-")
+    val year = splitDate[0].toInt()
+    val month = splitDate[1].toInt() - 1
+    val day = splitDate[2].toInt()
 
     companion object{
         // 갤러리 권한 요청
@@ -96,19 +101,7 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
             }
             imageUri = card.imageUri?.toUri()
         }
-        binding.closeButton.setOnClickListener {
-            dialog?.dismiss()
-        }
 
-        binding.addImage.setOnClickListener {
-            selectGallery()
-        }
-
-        val currentDate = LocalDate.now().toString()
-        val splitDate = currentDate.split("-")
-        val year = splitDate[0].toInt()
-        val month = splitDate[1].toInt() - 1
-        val day = splitDate[2].toInt()
         binding.startDateTextView.setOnClickListener {
             DatePickerDialog(requireContext(),
                 {   p0, year, month, day ->
@@ -164,6 +157,14 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
                 viewModel.createCard(uid, newCard)
             }
             dialog?.dismiss()
+        }
+
+        binding.closeButton.setOnClickListener {
+            dialog?.dismiss()
+        }
+
+        binding.addImage.setOnClickListener {
+            selectGallery()
         }
 
     }

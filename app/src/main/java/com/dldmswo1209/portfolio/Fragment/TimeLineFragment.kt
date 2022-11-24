@@ -20,6 +20,7 @@ import com.dldmswo1209.portfolio.adapter.TimeLineAdapter
 import com.dldmswo1209.portfolio.databinding.FragmentTimeLineBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import kotlinx.coroutines.selects.select
+import java.util.*
 
 class TimeLineFragment : Fragment() {
 
@@ -34,7 +35,7 @@ class TimeLineFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTimeLineBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -61,8 +62,14 @@ class TimeLineFragment : Fragment() {
         }
         binding.timeLineRecyclerView.adapter = timeLineAdapter
 
-        viewModel.getTimeLine(uid).observe(viewLifecycleOwner){
-            timeLineAdapter.submitList(it)
+        viewModel.getTimeLine(uid).observe(viewLifecycleOwner){ timeLineList->
+            // 날짜 순으로 정렬
+            timeLineList
+                .sortWith(compareBy<TimeLine> {it.date.split("-")[0].toInt()}
+                    .thenBy { it.date.split("-")[1].toInt() }
+                    .thenBy { it.date.split("-")[2].toInt() }
+            )
+            timeLineAdapter.submitList(timeLineList)
         }
 
         // 추가 버튼
