@@ -17,6 +17,8 @@ import com.dldmswo1209.portfolio.adapter.MODE_NORMAL
 import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityMainBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 
@@ -124,6 +126,9 @@ class MainActivity : AppCompatActivity() {
                     editor.putString("uid","").apply() // 저장되어있던 uid 삭제
                     val editor2 = sharedPreferences2.edit()
                     editor2.putString("showUid", "").apply()
+
+                    val auth = Firebase.auth
+                    auth.signOut()
 
                     startActivity(Intent(this, IntroActivity::class.java)) // 초기 화면으로 이동
                     finish() // 현재 액티비티를 종료

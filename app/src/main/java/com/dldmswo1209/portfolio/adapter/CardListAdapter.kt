@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Model.Card
+import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.CardItemBinding
 import com.dldmswo1209.portfolio.swipeHelper.ItemDragHelperCallback
 import kotlin.collections.ArrayList
@@ -20,6 +21,7 @@ import kotlin.collections.ArrayList
 class CardListAdapter(val itemClick: (Card,Int)->(Unit)): ListAdapter<Card, CardListAdapter.ViewHolder>(diffUtil), ItemDragHelperCallback.OnItemMoveListener{
 
     private lateinit var dragListener: OnStartDragListener
+
 
     inner class ViewHolder(val binding: CardItemBinding): RecyclerView.ViewHolder(binding.root){
         @SuppressLint("ClickableViewAccessibility")
@@ -33,11 +35,17 @@ class CardListAdapter(val itemClick: (Card,Int)->(Unit)): ListAdapter<Card, Card
             else
                 binding.dateTextView.visibility = View.GONE
 
-            Glide.with(binding.root)
-                .load(card.image?.toUri())
-                .centerCrop()
-                .into(binding.cardImageView)
-
+            if(card.image == null || card.image == ""){
+                Glide.with(binding.root)
+                    .load(R.drawable.business)
+                    .centerCrop()
+                    .into(binding.cardImageView)
+            }else {
+                Glide.with(binding.root)
+                    .load(card.image?.toUri())
+                    .centerCrop()
+                    .into(binding.cardImageView)
+            }
             binding.root.setOnClickListener {
                 if(card.link != "" && card.link != null)
                     itemClick(card,GO_HOMEPAGE)

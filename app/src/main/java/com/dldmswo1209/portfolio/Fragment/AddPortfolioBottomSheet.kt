@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -83,39 +84,15 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
         uid = (activity as MainActivity).uid
 
         if(card != null){ // 카드 수정하기를 누른 경우
-            isUpdate = true // 플래그 on
-            editCardId = card.key // 수정할 카드의 id 를 저장
-            // 수정하는 상황에 맞게 ui를 바꾸기
-            binding.titleTextView.text = "포트폴리오 수정하기"
-            binding.addButton.text = "수정"
-            Glide.with(this)
-                .load(card.image?.toUri())
-                .centerCrop()
-                .into(binding.addImage)
-            binding.titleEditText.setText(card.title)
-            binding.linkEditText.setText(card.link)
-            binding.contentEditText.setText(card.content)
-            if(card.start != null && card.end != null){
-                binding.startDateTextView.text = card.start
-                binding.endDateTextView.text = card.end
-            }
-            imageUri = card.imageUri?.toUri()
+            updateModeUI()
         }
 
-        binding.startDateTextView.setOnClickListener {
-            DatePickerDialog(requireContext(),
-                {   p0, year, month, day ->
-                    val date = "$year-${String.format("%02d",month+1)}-${String.format("%02d",day)}"
-                    binding.startDateTextView.text = date
-                }, year, month, day).show()
+        binding.startDateTextView.setOnClickListener { // 시작 날짜 textView 클릭
+            showDatePickerDialog(binding.startDateTextView) // DatePickerDialog 를 띄우기
         }
 
-        binding.endDateTextView.setOnClickListener {
-            DatePickerDialog(requireContext(),
-                {   p0, year, month, day ->
-                    val date = "$year-${String.format("%02d",month+1)}-${String.format("%02d",day)}"
-                    binding.endDateTextView.text = date
-                }, year, month, day).show()
+        binding.endDateTextView.setOnClickListener { // 끝 날짜 textView 클릭
+            showDatePickerDialog(binding.endDateTextView)
         }
 
         binding.addButton.setOnClickListener {
@@ -197,6 +174,36 @@ class AddPortfolioBottomSheet(val card: Card? = null) : BottomSheetDialogFragmen
             imageResult.launch(intent)
         }
 
+    }
+    private fun updateModeUI(){
+        card ?: return
+
+        isUpdate = true // 플래그 on
+        editCardId = card.key // 수정할 카드의 id 를 저장
+        // 수정하는 상황에 맞게 ui를 바꾸기
+        binding.titleTextView.text = "포트폴리오 수정하기"
+        binding.addButton.text = "수정"
+
+        Glide.with(this)
+            .load(card.image?.toUri())
+            .centerCrop()
+            .into(binding.addImage)
+        binding.titleEditText.setText(card.title)
+        binding.linkEditText.setText(card.link)
+        binding.contentEditText.setText(card.content)
+        if(card.start != null && card.end != null){
+            binding.startDateTextView.text = card.start
+            binding.endDateTextView.text = card.end
+        }
+        imageUri = card.imageUri?.toUri()
+    }
+
+    private fun showDatePickerDialog(textView: TextView){
+        DatePickerDialog(requireContext(),
+            {   p0, year, month, day ->
+                val date = "$year-${String.format("%02d",month+1)}-${String.format("%02d",day)}"
+                textView.text = date
+            }, year, month, day).show()
     }
 
 }

@@ -41,6 +41,9 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     // 알림 생성(아이콘, 알림 소리 등)
     private fun sendNotification(remoteMessage: RemoteMessage){
+
+
+
         val notificationManager = NotificationManagerCompat.from(applicationContext)
 
         val builder: NotificationCompat.Builder
