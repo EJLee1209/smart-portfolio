@@ -32,22 +32,21 @@ class SplashActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
         var uid = sharedPreferences.getString("uid", "").toString()
 
-        isSuperShow = intent.getBooleanExtra("isSuperShow", false)
+        isSuperShow = intent.getBooleanExtra("isSuperShow", false) // 채용 담당자가 보는 중 인지?
 
         if(isSuperShow){ // 채용 담당자가 보는 중
             val sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
-            uid = sharedPreferences2.getString("showUid","").toString()
-            Log.d("testt", "isSuperShow: ${uid}")
+            uid = sharedPreferences2.getString("showUid","").toString() // uid 변경(채용 담당자 UID 로)
         }
 
         binding.lottieAnimationView.playAnimation() // lottie 애니메이션 재생
 
         // 코루틴을 사용해서 로딩 구현
         CoroutineScope(Dispatchers.IO).launch {
-            // 비동기 처리로 로딩과 job 을 동시에 수행
+            // 비동기 처리
             async(Dispatchers.IO) {
-                for (i in 0..100) {
-                    loading()
+                for (i in 1..100) {
+                    loading() // 프로그레스바 증가
                 }
             }
             async{
@@ -90,6 +89,6 @@ class SplashActivity : AppCompatActivity() {
         runOnUiThread {
             binding.progressTextView.text = "${binding.progressBar.progress} %"
         }
-        delay(DURATION/110) // 총 100 번 반복하므로 로딩시간과 비슷한 시점에 작업이 끝나도록 딜레이를 줌
+        delay(DURATION/100) // 총 100 번 반복하므로 로딩시간/100 만큼 딜레이를 줌
     }
 }

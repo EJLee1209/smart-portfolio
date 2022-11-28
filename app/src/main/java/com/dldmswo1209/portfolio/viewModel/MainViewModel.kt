@@ -64,6 +64,7 @@ class MainViewModel(): ViewModel() {
         repository.deleteTimeLine(uid, key)
     }
 
+    // 타임라인 수정
     fun updateTimeLine(uid: String, timeLine: TimeLine){
         repository.updateTimeLine(uid, timeLine)
     }
@@ -92,10 +93,13 @@ class MainViewModel(): ViewModel() {
         repository.modifyChat(uid, chat)
     }
 
+    // 채팅 포트폴리오 새로고침
+    // 임의로 빈 값을 넣고, 바로 삭제해서 새로고침 효과를 얻음
     fun refreshChat(uid: String){
         repository.refreshChat(uid)
     }
 
+    // 카드 포트폴리오 가져오기
     fun getCard(uid: String): LiveData<MutableList<Card>> {
         val cardList = MutableLiveData<MutableList<Card>>()
         repository.getCard(uid).observeForever{
@@ -105,18 +109,22 @@ class MainViewModel(): ViewModel() {
         return cardList
     }
 
+    // 카드 생성
     fun createCard(uid: String, card: Card){
         repository.createCard(uid, card)
     }
 
+    // 카드 삭제
     fun deleteCard(uid: String, card: Card){
         repository.deleteCard(uid, card)
     }
 
+    // 카드 수정
     fun updateCard(uid: String, card: Card){
         repository.updateCard(uid, card)
     }
 
+    // 채팅방 생성
     fun createChatRoom(sender: User, receiver: User): LiveData<String>{
         val createdRoomKey = MutableLiveData<String>()
         repository.createChatRooms(sender, receiver).observeForever {
@@ -124,6 +132,7 @@ class MainViewModel(): ViewModel() {
         }
         return createdRoomKey
     }
+    // 특정 채팅방 가져오기
     fun getRoom(uid: String, key: String): LiveData<ChatRoom>{
         val room = MutableLiveData<ChatRoom>()
         repository.getRoom(uid, key).observeForever {
@@ -132,6 +141,7 @@ class MainViewModel(): ViewModel() {
         return room
     }
 
+    // 나의 모든 채팅방 가져오기
     fun getChatRooms(user: User): LiveData<MutableList<ChatRoom>>{
         val rooms = MutableLiveData<MutableList<ChatRoom>>()
         repository.getChatRooms(user).observeForever {
@@ -140,6 +150,7 @@ class MainViewModel(): ViewModel() {
         return rooms
     }
 
+    // 특정 채팅방의 모든 채팅 기록 가져오기
     fun getAllChat(key: String): LiveData<MutableList<RealChat>>{
         val chats = MutableLiveData<MutableList<RealChat>>()
         repository.getAllChat(key).observeForever {
@@ -148,19 +159,24 @@ class MainViewModel(): ViewModel() {
         return chats
     }
 
+    // 메세지 보내기
     fun sendMessage(chat: RealChat, key: String){
         repository.sendMessage(chat, key)
     }
 
+    // 푸시 메세지 알림 보내기
     fun sendPushMessage(pushBody: PushBody) = viewModelScope.launch {
         try{
             repository.sendPushMessage(pushBody)
             Log.d("testt", "sendPushMessage: ${pushBody}")
         }catch (e: ConnectException){
-            Log.d("testt", "sendPushMessage: ${e.message}")
+            e.printStackTrace()
+        }catch (e: Exception){
+            e.printStackTrace()
         }
     }
 
+    // FCM 토큰 등록
     fun registerToken(uid: String, token: String){
         repository.registerToken(uid, token)
     }

@@ -68,7 +68,6 @@ class Repository() {
 
     // 프로필 수정하기
     fun updateUser(user: User, imageUri: Uri?){
-        Log.d("testt", "updateUser: ${imageUri}")
         if(imageUri == null){ // 프로필 사진이 아예 없음
             val mapData = mapOf<String, Any?>(
                 "name" to user.name,
@@ -76,19 +75,18 @@ class Repository() {
             )
             database.child("User/${user.uid}").updateChildren(mapData)
         }
-        else{
-            val imgFileName = "${imageUri.lastPathSegment}.png"
-            val imagePath = "Profile_Images/${user.uid}/${imgFileName}"
+        else{ // 사진 있음
+            val imgFileName = "${imageUri.lastPathSegment}.png" // 이미지 파일 이름
+            val imagePath = "Profile_Images/${user.uid}/${imgFileName}" // 저장 Storage 경로
 
             storage.child(imagePath).putFile(imageUri) // 이미지 업로드
                 .addOnSuccessListener {
-                    Log.d("testt", "updateUser imagePath: ${user.profile!!.imageUri}")
                     storage.child(imagePath).downloadUrl.addOnSuccessListener { uri ->
                         // 이미지 다운로드
-                        Log.d("testt", "download image : ${uri}")
                         val newProfile = user
                         newProfile.profile?.image = uri.toString() // 다운로드 받은 이미지 uri 저장
 
+                        // 업데이트 할 데이터를 key value 로 매핑
                         val mapData = mapOf<String, Any?>(
                             "name" to newProfile.name,
                             "profile" to newProfile.profile
@@ -99,6 +97,7 @@ class Repository() {
         }
     }
 
+    // 개인 정보 업데이트
     fun updatePrivacyInfo(uid: String, profile: UserProfile){
         database.child("User/${uid}/profile").setValue(profile)
     }

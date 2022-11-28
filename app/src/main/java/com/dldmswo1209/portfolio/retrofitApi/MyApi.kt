@@ -5,6 +5,7 @@ import retrofit2.http.POST
 
 
 interface MyApi {
+    // 푸시 메세지 요청
     @POST("/push")
     suspend fun sendPushMessage(
         @Body pushBody: PushBody

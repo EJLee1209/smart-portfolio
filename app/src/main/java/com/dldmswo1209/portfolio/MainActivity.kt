@@ -36,62 +36,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        getPreferences()
         initView()
-
-        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
-        sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
-        uid = sharedPreferences.getString("uid","").toString()
-
-
-        FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            if(!it.isSuccessful){
-                Log.d("testt", "Fetching FCM registration token failed", it.exception)
-                return@addOnCompleteListener
-            }
-
-            val token = it.result
-            Log.d("testt", "token : ${token}")
-
-            viewModel.registerToken(uid, token)
-        }
-
-        viewModel.getUser(uid).observe(this){
-            currentUser = it
-        }
-
-        isSuperShow = intent.getBooleanExtra("isSuperShow", false)
-        if(isSuperShow){ // 채용 담당자가 보는 중
-            uid = sharedPreferences2.getString("showUid","").toString()
-        }
-
-        viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
-            // 유저 정보가 변경되면 알아서 가져와짐
-            binding.nameTextView.text = it.name
-            if(it.profile != null){ // 아예 프로필 설정을 안한 경우 (회원가입 후 초기 상태)
-                if(it.profile?.image == "" || it.profile?.image == null){
-                    // 프로필은 있지만, 사진이 없는 경우
-                    Glide.with(this)
-                        .load(R.drawable.profile)
-                        .circleCrop()
-                        .into(binding.mainProfileImageView)
-                }else{
-                    Glide.with(this)
-                        .load(it.profile?.image)
-                        .circleCrop()
-                        .into(binding.mainProfileImageView)
-                }
-
-            }else{
-                Glide.with(this)
-                    .load(R.drawable.profile)
-                    .circleCrop()
-                    .into(binding.mainProfileImageView)
-            }
-
-        }
-
-
-
+        getFCMToken()
+        observer()
     }
     // 뷰 초기화 메서드
     private fun initView(){
@@ -145,6 +93,60 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             true
+        }
+    }
+
+    private fun getFCMToken(){
+        // FCM 토큰 가져오기
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if(!it.isSuccessful){
+                Log.d("testt", "Fetching FCM registration token failed", it.exception)
+                return@addOnCompleteListener
+            }
+
+            val token = it.result
+
+            viewModel.registerToken(uid, token) // 토큰 등록
+        }
+    }
+
+    private fun getPreferences(){
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+        sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
+        uid = sharedPreferences.getString("uid","").toString()
+
+        isSuperShow = intent.getBooleanExtra("isSuperShow", false)
+        if(isSuperShow){ // 채용 담당자가 보는 중
+            uid = sharedPreferences2.getString("showUid","").toString()
+        }
+    }
+
+    private fun observer(){
+        viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
+            currentUser = it // 현재 유저 저장
+
+            // 유저 정보가 변경되면 알아서 가져와짐
+            binding.nameTextView.text = it.name
+            if(it.profile != null){ // 아예 프로필 설정을 안한 경우 (회원가입 후 초기 상태)
+                if(it.profile?.image == "" || it.profile?.image == null){
+                    // 프로필은 있지만, 사진이 없는 경우
+                    Glide.with(this)
+                        .load(R.drawable.profile)
+                        .circleCrop()
+                        .into(binding.mainProfileImageView)
+                }else{ // 프로필 있고, 사진이 있음
+                    Glide.with(this)
+                        .load(it.profile?.image)
+                        .circleCrop()
+                        .into(binding.mainProfileImageView)
+                }
+
+            }else{ // 프로필이 아예 없음
+                Glide.with(this)
+                    .load(R.drawable.profile)
+                    .circleCrop()
+                    .into(binding.mainProfileImageView)
+            }
         }
     }
 
