@@ -59,7 +59,7 @@
             android:id="@+id/addImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/image"
+            android:src="@drawable/default_image"
             android:layout_margin="10dp"/>
 
 

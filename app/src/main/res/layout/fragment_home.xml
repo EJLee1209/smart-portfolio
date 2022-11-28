@@ -27,13 +27,12 @@
         app:behavior_hideable="false"
         app:behavior_peekHeight="120dp"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:paddingBottom="15dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         android:background="@drawable/top_radius_white_background"
-        android:visibility="gone">
+        android:gravity="center_horizontal">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/upAnim"
@@ -43,46 +42,65 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             android:layout_marginTop="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/motto"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"/>
 
-        <ImageView
-            android:id="@+id/healthImageView"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:src="@drawable/health_me"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="10dp"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/motto_content"
-            android:gravity="center"/>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/motto"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/who_am_i"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginTop="15dp"/>
+                <ImageView
+                    android:id="@+id/healthImageView"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:src="@drawable/health_me"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="10dp"/>
 
-        <TextView
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:text="@string/dream"
-            android:layout_marginTop="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/motto_content"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/who_am_i"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dream"
+                    android:layout_marginTop="10dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
 
 
 
