@@ -18,6 +18,8 @@ import com.dldmswo1209.portfolio.databinding.CardItemBinding
 import com.dldmswo1209.portfolio.swipeHelper.ItemDragHelperCallback
 import kotlin.collections.ArrayList
 
+// diffUtil 을 사용하면, notifyDataSetChanged 를 안해도 된다.
+// 전체 리사이클러뷰 아이템을 업데이트 하는 것이 아니라 변경된 내용에 대해서만 업데이트를 해줌
 class CardListAdapter(val itemClick: (Card,Int)->(Unit)): ListAdapter<Card, CardListAdapter.ViewHolder>(diffUtil), ItemDragHelperCallback.OnItemMoveListener{
 
     private lateinit var dragListener: OnStartDragListener

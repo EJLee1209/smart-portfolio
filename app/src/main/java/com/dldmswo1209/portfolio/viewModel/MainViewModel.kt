@@ -168,7 +168,6 @@ class MainViewModel(): ViewModel() {
     fun sendPushMessage(pushBody: PushBody) = viewModelScope.launch {
         try{
             repository.sendPushMessage(pushBody)
-            Log.d("testt", "sendPushMessage: ${pushBody}")
         }catch (e: ConnectException){
             e.printStackTrace()
         }catch (e: Exception){

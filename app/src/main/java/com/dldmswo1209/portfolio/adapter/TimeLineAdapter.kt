@@ -16,6 +16,14 @@ class TimeLineAdapter(val itemClicked: (TimeLine)->(Unit)) : ListAdapter<TimeLin
             binding.dateTextView.text = item.date
             binding.screenView.visibility = View.INVISIBLE
             binding.checkImage.visibility = View.INVISIBLE
+            if(item.isSelected){ // 선택된 상태
+                binding.screenView.visibility = View.VISIBLE // 가림막 보이기
+                binding.checkImage.visibility = View.VISIBLE // 체크 이미지 보이기
+            }else{
+                binding.screenView.visibility = View.INVISIBLE // 가림막 가리기
+                binding.checkImage.visibility = View.INVISIBLE // 체크 이미지 가리기
+            }
+
             //타임라인 클릭 이벤트
             binding.root.setOnClickListener {
                 item.isSelected = !item.isSelected

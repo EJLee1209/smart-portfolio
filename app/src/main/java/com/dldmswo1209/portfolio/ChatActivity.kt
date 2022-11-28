@@ -43,8 +43,6 @@ class ChatActivity : AppCompatActivity() {
         pref = getSharedPreferences("login", Context.MODE_PRIVATE)
         uid = pref.getString("uid","").toString()
 
-        Log.d("testt", "onCreate: ${sender.name}")
-        Log.d("testt", "onCreate: ${receiver.name}")
 
         key = intent.getStringExtra("key").toString()
 
@@ -54,7 +52,6 @@ class ChatActivity : AppCompatActivity() {
         binding.chatRecyclerView.adapter = chatAdapter
 
         viewModel.getAllChat(key).observe(this){
-            Log.d("testt", "size from server.. : ${it.size} ")
             // 이렇게 안하면, it.size 와 chatAdapter.currentList.size 가 달라서
             // 리사이클러뷰를 스크롤 할 수 없음..
             CoroutineScope(Dispatchers.Main).launch{
@@ -62,7 +59,6 @@ class ChatActivity : AppCompatActivity() {
                     chatAdapter.submitList(it) // submitList 하는데 시간이 오래걸리는건가..?
                     delay(100)
                 }.await()
-                Log.d("testt", "size from adapter.. : ${chatAdapter.currentList.size} ")
                 binding.chatRecyclerView.scrollToPosition(it.size-1)
             }
 
@@ -112,12 +108,10 @@ class ChatActivity : AppCompatActivity() {
         }
 
         keyboardVisibilityUtils = KeyboardVisibilityUtils(window,
-            onShowKeyboard = {
-                binding.chatRecyclerView.scrollToPosition(chatList.size-1)
+            onShowKeyboard = { // 키보드가 올라왔을 때
+                binding.chatRecyclerView.scrollToPosition(chatList.size-1) // 리사이클러 뷰 맨 밑으로 스크롤
             },
-            onHideKeyboard = {
-
-            }
+            onHideKeyboard = {}
         )
     }
 
