@@ -26,6 +26,8 @@ class ChatActivity : AppCompatActivity() {
     }
     private lateinit var sender: User
     private lateinit var receiver: User
+    private lateinit var me: User
+    private lateinit var other: User
     private var key = ""
     private val viewModel by lazy{
         ViewModelProvider(this)[MainViewModel::class.java]
@@ -55,6 +57,21 @@ class ChatActivity : AppCompatActivity() {
 
         val chatAdapter = RealChatListAdapter(sender)
         binding.chatRecyclerView.adapter = chatAdapter
+
+        if(uid == sender.uid){ // sender 가 현재 로그인한 유저
+            me = sender
+            other = receiver
+        }else{ // receiver 가 현재 로그인한 유저
+            me = receiver
+            other = sender
+        }
+
+        viewModel.getUser(other.uid).observe(this) {
+            // chat.receiver.token 값이 아니라 유저 데이터 자체에 저장되어 있는 token 값을 사용
+            // 푸시 메세지 버그를 해결하기 위한 해결 방안1
+            other.token = it.token
+        }
+
 
         viewModel.getAllChat(key).observe(this){
             // 이렇게 안하면, it.size 와 chatAdapter.currentList.size 가 달라서
@@ -94,20 +111,12 @@ class ChatActivity : AppCompatActivity() {
                 realTime = "$date \n오전 $hour:$min"
             }
 
-            if(uid == sender.uid){
-                chat = RealChat(message, realTime, sender, receiver, key)
-            }else{
-                chat = RealChat(message, realTime, receiver, sender, key)
-            }
-            viewModel.sendMessage(chat,key)
+            chat = RealChat(message, realTime, me, other, key)
 
-            viewModel.getUser(chat.receiver.uid).observe(this){ receiver->
-                // chat.receiver.token 값이 아니라 유저 데이터 자체에 저장되어 있는 token 값을 사용
-                // 푸시 메세지 버그를 해결하기 위한 해결 방안1
-                val pushBody = PushBody(receiver.token, chat.sender.name, chat.message)
-                Log.d("testt", "push body: ${pushBody}")
-                viewModel.sendPushMessage(pushBody)
-            }
+            viewModel.sendMessage(chat,key)
+            val pushBody = PushBody(other.token, chat.sender.name, chat.message)
+            Log.d("testt", "push body: ${pushBody}")
+            viewModel.sendPushMessage(pushBody)
 
             binding.inputEditText.text.clear()
         }
@@ -131,5 +140,6 @@ class ChatActivity : AppCompatActivity() {
             .putBoolean("isChatting", false) // 채팅방 나감
             .apply()
     }
+
 
 }

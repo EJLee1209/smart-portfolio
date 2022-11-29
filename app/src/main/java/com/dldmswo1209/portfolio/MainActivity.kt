@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     var isSuperShow = false // 채용 담당자가 보는 중인가?
     var chatRooms = mutableListOf<ChatRoom>()
     var fcmToken = ""
-    var isFirst = true
 
     lateinit var currentUser : User
     lateinit var sharedPreferences: SharedPreferences
@@ -144,13 +143,6 @@ class MainActivity : AppCompatActivity() {
                 rooms.forEach { room->
                     viewModel.registerTokenChatRooms(uid, room.key, fcmToken, isSuperShow)
                 }
-
-//                if(!isFirst){
-//
-//                    sendNotification()
-//                }
-//
-//                isFirst = false
             }
 
             // 유저 정보가 변경되면 알아서 가져와짐
@@ -194,44 +186,5 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    // 알림 생성(아이콘, 알림 소리 등)
-//    private fun sendNotification(){
-//        val notificationManager = NotificationManagerCompat.from(applicationContext)
-//
-//        val builder: NotificationCompat.Builder
-//
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-//            if(notificationManager.getNotificationChannel(MyFirebaseMessagingService.CHANNEL_ID) == null){
-//                val channel = NotificationChannel(MyFirebaseMessagingService.CHANNEL_ID, MyFirebaseMessagingService.CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
-//                notificationManager.createNotificationChannel(channel)
-//            }
-//            builder = NotificationCompat.Builder(applicationContext,
-//                MyFirebaseMessagingService.CHANNEL_ID
-//            )
-//        }else{
-//            builder = NotificationCompat.Builder(applicationContext)
-//        }
-//
-//        val title = "메세지 도착"
-//        val body = "채용 담당자에게 메세지가 왔습니다!"
-//
-//        builder.setContentTitle(title)
-//            .setContentText(body)
-//            .setSmallIcon(R.mipmap.ic_launcher)
-//            .setAutoCancel(true)
-//            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-//            .setPriority(NotificationCompat.PRIORITY_HIGH)
-//
-//
-//        val notification = builder.build()
-//        notificationManager.notify(1, notification)
-//    }
-
-    override fun onPause() {
-        isFirst = true
-        super.onPause()
-    }
-
 
 }
