@@ -89,6 +89,8 @@ class MainActivity : AppCompatActivity() {
                     val auth = Firebase.auth
                     auth.signOut()
 
+                    viewModel.removeToken(uid)
+
                     startActivity(Intent(this, IntroActivity::class.java)) // 초기 화면으로 이동
                     finish() // 현재 액티비티를 종료
                 }

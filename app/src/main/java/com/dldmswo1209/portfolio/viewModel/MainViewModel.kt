@@ -184,4 +184,8 @@ class MainViewModel(): ViewModel() {
         repository.registerTokenChatRooms(uid, roomKey, token, isSuper)
     }
 
+    fun removeToken(uid: String){
+        repository.removeToken(uid)
+    }
+
 }

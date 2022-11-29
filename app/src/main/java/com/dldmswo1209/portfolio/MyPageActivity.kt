@@ -12,6 +12,8 @@ import com.dldmswo1209.portfolio.Fragment.EditUserInfoFragment
 import com.dldmswo1209.portfolio.Fragment.MyProfileBottomSheetFragment
 import com.dldmswo1209.portfolio.databinding.ActivityMyPageBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 // 마이페이지 액티비티
 // 로그아웃, 프로필 수정 기능 포함
@@ -33,6 +35,7 @@ class MyPageActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
         uid = sharedPreferences.getString("uid","").toString()
 
+        val sharedPreferences2 = getSharedPreferences("superMode", Context.MODE_PRIVATE)
 
         viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
             // 유저 정보가 변경되면 알아서 가져와짐
@@ -61,6 +64,15 @@ class MyPageActivity : AppCompatActivity() {
 
         // 로그아웃 클릭
         binding.logoutTextView.setOnClickListener {
+            val editor = sharedPreferences.edit()
+            editor.putString("uid","").apply() // 저장되어있던 uid 삭제
+            val editor2 = sharedPreferences2.edit()
+            editor2.putString("showUid", "").apply()
+
+            val auth = Firebase.auth
+            auth.signOut()
+
+            viewModel.removeToken(uid)
             startActivity(Intent(this, IntroActivity::class.java)) // 초기화면으로 이동
             finish()// 현재 액티비티 종료
         }

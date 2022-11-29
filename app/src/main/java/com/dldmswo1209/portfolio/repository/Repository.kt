@@ -419,4 +419,9 @@ class Repository() {
         }
 
     }
+
+    // 유저의 토큰 제거(로그아웃)
+    fun removeToken(uid: String){
+        database.child("User/${uid}/token").removeValue()
+    }
 }

@@ -33,7 +33,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
         if(message.data.isNotEmpty()){ // 백그라운드
             sendNotification(message)
-            return
         }else if(message.notification != null && !isChatting){ // 포그라운드
             sendNotification(message)
         }
