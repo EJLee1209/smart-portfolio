@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import com.dldmswo1209.portfolio.KeyboardState.KeyboardVisibilityUtils
 import com.dldmswo1209.portfolio.Model.RealChat
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.adapter.RealChatListAdapter
 import com.dldmswo1209.portfolio.databinding.ActivityChatBinding
+import com.dldmswo1209.portfolio.fcm.MyFirebaseMessagingService.Companion.CHANNEL_ID
 import com.dldmswo1209.portfolio.retrofitApi.PushBody
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import kotlinx.coroutines.*
@@ -36,6 +38,11 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        getSharedPreferences("isChatting", Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean("isChatting", true) // 채팅 중임
+            .apply()
 
         sender = intent.getSerializableExtra("sender") as User // 채용 담당자
         receiver = intent.getSerializableExtra("receiver") as User // 채용인
@@ -115,6 +122,14 @@ class ChatActivity : AppCompatActivity() {
             },
             onHideKeyboard = {}
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        getSharedPreferences("isChatting", Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean("isChatting", false) // 채팅방 나감
+            .apply()
     }
 
 }

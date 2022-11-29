@@ -29,28 +29,27 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     // 메시지 수신
     override fun onMessageReceived(message: RemoteMessage) {
+        val sharedPreferences = getSharedPreferences("isChatting", Context.MODE_PRIVATE)
+        val isChatting = sharedPreferences.getBoolean("isChatting", false)
 
-        if(message.data.isNotEmpty()){
+        if(message.notification != null && !isChatting){ // 포그라운드
+            sendNotification(message)
+        }else if(message.data.isNotEmpty()){ // 백그라운드
             sendNotification(message)
         }
-        else{
-            Log.d("testt", "onMessageReceived: data가 비어있습니다. 메시지를 수신하지 못했습니다")
-        }
+
     }
 
 
     // 알림 생성(아이콘, 알림 소리 등)
     private fun sendNotification(remoteMessage: RemoteMessage){
-
-
-
         val notificationManager = NotificationManagerCompat.from(applicationContext)
 
         val builder: NotificationCompat.Builder
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             if(notificationManager.getNotificationChannel(CHANNEL_ID) == null){
-                val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+                val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
                 notificationManager.createNotificationChannel(channel)
             }
             builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
@@ -65,6 +64,9 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             .setContentText(body)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setAutoCancel(true)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+
 
         val notification = builder.build()
         notificationManager.notify(1, notification)
