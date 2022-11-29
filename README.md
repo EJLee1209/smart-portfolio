@@ -5,12 +5,7 @@
 
 # 더존비즈온 요구사항
 
-
-<figure class="half">
-  <img src="https://user-images.githubusercontent.com/101651909/204494723-8f0accee-f72d-449a-8a81-753b99f814f9.png" width="40%"/>
-  <img src="https://user-images.githubusercontent.com/101651909/204494736-21f655ea-2868-49f0-9976-1f6e6c00c078.png" width="40%"/>
-figure>
-
+<img src="https://user-images.githubusercontent.com/101651909/204494723-8f0accee-f72d-449a-8a81-753b99f814f9.png" width="40%"/> |<img src="https://user-images.githubusercontent.com/101651909/204494736-21f655ea-2868-49f0-9976-1f6e6c00c078.png" width="40%"/>
 
 # Smart-Portfolio
 <img src="https://user-images.githubusercontent.com/101651909/202912194-587b2d14-a521-4afe-9cd9-ab3adb979964.jpg" width="60%"/>
