@@ -1,3 +1,7 @@
+[예상 산출물 프로토타입](https://ovenapp.io/view/llTtDQBich8oWVQasgAksGQNBdnbzqJk)
+![image](https://user-images.githubusercontent.com/101651909/204493042-006e1daf-5847-49fd-b581-34944f5b486a.png)
+
+
 # Smart-Portfolio
 <img src="https://user-images.githubusercontent.com/101651909/202912194-587b2d14-a521-4afe-9cd9-ab3adb979964.jpg" width="60%"/>
 
