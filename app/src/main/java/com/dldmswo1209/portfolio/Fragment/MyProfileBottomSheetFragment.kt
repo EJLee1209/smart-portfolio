@@ -44,7 +44,6 @@ class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
                     .circleCrop()
                     .into(binding.profileImageView)
             }
-
         }
     }
 

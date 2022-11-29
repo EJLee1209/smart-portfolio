@@ -51,6 +51,7 @@ class HomeFragment : Fragment() {
                 binding.homeBottomSheet.visibility = View.VISIBLE // bottomSheetDialog 를 보여줌
 
                 // margin 동적 할당
+                // bottomSheetDialog 를 안보여주는 경우 웹뷰의 영역을 넓히기 위함
                 val layoutParams = CoordinatorLayout.LayoutParams(
                     CoordinatorLayout.LayoutParams.MATCH_PARENT,
                     CoordinatorLayout.LayoutParams.MATCH_PARENT

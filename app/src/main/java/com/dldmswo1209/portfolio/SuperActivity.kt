@@ -3,6 +3,7 @@ package com.dldmswo1209.portfolio
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build.VERSION_CODES.P
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ class SuperActivity : AppCompatActivity() {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
     var uid = ""
+    var fcmToken = ""
     lateinit var currentUser: User
     lateinit var sharedPreferences: SharedPreferences
 
@@ -34,60 +36,13 @@ class SuperActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        initView()
-
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
         uid = sharedPreferences.getString("uid","").toString()
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            if(!it.isSuccessful){
-                Log.d("testt", "Fetching FCM registration token failed", it.exception)
-                return@addOnCompleteListener
-            }
+        initView()
+        observer()
+        getFCMToken()
 
-            val token = it.result
-            Log.d("testt", "token : ${token}")
-
-            viewModel.registerToken(uid, token)
-        }
-
-        viewModel.getUser(uid).observe(this){
-            currentUser = it
-        }
-
-        viewModel.getUser(uid).observe(this){
-            currentUser = it
-        }
-
-        // 툴바 설정
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바의 기본 타이틀을 숨김
-
-        viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
-            // 유저 정보가 변경되면 알아서 가져와짐
-            binding.nameTextView.text = it.name
-            if(it.profile != null){ // 아예 프로필 설정을 안한 경우 (회원가입 후 초기 상태)
-                if(it.profile?.image == "" || it.profile?.image == null){
-                    // 프로필은 있지만, 사진이 없는 경우
-                    Glide.with(this)
-                        .load(R.drawable.profile)
-                        .circleCrop()
-                        .into(binding.mainProfileImageView)
-                }else{
-                    Glide.with(this)
-                        .load(it.profile?.image)
-                        .circleCrop()
-                        .into(binding.mainProfileImageView)
-                }
-
-            }else{
-                Glide.with(this)
-                    .load(R.drawable.profile)
-                    .circleCrop()
-                    .into(binding.mainProfileImageView)
-            }
-
-        }
     }
 
     // 툴 바 메뉴를 생성합니다.(drawer 호출 위한 아이콘)
@@ -157,6 +112,52 @@ class SuperActivity : AppCompatActivity() {
                 }
             }
             true
+        }
+    }
+    private fun observer(){
+        viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
+            currentUser = it
+            viewModel.getChatRooms(it).observe(this){ rooms->
+                rooms.forEach { room->
+                    viewModel.registerTokenChatRooms(uid, room.key, fcmToken, true)
+                }
+            }
+            // 유저 정보가 변경되면 알아서 가져와짐
+            binding.nameTextView.text = it.name
+            if(it.profile != null){ // 아예 프로필 설정을 안한 경우 (회원가입 후 초기 상태)
+                if(it.profile?.image == "" || it.profile?.image == null){
+                    // 프로필은 있지만, 사진이 없는 경우
+                    Glide.with(this)
+                        .load(R.drawable.profile)
+                        .circleCrop()
+                        .into(binding.mainProfileImageView)
+                }else{
+                    Glide.with(this)
+                        .load(it.profile?.image)
+                        .circleCrop()
+                        .into(binding.mainProfileImageView)
+                }
+
+            }else{
+                Glide.with(this)
+                    .load(R.drawable.profile)
+                    .circleCrop()
+                    .into(binding.mainProfileImageView)
+            }
+
+        }
+    }
+    private fun getFCMToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if(!it.isSuccessful){
+                Log.d("testt", "Fetching FCM registration token failed", it.exception)
+                return@addOnCompleteListener
+            }
+
+            fcmToken = it.result
+            Log.d("testt", "token : ${fcmToken}")
+
+            viewModel.registerToken(uid, fcmToken)
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.dldmswo1209.portfolio.Model.ChatRoom
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.adapter.MODE_NORMAL
 import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
     }
     var uid  = ""
     var isSuperShow = false // 채용 담당자가 보는 중인가?
+    var chatRooms = mutableListOf<ChatRoom>()
+    var fcmToken = ""
+
     lateinit var currentUser : User
     lateinit var sharedPreferences: SharedPreferences
     lateinit var sharedPreferences2: SharedPreferences
@@ -38,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         getPreferences()
         initView()
-        getFCMToken()
         observer()
+        getFCMToken()
     }
     // 뷰 초기화 메서드
     private fun initView(){
@@ -104,9 +108,10 @@ class MainActivity : AppCompatActivity() {
                 return@addOnCompleteListener
             }
 
-            val token = it.result
+            fcmToken = it.result
 
-            viewModel.registerToken(uid, token) // 토큰 등록
+            Log.d("testt", "getFCMToken: ${fcmToken}")
+            viewModel.registerToken(uid, fcmToken) // 토큰 등록
         }
     }
 
@@ -124,6 +129,13 @@ class MainActivity : AppCompatActivity() {
     private fun observer(){
         viewModel.getUser(uid).observe(this){ // 유저 정보를 가져옴.
             currentUser = it // 현재 유저 저장
+
+            // 채팅방 리스트 가져오기
+            viewModel.getChatRooms(it).observe(this){ rooms->
+                rooms.forEach { room->
+                    viewModel.registerTokenChatRooms(uid, room.key, fcmToken, isSuperShow)
+                }
+            }
 
             // 유저 정보가 변경되면 알아서 가져와짐
             binding.nameTextView.text = it.name
@@ -148,6 +160,7 @@ class MainActivity : AppCompatActivity() {
                     .into(binding.mainProfileImageView)
             }
         }
+
     }
 
     // 툴 바 메뉴를 생성합니다.(drawer 호출 위한 아이콘)

@@ -144,7 +144,7 @@ class MainViewModel(): ViewModel() {
     // 나의 모든 채팅방 가져오기
     fun getChatRooms(user: User): LiveData<MutableList<ChatRoom>>{
         val rooms = MutableLiveData<MutableList<ChatRoom>>()
-        repository.getChatRooms(user).observeForever {
+        repository.getMyChatRooms(user).observeForever {
             rooms.postValue(it)
         }
         return rooms
@@ -175,10 +175,13 @@ class MainViewModel(): ViewModel() {
         }
     }
 
-    // FCM 토큰 등록
+    // FCM 토큰 등록(유저 데이터 수정)
     fun registerToken(uid: String, token: String){
         repository.registerToken(uid, token)
     }
-
+    // FCM 토큰 등록(ChatRooms 데이터 수정)
+    fun registerTokenChatRooms(uid: String, roomKey: String, token: String, isSuper: Boolean){
+        repository.registerTokenChatRooms(uid, roomKey, token, isSuper)
+    }
 
 }

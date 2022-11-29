@@ -39,12 +39,10 @@ class ChatActivity : AppCompatActivity() {
 
         sender = intent.getSerializableExtra("sender") as User // 채용 담당자
         receiver = intent.getSerializableExtra("receiver") as User // 채용인
+        key = intent.getStringExtra("key").toString()
 
         pref = getSharedPreferences("login", Context.MODE_PRIVATE)
         uid = pref.getString("uid","").toString()
-
-
-        key = intent.getStringExtra("key").toString()
 
         binding.titleTextView.text = receiver.name
 
@@ -96,9 +94,13 @@ class ChatActivity : AppCompatActivity() {
             }
             viewModel.sendMessage(chat,key)
 
-            val pushBody = PushBody(chat.receiver.token, chat.sender.name, chat.message)
-            Log.d("testt", "push body: ${pushBody}")
-            viewModel.sendPushMessage(pushBody)
+            viewModel.getUser(chat.receiver.uid).observe(this){ receiver->
+                // chat.receiver.token 값이 아니라 유저 데이터 자체에 저장되어 있는 token 값을 사용
+                // 푸시 메세지 버그를 해결하기 위한 해결 방안1
+                val pushBody = PushBody(receiver.token, chat.sender.name, chat.message)
+                Log.d("testt", "push body: ${pushBody}")
+                viewModel.sendPushMessage(pushBody)
+            }
 
             binding.inputEditText.text.clear()
         }

@@ -291,7 +291,7 @@ class Repository() {
     }
 
     // 내 모든 채팅방 가져오기
-    fun getChatRooms(user: User): LiveData<MutableList<ChatRoom>> {
+    fun getMyChatRooms(user: User): LiveData<MutableList<ChatRoom>> {
         val rooms = MutableLiveData<MutableList<ChatRoom>>()
 
         database.child("User/${user.uid}/chatRooms")
@@ -394,10 +394,29 @@ class Repository() {
     // 푸시 메세지 알림 보내기(메세지 전송시 상대방에게 푸시 알림)
     suspend fun sendPushMessage(pushBody: PushBody) = retrofit.sendPushMessage(pushBody)
 
+    // fcm 토큰 등록(유저 데이터 수정)
     fun registerToken(uid: String, token: String){
         val dataMap = mapOf(
             "token" to token
         )
-        database.child("User/${uid}").updateChildren(dataMap)
+        database.child("User/${uid}").updateChildren(dataMap) // 유저 정보에 있는 token 데이터 업데이트
+    }
+
+    // 현재 유저의 채팅방에 등록되어 있는 fcm 토큰을 수정
+    fun registerTokenChatRooms(uid: String, roomKey: String, token: String, isSuper: Boolean){
+        val dataMap = mapOf(
+            "token" to token
+        )
+        if(isSuper){
+            // 채용 담당자
+            // 채용 담당자는 채팅방 데이터에 무조건 sender 로 저장됨.(채용 담당자가 먼저 메세지를 보내야 대화가 시작되기 때문에)
+            database.child("ChatRooms/${roomKey}/info/sender").updateChildren(dataMap)
+            database.child("User/${uid}/chatRooms/${roomKey}/sender").updateChildren(dataMap) // 유저 정보에 있는 채팅방 token 데이터 업데이트
+        }else{
+            // 일반 사용자
+            database.child("ChatRooms/${roomKey}/info/receiver").updateChildren(dataMap)
+            database.child("User/${uid}/chatRooms/${roomKey}/receiver").updateChildren(dataMap) // 유저 정보에 있는 채팅방 token 데이터 업데이트
+        }
+
     }
 }

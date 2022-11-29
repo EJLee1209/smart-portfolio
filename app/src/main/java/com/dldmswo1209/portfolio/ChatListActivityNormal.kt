@@ -51,9 +51,12 @@ class ChatListActivityNormal : AppCompatActivity() {
             intent.putExtra("key", it.key)
             startActivity(intent)
         }
+
         binding.roomRecyclerView.adapter = roomAdapter
+
         viewModel.getChatRooms(currentUser).observe(this){
             roomAdapter.submitList(it)
+
         }
 
     }
