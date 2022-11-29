@@ -7,8 +7,8 @@
 
 
 <figure class="half">
-  <img src="https://user-images.githubusercontent.com/101651909/204494723-8f0accee-f72d-449a-8a81-753b99f814f9.png" width="50%"/>
-  <img src="https://user-images.githubusercontent.com/101651909/204494736-21f655ea-2868-49f0-9976-1f6e6c00c078.png" width="50%"/>
+  <img src="https://user-images.githubusercontent.com/101651909/204494723-8f0accee-f72d-449a-8a81-753b99f814f9.png" width="40%"/>
+  <img src="https://user-images.githubusercontent.com/101651909/204494736-21f655ea-2868-49f0-9976-1f6e6c00c078.png" width="40%"/>
 figure>
 
 
