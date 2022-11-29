@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.Model.Chat
 import com.dldmswo1209.portfolio.Model.MY_CHAT
 import com.dldmswo1209.portfolio.Model.RealChat
 import com.dldmswo1209.portfolio.Model.User
+import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.MyChatItemBinding
 import com.dldmswo1209.portfolio.databinding.OtherChatItemBinding
 
@@ -26,11 +28,26 @@ class RealChatListAdapter(val currentUser: User): ListAdapter<RealChat, Recycler
     inner class MyChatViewHolder(val binding: MyChatItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(chat: RealChat){
             binding.chatTextView.text = chat.message
+
         }
     }
     inner class OtherChatViewHolder(val binding: OtherChatItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(chat: RealChat){
             binding.chatTextView.text = chat.message
+            binding.dateTextView.text = chat.date_time
+
+            Glide.with(binding.root)
+                .load(chat.sender.profile?.image)
+                .circleCrop()
+                .into(binding.profileImageView)
+
+            if(chat.sender.profile?.image == "" || chat.sender.profile?.image == null){
+                Glide.with(binding.root)
+                    .load(R.drawable.profile)
+                    .circleCrop()
+                    .into(binding.profileImageView)
+            }
+            binding.nameTextView.text = chat.sender.name
         }
     }
 

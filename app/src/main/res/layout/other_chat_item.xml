@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="8dp"
     android:orientation="vertical">
+
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/profileImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/profile"/>
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="채용 담당자"
+        android:textSize="12sp"
+        android:textColor="@color/dark_gray"
+        app:layout_constraintStart_toEndOf="@id/profileImageView"
+        app:layout_constraintTop_toTopOf="@id/profileImageView"
+        android:layout_marginStart="8dp"/>
 
     <TextView
         android:id="@+id/chatTextView"
@@ -11,12 +32,25 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:maxWidth="180dp"
-        android:text="으아아아ㅁ나이럼;ㄴ이ㅏㅓ라ㅣ;ㅁㄴ어ㅏㅣ;ㄻㄴ"
-        android:background="@drawable/other_chat_bubble"/>
+        android:background="@drawable/other_chat_bubble"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"/>
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/chatTextView"
+        app:layout_constraintBottom_toBottomOf="@id/chatTextView"
+        android:textSize="10sp"
+        android:layout_marginStart="6dp"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/chatTextView"
+        app:layout_constraintStart_toStartOf="parent">
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/editButton"
             android:layout_width="wrap_content"
@@ -32,4 +66,4 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

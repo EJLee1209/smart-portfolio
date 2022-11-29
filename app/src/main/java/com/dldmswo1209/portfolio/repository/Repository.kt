@@ -424,4 +424,5 @@ class Repository() {
     fun removeToken(uid: String){
         database.child("User/${uid}/token").removeValue()
     }
+
 }

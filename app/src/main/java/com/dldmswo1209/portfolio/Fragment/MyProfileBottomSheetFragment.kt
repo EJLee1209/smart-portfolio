@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.dldmswo1209.portfolio.MainActivity
+import com.dldmswo1209.portfolio.Model.ChatRoom
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.Model.UserProfile
 import com.dldmswo1209.portfolio.MyPageActivity
@@ -21,6 +23,7 @@ import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.FragmentMyProfileBottomSheetBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.*
 
 // 마이페이지에서 editImageView 클릭시 나타나는 bottomSheetDialog
 class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
@@ -78,7 +81,6 @@ class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
             newUser.profile?.introduce = intro
             newUser.profile?.imageUri = imageUri.toString()
             newUser.name = name
-
             viewModel.updateProfile(newUser, imageUri)
 
             dialog?.dismiss()
@@ -87,6 +89,7 @@ class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
 
     }
     private fun initView(){
+
         viewModel.getUser((activity as MyPageActivity).uid).observe(this){
             user = it
             binding.nameEditText.setText(it.name)
