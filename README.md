@@ -4,9 +4,8 @@
 
 
 # 더존비즈온 요구사항
-https://doc.coursemos.co.kr/hallym/82638/35308d2a45593c2b60eaa81faae2ec1a8c6abbb0/35308d2a45593c2b60eaa81faae2ec1a8c6abbb0.files/1.png![image](https://user-images.githubusercontent.com/101651909/204494262-81dd9c0b-8a57-4fca-8e4c-4e7dd1c67403.png)
-
-https://doc.coursemos.co.kr/hallym/82638/35308d2a45593c2b60eaa81faae2ec1a8c6abbb0/35308d2a45593c2b60eaa81faae2ec1a8c6abbb0.files/2.png![image](https://user-images.githubusercontent.com/101651909/204494356-5856e57b-e4c5-44cf-9445-e2271a038df4.png)
+<img src="https://user-images.githubusercontent.com/101651909/204494723-8f0accee-f72d-449a-8a81-753b99f814f9.png" width="50%"/>
+<img src="https://user-images.githubusercontent.com/101651909/204494736-21f655ea-2868-49f0-9976-1f6e6c00c078.png" width="50%"/>
 
 
 
