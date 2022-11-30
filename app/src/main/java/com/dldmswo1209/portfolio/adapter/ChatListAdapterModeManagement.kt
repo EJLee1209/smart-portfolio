@@ -1,6 +1,7 @@
 package com.dldmswo1209.portfolio.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
@@ -49,6 +50,8 @@ class ChatListAdapterModeManagement(val itemClick : (Chat, Int) -> (Unit) ): Lis
             binding.editButton.setOnClickListener {
                 itemClick(chat, EDIT_CHAT)
             }
+            binding.profileImageView.visibility = View.GONE
+            binding.nameTextView.visibility = View.GONE
         }
     }
 

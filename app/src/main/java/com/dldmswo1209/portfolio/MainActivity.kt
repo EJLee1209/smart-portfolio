@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.GravityCompat
@@ -111,6 +112,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getFCMToken(){
         // FCM 토큰 가져오기
+        if(isSuperShow) return // 채용 담당자가 보는 중이라면 토큰을 등록하면 안됨.
+
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
             if(!it.isSuccessful){
                 Log.d("testt", "Fetching FCM registration token failed", it.exception)
@@ -181,6 +184,10 @@ class MainActivity : AppCompatActivity() {
 
     // 툴 바 버튼 클릭시
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(isSuperShow){
+            Toast.makeText(this, "열람을 종료하시려면 뒤로가기 키를 눌러주세요", Toast.LENGTH_SHORT).show()
+            return false
+        }
         when(item.itemId){
             R.id.menu_icon->{
                 binding.drawerLayout.openDrawer(GravityCompat.END)
