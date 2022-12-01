@@ -31,9 +31,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val sharedPreferences = getSharedPreferences("isChatting", Context.MODE_PRIVATE)
         val isChatting = sharedPreferences.getBoolean("isChatting", false)
 
-        if(message.notification != null && !isChatting){ // 포그라운드
-            sendNotification(message)
-        }else if(message.data.isNotEmpty()) { // 백그라운드
+        if(message.data.isNotEmpty() && !isChatting){
             sendNotification(message)
         }
     }
@@ -41,6 +39,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     // 알림 생성(아이콘, 알림 소리 등)
     private fun sendNotification(remoteMessage: RemoteMessage){
+        val id = System.currentTimeMillis().toInt()
+
         val notificationManager = NotificationManagerCompat.from(applicationContext)
 
         val builder: NotificationCompat.Builder
@@ -55,8 +55,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             builder = NotificationCompat.Builder(applicationContext)
         }
 
-        val title = remoteMessage.notification?.title
-        val body = remoteMessage.notification?.body
+        val title = remoteMessage.data["title"]
+        val body = remoteMessage.data["body"]
 
         Log.d("testt", "notification title : ${title}, body: ${body}")
 
@@ -67,9 +67,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
-
         val notification = builder.build()
-        notificationManager.notify(11, notification)
+        notificationManager.notify(id, notification)
 
     }
 }
