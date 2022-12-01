@@ -25,7 +25,7 @@ class WebViewActivity : AppCompatActivity() {
         }
 
         // 웹뷰 실행
-        url?.let {
+        url.let {
             binding.webView.loadUrl(url)
         }
 

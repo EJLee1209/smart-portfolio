@@ -15,7 +15,6 @@ import kotlinx.coroutines.*
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
     private val auth = Firebase.auth
-    private val dbRef = Firebase.database.reference.child("User")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +29,7 @@ class IntroActivity : AppCompatActivity() {
                 Toast.makeText(this, "이메일과 패스워드를 모두 입력해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            auth.signInWithEmailAndPassword(email, password)
+            auth.signInWithEmailAndPassword(email, password) // 로그인
                 .addOnCompleteListener {
                     if(it.isSuccessful){
                         // 로그인 성공

@@ -19,7 +19,7 @@ class SignUpActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivitySignUpBinding.inflate(layoutInflater)
     }
-    val superCodeList = mutableListOf(
+    val superCodeList = mutableListOf( // 관리자 코드
         "super03245",
         "super09123",
         "super92193",
@@ -48,7 +48,6 @@ class SignUpActivity : AppCompatActivity() {
                     // 채용 담당자
                     binding.superCodeLayout.visibility = View.VISIBLE
                     isSuperUser = true
-
                 }
             }
         }
@@ -132,7 +131,7 @@ class SignUpActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                auth.createUserWithEmailAndPassword(email, password)
+                auth.createUserWithEmailAndPassword(email, password) // 회원가입
                     .addOnCompleteListener {
                         if(it.isSuccessful){
                             // Realtime DB 에 사용자 정보 저장

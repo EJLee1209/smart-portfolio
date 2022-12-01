@@ -21,7 +21,7 @@ import com.google.firebase.storage.FirebaseStorage
 import retrofit2.Retrofit
 import java.io.FileNotFoundException
 
-class Repository() {
+class Repository {
     private val database = Firebase.database.reference
     private val storage = FirebaseStorage.getInstance().reference
     private val retrofit = RetrofitInstance.getInstance().create(MyApi::class.java)
@@ -391,9 +391,6 @@ class Repository() {
 
     }
 
-    // 푸시 메세지 알림 보내기(메세지 전송시 상대방에게 푸시 알림)
-    suspend fun sendPushMessage(pushBody: PushBody) = retrofit.sendPushMessage(pushBody)
-
     // fcm 토큰 등록(유저 데이터 수정)
     fun registerToken(uid: String, token: String){
         val dataMap = mapOf(
@@ -425,4 +422,6 @@ class Repository() {
         database.child("User/${uid}/token").removeValue()
     }
 
+    // 푸시 메세지 알림 보내기(메세지 전송시 상대방에게 푸시 알림)
+    suspend fun sendPushMessage(pushBody: PushBody) = retrofit.sendPushMessage(pushBody)
 }

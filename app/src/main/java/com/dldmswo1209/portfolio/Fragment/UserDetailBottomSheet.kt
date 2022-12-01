@@ -3,11 +3,13 @@ package com.dldmswo1209.portfolio.Fragment
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.ChatActivity
@@ -50,28 +52,34 @@ class UserDetailBottomSheet(val user: User) : BottomSheetDialogFragment() {
 
         val currentUser = (activity as SuperActivity).currentUser
 
+        // 채팅방 목록 가져오기
+        viewModel.getChatRooms(currentUser).observe(viewLifecycleOwner){
+            chatRooms = it
+        }
+
+        // x 버튼
         binding.closeButton.setOnClickListener {
             dialog?.dismiss()
         }
 
+        // 채팅 버튼
         binding.chatButton.setOnClickListener {
             var key : String? = null
 
+            // 이미 개설되어 있는 채팅방들 중에서
             chatRooms.forEach { room->
-                if(currentUser.uid == room.sender.uid && user.uid == room.receiver.uid){
-                    key = room.key
-                    return@forEach
+                if(currentUser.uid == room.sender.uid && user.uid == room.receiver.uid){ // 현재 채팅하고자 하는 사람과의 채팅방을 찾아
+                    key = room.key // 채팅방 고유 key 값을 저장
+                    return@forEach // 반복 종료
                 }
             }
             val intent = Intent(requireContext(), ChatActivity::class.java)
-            intent.putExtra("sender", currentUser)
-            intent.putExtra("receiver", user)
+            intent.putExtra("sender", currentUser) // 현재 사용자(채용 담당자) 전달
+            intent.putExtra("receiver", user) // 채팅 상대(일반 사용자) 전달
             if(key != null){
-                viewModel.getRoom(currentUser.uid, key!!).observe(viewLifecycleOwner){ room ->
-                    // 채팅방이 이미 존재하는 경우
-                    intent.putExtra("key", room.key)
-                    startActivity(intent)
-                }
+                // 채팅방이 이미 존재하는 경우
+                intent.putExtra("key", key)
+                startActivity(intent)
             }else{
                 viewModel.createChatRoom(currentUser, user).observe(viewLifecycleOwner){ newKey ->
                     // 채팅방이 존재하지 않아 새로 생성
@@ -82,16 +90,20 @@ class UserDetailBottomSheet(val user: User) : BottomSheetDialogFragment() {
 
         }
 
-
-        viewModel.getChatRooms(currentUser).observe(viewLifecycleOwner){
-            chatRooms = it
-        }
-
-
-
+        // 전화 버튼
         binding.callButton.setOnClickListener {
-
+            if(user.profile == null || user.profile?.phone == ""){ // 프로필이 존재하지 않거나 전화번호를 등록하지 않은 경우
+                Toast.makeText(requireContext(), "전화번호를 등록하지 않은 사용자 입니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            // Uri를 이용해서 정보 저장
+            val myUri = Uri.parse("tel:${user.profile?.phone}")
+            // 전환할 정보 설정 - ACTION_DIAL
+            val myIntent = Intent(Intent.ACTION_DIAL, myUri)
+            // 이동
+            startActivity(myIntent)
         }
+        // 포트폴리오 열람 버튼
         binding.showPortfolioButton.setOnClickListener {
             val sharedPreferences = (activity as SuperActivity).getSharedPreferences("superMode", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
@@ -105,8 +117,8 @@ class UserDetailBottomSheet(val user: User) : BottomSheetDialogFragment() {
             startActivity(intent)
 
         }
-
     }
+    // 뷰 초기화
     private fun initView(){
         binding.nameTextView.text = user.name
         binding.stateMsgTextView.text = user.profile?.introduce

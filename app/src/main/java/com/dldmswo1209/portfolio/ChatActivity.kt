@@ -132,14 +132,20 @@ class ChatActivity : AppCompatActivity() {
             onHideKeyboard = {}
         )
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         getSharedPreferences("isChatting", Context.MODE_PRIVATE)
             .edit()
-            .putBoolean("isChatting", false) // 채팅방 나감
+            .putBoolean("isChatting", false) // 채팅 나감
             .apply()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getSharedPreferences("isChatting", Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean("isChatting", true) // 채팅 중임
+            .apply()
+    }
 
 }

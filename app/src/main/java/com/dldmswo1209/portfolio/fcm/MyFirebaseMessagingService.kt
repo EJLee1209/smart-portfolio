@@ -58,8 +58,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val title = remoteMessage.data["title"]
         val body = remoteMessage.data["body"]
 
-        Log.d("testt", "notification title : ${title}, body: ${body}")
-
         builder.setContentTitle(title)
             .setContentText(body)
             .setSmallIcon(R.mipmap.ic_launcher)

@@ -19,7 +19,7 @@ import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
 import com.dldmswo1209.portfolio.databinding.ActivitySuperBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.firebase.messaging.FirebaseMessaging
-
+// 채용 담당자 전용 화면
 class SuperActivity : AppCompatActivity() {
     private val binding by lazy{
         ActivitySuperBinding.inflate(layoutInflater)

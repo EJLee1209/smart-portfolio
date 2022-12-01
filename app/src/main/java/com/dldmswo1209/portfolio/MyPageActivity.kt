@@ -53,7 +53,6 @@ class MyPageActivity : AppCompatActivity() {
                         .circleCrop()
                         .into(binding.profileImage)
                 }
-
             }else{
                 Glide.with(this)
                     .load(R.drawable.profile)
