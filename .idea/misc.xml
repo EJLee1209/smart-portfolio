@@ -48,6 +48,7 @@
         <entry key="app/src/main/res/drawable/input_rectangle_red.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/input_rectangle_yellow.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/start_button.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/timeline_rectangle.xml" value="0.154" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/activity_chat_list_normal.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.2841949462890625" />
@@ -58,7 +59,7 @@
         <entry key="app/src/main/res/layout/activity_super.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/activity_web_view.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/add_dialog.xml" value="0.23505434782608695" />
-        <entry key="app/src/main/res/layout/card_item.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/card_item.xml" value="0.24121214954565603" />
         <entry key="app/src/main/res/layout/fragment_add_portfolio_bottom_sheet.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/fragment_all_user.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/fragment_card.xml" value="0.23505434782608695" />

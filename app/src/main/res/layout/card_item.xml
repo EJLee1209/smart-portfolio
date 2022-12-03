@@ -11,7 +11,7 @@
         android:elevation="10dp"
         android:orientation="vertical"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/card_rectangle">
+        android:background="@drawable/timeline_rectangle">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
