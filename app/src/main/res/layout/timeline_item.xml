@@ -59,9 +59,10 @@
 
         <TextView
             android:id="@+id/subjectTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:text="Award"
+            android:text="Etc"
+            android:gravity="center"
             android:textColor="@color/white"
             android:background="@drawable/input_rectangle_gray"
             android:padding="10dp"
