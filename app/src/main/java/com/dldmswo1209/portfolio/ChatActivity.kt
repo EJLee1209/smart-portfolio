@@ -55,7 +55,7 @@ class ChatActivity : AppCompatActivity() {
 
         binding.titleTextView.text = receiver.name
 
-        val chatAdapter = RealChatListAdapter(sender)
+        val chatAdapter = RealChatListAdapter(sender, receiver)
         binding.chatRecyclerView.adapter = chatAdapter
 
         if(uid == sender.uid){ // sender 가 현재 로그인한 유저
@@ -85,6 +85,7 @@ class ChatActivity : AppCompatActivity() {
             }
 
             chatList = it
+
         }
 
         binding.inputEditText.addTextChangedListener(object: TextWatcher {

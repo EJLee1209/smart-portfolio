@@ -84,6 +84,8 @@ class MyProfileBottomSheetFragment : BottomSheetDialogFragment() {
             viewModel.updateProfile(newUser, imageUri)
 
             dialog?.dismiss()
+
+            (activity as MyPageActivity).showLoadingAnim()
         }
 
 

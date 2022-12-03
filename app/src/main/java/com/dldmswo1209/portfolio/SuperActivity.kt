@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.dldmswo1209.portfolio.Model.ChatRoom
 import com.dldmswo1209.portfolio.Model.User
 import com.dldmswo1209.portfolio.adapter.MODE_SUPER
 import com.dldmswo1209.portfolio.adapter.ViewPagerAdapter
@@ -31,6 +32,7 @@ class SuperActivity : AppCompatActivity() {
     var fcmToken = ""
     lateinit var currentUser: User
     lateinit var sharedPreferences: SharedPreferences
+    var chatRooms = mutableListOf<ChatRoom>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,6 +124,7 @@ class SuperActivity : AppCompatActivity() {
                 rooms.forEach { room->
                     viewModel.registerTokenChatRooms(uid, room.key, fcmToken, true)
                 }
+                chatRooms = rooms
             }
             // 유저 정보가 변경되면 알아서 가져와짐
             binding.nameTextView.text = it.name
@@ -145,7 +148,6 @@ class SuperActivity : AppCompatActivity() {
                     .circleCrop()
                     .into(binding.mainProfileImageView)
             }
-
         }
     }
     private fun getFCMToken(){

@@ -14,10 +14,12 @@ import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.MyChatItemBinding
 import com.dldmswo1209.portfolio.databinding.OtherChatItemBinding
 
-class RealChatListAdapter(val currentUser: User): ListAdapter<RealChat, RecyclerView.ViewHolder>(diffUtil) {
+class RealChatListAdapter(val currentUser: User, val receiver: User): ListAdapter<RealChat, RecyclerView.ViewHolder>(diffUtil) {
 
 
     override fun getItemViewType(position: Int): Int {
+        // currentList 의 sender 에는 채팅을 보낸 사람
+        // receiver 에는 받는 사람
         return if(currentList[position].sender.uid == currentUser.uid){ // 내 채팅
             1
         }else{ // 상대방 채팅
@@ -37,7 +39,7 @@ class RealChatListAdapter(val currentUser: User): ListAdapter<RealChat, Recycler
             binding.dateTextView.text = chat.date_time
 
             Glide.with(binding.root)
-                .load(chat.sender.profile?.image)
+                .load(receiver.profile?.image)
                 .circleCrop()
                 .into(binding.profileImageView)
 
@@ -47,7 +49,7 @@ class RealChatListAdapter(val currentUser: User): ListAdapter<RealChat, Recycler
                     .circleCrop()
                     .into(binding.profileImageView)
             }
-            binding.nameTextView.text = chat.sender.name
+            binding.nameTextView.text = receiver.name
         }
     }
 

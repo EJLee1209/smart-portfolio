@@ -350,6 +350,25 @@ class Repository {
         return createdRoomKey
     }
 
+    fun updateMyChatRoom(currentUser: User, room_key: String, updatedUser: User){
+        val updateMap : Map<String, Any>
+        if(updatedUser.profile != null){
+            updateMap = mapOf(
+                "name" to updatedUser.name,
+                "profile" to updatedUser.profile!!
+            )
+        }else{
+            updateMap = mapOf(
+                "name" to updatedUser.name
+            )
+        }
+        if(currentUser.isSuperUser){ // 채용 담당자
+            database.child("User/${currentUser.uid}/chatRooms/${room_key}/receiver").updateChildren(updateMap)
+        }else{ // 일반 사용자
+            database.child("User/${currentUser.uid}/chatRooms/${room_key}/sender").updateChildren(updateMap)
+        }
+    }
+
     // 모든 채팅 리스트 가져오기
     fun getAllChat(key: String): LiveData<MutableList<RealChat>>{
         val chats = MutableLiveData<MutableList<RealChat>>()

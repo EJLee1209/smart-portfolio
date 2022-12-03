@@ -132,13 +132,10 @@ class MainViewModel(): ViewModel() {
         }
         return createdRoomKey
     }
-    // 특정 채팅방 가져오기
-    fun getRoom(uid: String, key: String): LiveData<ChatRoom>{
-        val room = MutableLiveData<ChatRoom>()
-        repository.getRoom(uid, key).observeForever {
-            room.postValue(it)
-        }
-        return room
+
+    // 내 채팅방 정보 업데이트(채팅 상대의 프로필이 변경된 경우)
+    fun updateMyChatRoom(currentUser: User, room_key: String, updatedUser: User){
+        repository.updateMyChatRoom(currentUser, room_key, updatedUser)
     }
 
     // 나의 모든 채팅방 가져오기

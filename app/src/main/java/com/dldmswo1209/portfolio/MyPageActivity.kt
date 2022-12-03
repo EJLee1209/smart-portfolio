@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -59,6 +60,7 @@ class MyPageActivity : AppCompatActivity() {
                     .circleCrop()
                     .into(binding.profileImage)
             }
+            hideLoadingAnim()
         }
 
         // 로그아웃 클릭
@@ -91,5 +93,14 @@ class MyPageActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    fun showLoadingAnim(){
+        binding.loadingLottie.visibility = View.VISIBLE
+        binding.loadingLottie.playAnimation()
+    }
+    fun hideLoadingAnim(){
+        binding.loadingLottie.visibility = View.INVISIBLE
+        binding.loadingLottie.pauseAnimation()
     }
 }
