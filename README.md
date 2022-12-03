@@ -25,9 +25,13 @@
 채용 담당자로 회원가입 할 경우 관리자 코드가 필요합니다. <br>
 
 ## 📌 타임라인 포트폴리오
-<img src="https://user-images.githubusercontent.com/101651909/202912387-14c6c63e-c4bd-42b3-984f-1ae18dca4eb2.jpg" width="60%"/>
+<img src="https://user-images.githubusercontent.com/101651909/205433691-d8260378-392b-4d71-bd93-e8416a63d33a.jpg" width="60%"/>
+
 타임라인 형태의 포트폴리오 입니다. <br>
 하단의 Floating 버튼을 클릭해서 타임라인을 추가할 수 있습니다. <br>
+
+<img src="https://user-images.githubusercontent.com/101651909/205433701-a517e32c-8822-4b8d-853f-8b49abd80389.jpg" width="60%"/>
+타임라인을 선택하여 수정 또는 삭제가 가능합니다.
 
 ## 📌 채팅 포트폴리오
 <img src="https://user-images.githubusercontent.com/101651909/202912396-255670ec-8a78-4ce2-b0fd-6a629b71980e.jpg" width="60%"/>
