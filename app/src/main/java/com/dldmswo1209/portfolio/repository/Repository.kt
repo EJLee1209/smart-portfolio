@@ -143,6 +143,7 @@ class Repository {
         val updateData = mapOf<String, Any?>(
             "content" to timeLine.content,
             "date" to timeLine.date,
+            "subject" to timeLine.subject,
             "selected" to false
         )
 

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -69,6 +70,18 @@ class TimeLineFragment : Fragment() {
                     .thenBy { it.date.split("-")[1].toInt() }
                     .thenBy { it.date.split("-")[2].toInt() }
             )
+            // 타임라인의 모든 날짜를 파악해서 해당 년도의 가장 첫번째 타임라인의 인덱스를 저장
+            val idxMap = mutableMapOf<String, Int>()
+            timeLineList.forEachIndexed { index, timeLine ->
+                val year = timeLine.date.split("-")[0]
+                if(idxMap[year] == null)
+                    idxMap[year] = index
+                timeLine.year = "" // 초기화
+            }
+            idxMap.forEach { (year, idx) ->
+                timeLineList[idx].year = year
+            }
+
             timeLineAdapter.submitList(timeLineList)
         }
 
@@ -126,6 +139,7 @@ class TimeLineFragment : Fragment() {
         binding.mainFab.setOnClickListener{
             toggleFab()
         }
+
     }
 
 

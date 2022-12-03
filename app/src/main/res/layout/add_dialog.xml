@@ -52,6 +52,17 @@
             android:background="@color/gray"
             android:layout_marginTop="5dp"/>
 
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:spinnerMode="dropdown" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginTop="5dp"/>
         <TextView
             android:id="@+id/dateTextView"
             android:layout_width="match_parent"

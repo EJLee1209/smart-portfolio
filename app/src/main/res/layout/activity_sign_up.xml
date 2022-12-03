@@ -27,7 +27,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:background="@drawable/input_rectangle">
+        android:background="@drawable/input_rectangle_gray">
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:layout_width="30dp"
@@ -61,7 +61,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:background="@drawable/input_rectangle">
+        android:background="@drawable/input_rectangle_gray">
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:layout_width="30dp"
@@ -95,7 +95,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:background="@drawable/input_rectangle">
+        android:background="@drawable/input_rectangle_gray">
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:layout_width="30dp"
@@ -139,7 +139,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:background="@drawable/input_rectangle">
+        android:background="@drawable/input_rectangle_gray">
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:layout_width="30dp"
@@ -204,7 +204,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:background="@drawable/input_rectangle"
+        android:background="@drawable/input_rectangle_gray"
         android:visibility="gone">
 
         <androidx.constraintlayout.utils.widget.ImageFilterView

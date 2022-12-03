@@ -30,6 +30,9 @@
         <entry key="..\:/Users/dldms/Desktop/myApplications/smart-protfolio/app/src/main/res/layout/timeline_item.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/dldms/Desktop/myApplications/smart-protfolio/app/src/main/res/menu/drawer_menu.xml" value="0.22" />
         <entry key="..\:/Users/dldms/Desktop/myApplications/smart-protfolio/app/src/main/res/menu/toolbar.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable-hdpi/circle_gray.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable-hdpi/circle_green.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable-hdpi/circle_yellow.xml" value="0.154" />
         <entry key="app/src/main/res/drawable-mdpi/card.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable-mdpi/circle.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable-xxxhdpi/top_radius_white_background.xml" value="0.154" />
@@ -37,7 +40,13 @@
         <entry key="app/src/main/res/drawable/chat.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/chat_box_rectangle.xml" value="0.13" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/circle_red.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/input_rectangle.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/input_rectangle_blue.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/input_rectangle_gray.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/input_rectangle_green.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/input_rectangle_red.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/input_rectangle_yellow.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/start_button.xml" value="0.154" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/activity_chat_list_normal.xml" value="0.23505434782608695" />
@@ -65,6 +74,7 @@
         <entry key="app/src/main/res/layout/my_chat_item.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/other_chat_item.xml" value="0.3569613912831182" />
         <entry key="app/src/main/res/layout/timeline_item.xml" value="0.23505434782608695" />
+        <entry key="app/src/main/res/layout/timeline_item_test.xml" value="0.27041727701822915" />
         <entry key="app/src/main/res/layout/user_item.xml" value="0.23713564665421194" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.2273956298828125" />
         <entry key="app/src/main/res/menu/toolbar.xml" value="0.22291666666666668" />
