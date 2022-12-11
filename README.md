@@ -4,7 +4,7 @@
 
 # Smart-Portfolio
 <img src="https://user-images.githubusercontent.com/101651909/202912194-587b2d14-a521-4afe-9cd9-ab3adb979964.jpg" width="60%"/>
-
+증명사진이 없어서 우주 최강 미남 강동원님 사진좀 빌려서 썼습니다,,,^^
 # 앱 주요 기능
 
 ## 📌 Splash 화면
