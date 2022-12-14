@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -73,6 +75,7 @@ class TimeLineAdapter(val itemClicked: (TimeLine)->(Unit)) : ListAdapter<TimeLin
                 }
                 itemClicked(item)
             }
+            binding.timeLineLayout.animation = AnimationUtils.loadAnimation(binding.root.context, R.anim.list_anim) // 애니메이션
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -80,7 +83,9 @@ class TimeLineAdapter(val itemClicked: (TimeLine)->(Unit)) : ListAdapter<TimeLin
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.bind(currentList[position])
+
     }
     companion object{
         private val diffUtil = object: DiffUtil.ItemCallback<TimeLine>(){

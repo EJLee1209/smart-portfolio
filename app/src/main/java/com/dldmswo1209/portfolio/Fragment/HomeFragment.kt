@@ -1,16 +1,13 @@
 package com.dldmswo1209.portfolio.Fragment
 
-import android.app.ActionBar
+import android.net.http.SslError
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.appcompat.widget.LinearLayoutCompat
+import android.webkit.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.dldmswo1209.portfolio.MainActivity
@@ -18,6 +15,7 @@ import com.dldmswo1209.portfolio.R
 import com.dldmswo1209.portfolio.databinding.FragmentHomeBinding
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
