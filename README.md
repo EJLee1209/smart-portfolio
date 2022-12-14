@@ -2,13 +2,9 @@
 
 <img src="https://user-images.githubusercontent.com/101651909/204493042-006e1daf-5847-49fd-b581-34944f5b486a.png" width="20%"/>
 
-
-# 더존비즈온 요구사항
-
-<img src="https://user-images.githubusercontent.com/101651909/204494723-8f0accee-f72d-449a-8a81-753b99f814f9.png" width="45%"/> |<img src="https://user-images.githubusercontent.com/101651909/204494736-21f655ea-2868-49f0-9976-1f6e6c00c078.png" width="45%"/>
-
 # Smart-Portfolio
 <img src="https://user-images.githubusercontent.com/101651909/202912194-587b2d14-a521-4afe-9cd9-ab3adb979964.jpg" width="60%"/>
+당시에 증명사진이 없어서 우주 최강 미남 강동원님 사진좀 빌려서 썼습니다,,,^^
 
 # 앱 주요 기능
 
@@ -23,6 +19,9 @@
 <img src="https://user-images.githubusercontent.com/101651909/202912201-a652ea18-265b-48a8-b856-f910bd5f8ed0.jpg" width="60%"/>
 사용 목적에 따라 채용 담당자 또는 일반 사용자를 선택할 수 있습니다. <br>
 채용 담당자로 회원가입 할 경우 관리자 코드가 필요합니다. <br>
+
+> 관리자 코드 : "super03245","super09123","super92193","super72143", "super82137" 중 1개 선택
+
 
 ## 📌 타임라인 포트폴리오
 <img src="https://user-images.githubusercontent.com/101651909/205433691-d8260378-392b-4d71-bd93-e8416a63d33a.jpg" width="60%"/>
