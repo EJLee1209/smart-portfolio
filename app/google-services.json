@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "54946241276",
+    "project_id": "smart-portfolio-d96fe",
+    "storage_bucket": "smart-portfolio-d96fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54946241276:android:f5eb6ec10db4d4c72f9579",
+        "android_client_info": {
+          "package_name": "com.dldmswo1209.portfolio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54946241276-e6l3ojjc7genqu7ggsri3cjmj504hlsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATrsRE5I4WL0kPp6f2OxFQIh8fWfv_yuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54946241276-e6l3ojjc7genqu7ggsri3cjmj504hlsl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
