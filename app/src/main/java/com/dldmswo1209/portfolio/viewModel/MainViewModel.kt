@@ -75,7 +75,6 @@ class MainViewModel(): ViewModel() {
         repository.getChat(uid).observeForever{
             chatList.postValue(it)
         }
-
         return chatList
     }
 
