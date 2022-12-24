@@ -79,7 +79,7 @@ fun OtherChatItem(
                     text = chat.content,
                     modifier = Modifier
                         .padding(5.dp)
-                        .widthIn(max = 200.dp),
+                        .widthIn(max = 280.dp),
                     maxLines = if(isExpanded) Int.MAX_VALUE else 3,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -133,7 +133,7 @@ fun MyChatItem(
                 text = chat.content,
                 modifier = Modifier
                     .padding(5.dp)
-                    .widthIn(max = 200.dp),
+                    .widthIn(max = 280.dp),
                 maxLines =
                 if(isExpanded) {
                     Int.MAX_VALUE
