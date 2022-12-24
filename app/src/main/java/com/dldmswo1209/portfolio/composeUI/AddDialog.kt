@@ -67,9 +67,13 @@ fun AddChatDialog(
                     value = inputContent,
                     onValueChange = { onContentChanged(it) },
                     label = { Text(text = "내용") },
-                    maxLines = 3
+                    maxLines = 3,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color(0xFF40A6D5),
+                        cursorColor = Color(0xFF40A6D5),
+                        focusedLabelColor = Color(0xFF40A6D5)
+                    )
                 )
-
                 RadioGroup(
                     mItems = listOf("질문","답변"),
                     selected = selectSubject,
