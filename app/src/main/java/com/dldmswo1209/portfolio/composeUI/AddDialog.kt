@@ -32,6 +32,7 @@ fun CustomAlertDialog(
 @Composable
 fun AddChatDialog(
     visible: Boolean,
+    modifyMode: Boolean,
     onDismissRequest: () -> Unit,
     onAddRequest: () -> Unit,
     inputContent: String,
@@ -54,7 +55,7 @@ fun AddChatDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.size(10.dp))
-                Text(text = "채팅 추가하기")
+                Text(text = if(modifyMode) "채팅 수정하기" else "채팅 추가하기")
                 Divider(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -79,80 +80,6 @@ fun AddChatDialog(
                 ) {
                     Button(
                         onClick =  onAddRequest,
-                        colors = ButtonDefaults.buttonColors(
-                            Color(0xFF40A6D5)
-                        )
-                    ) {
-                        Text(text = "완료")
-                    }
-
-                    Button(
-                        onClick = onDismissRequest,
-                        colors = ButtonDefaults.buttonColors(
-                            Color(0xFF40A6D5)
-                        )
-                    ) {
-                        Text(text = "취소")
-                    }
-                }
-                Spacer(modifier = Modifier.size(50.dp))
-
-            }
-        }
-    }
-}
-
-
-// 채팅 수정 다이얼로그
-@Composable
-fun ModifyChatDialog(
-    visible: Boolean,
-    onDismissRequest: () -> Unit,
-    onModifyRequest: () -> Unit,
-    inputContent: String,
-    selectSubject: String,
-    onContentChanged: (String) -> Unit,
-    onSelectSubject: (String) -> Unit
-){
-    if(visible){
-        CustomAlertDialog(
-            onDismissRequest = onDismissRequest
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(10.dp)
-                    .wrapContentSize()
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(color = Color.White),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.size(10.dp))
-                Text(text = "채팅 수정하기")
-                Divider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 10.dp, end = 10.dp),
-                    thickness = 1.dp,
-                    color = Color.Black
-                )
-                OutlinedTextField(
-                    value = inputContent,
-                    onValueChange = { onContentChanged(it) },
-                    label = { Text(text = "내용") },
-                    maxLines = 3
-                )
-
-                RadioGroup(
-                    mItems = listOf("질문","답변"),
-                    selected = selectSubject,
-                    setSelected = { onSelectSubject(it) })
-
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    Button(
-                        onClick =  onModifyRequest,
                         colors = ButtonDefaults.buttonColors(
                             Color(0xFF40A6D5)
                         )

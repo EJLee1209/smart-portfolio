@@ -39,7 +39,7 @@ fun ChatList(
     var deleteKey by rememberSaveable { mutableStateOf("") } // 삭제하려는 채팅 key state
     var modifyKey by rememberSaveable { mutableStateOf("") } // 수정하려는 채팅 key state
     var addDialogVisibility by rememberSaveable { mutableStateOf(false) } // 채팅 추가 다이얼로그 visible state
-    var modifyDialogVisibility by rememberSaveable { mutableStateOf(false) } // 채팅 수정 다이얼로그 visible state
+    var modifyMode by rememberSaveable { mutableStateOf(false) }
 
     var inputContent by remember { mutableStateOf("") }
     var selectSubject by remember { mutableStateOf("질문") }
@@ -59,6 +59,7 @@ fun ChatList(
     // 채팅 추가 다이얼로그
     AddChatDialog(
         visible = addDialogVisibility,
+        modifyMode = modifyMode,
         onDismissRequest = {
             addDialogVisibility = false
             inputContent = ""
@@ -72,40 +73,16 @@ fun ChatList(
             }else{
                 newChat = Chat(inputContent, 1)
             }
-            viewModel.sendChat(uid, newChat)
-            addDialogVisibility = false
-            inputContent = ""
-            selectSubject = "질문"
-        },
-        inputContent = inputContent,
-        selectSubject = selectSubject,
-        onContentChanged = {
-            inputContent = it
-        },
-        onSelectSubject = {
-            selectSubject = it
-        }
-    )
-    // 채팅 수정 다이얼로그
-    ModifyChatDialog(
-        visible = modifyDialogVisibility,
-        onDismissRequest = {
-            modifyDialogVisibility = false
-            inputContent = ""
-            selectSubject = "질문"
-        },
-        onModifyRequest = {
-            // 콜백으로 채팅 수정
-            var newChat: Chat
-            if(selectSubject == "질문"){
-                newChat = Chat(inputContent, 0, modifyKey)
-            }else{
-                newChat = Chat(inputContent, 1, modifyKey)
+            if(modifyMode){ // 수정
+                newChat.key = modifyKey
+                viewModel.modifyChat(uid, newChat)
+                modifyMode = false
+            }else{ // 추가
+                viewModel.sendChat(uid, newChat)
             }
-            viewModel.modifyChat(uid, newChat)
-            modifyDialogVisibility = false
             inputContent = ""
             selectSubject = "질문"
+            addDialogVisibility = false
         },
         inputContent = inputContent,
         selectSubject = selectSubject,
@@ -133,7 +110,8 @@ fun ChatList(
                                 deleteKey = it.key // 삭제할 chat 의 Key 를 저장 (얘도 역시 state)
                             },
                             onClick = {
-                                modifyDialogVisibility = true
+                                addDialogVisibility = true
+                                modifyMode = true
                                 modifyKey = it.key
                                 inputContent = it.content
                                 selectSubject = if(it.type == 0) "질문" else "답변"
@@ -147,7 +125,8 @@ fun ChatList(
                                 deleteKey = it.key
                             },
                             onClick = {
-                                modifyDialogVisibility = true
+                                addDialogVisibility = true
+                                modifyMode = true
                                 modifyKey = it.key
                                 inputContent = it.content
                                 selectSubject = if(it.type == 0) "질문" else "답변"
