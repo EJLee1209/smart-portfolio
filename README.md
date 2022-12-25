@@ -33,7 +33,7 @@
 타임라인을 선택하여 수정 또는 삭제가 가능합니다.
 
 ## 📌 채팅 포트폴리오(Compose UI 적용)
-<img src="https://user-images.githubusercontent.com/101651909/209462977-5b8a0c0b-b4e5-42da-9998-16bd1da2d87d.png" width="60%"/>
+<img src="https://user-images.githubusercontent.com/101651909/209462977-5b8a0c0b-b4e5-42da-9998-16bd1da2d87d.png" width="40%"/>
 
 채팅 형태의 포트폴리오 입니다. <br>
 하단의 플로팅 버튼을 터치해서 추가할 수 있습니다. <br>
