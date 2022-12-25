@@ -22,7 +22,8 @@ import com.dldmswo1209.portfolio.viewModel.MainViewModel
 fun ChatList(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel,
-    uid: String
+    uid: String,
+    isSuperShow: Boolean
 ){
     val chatList by viewModel.getChat(uid).observeAsState() // 모든 채팅 목록
     // state 가 변경되면 해당 state 를 가지고 있는 Composable 함수(뷰)가 모두 Recomposition(화면 재구성) 되면서 UI를 업데이트 한다.
@@ -36,60 +37,65 @@ fun ChatList(
     var selectSubject by remember { mutableStateOf("질문") }
 
     // 삭제확인 다이얼로그
-    DeleteDialogScreen(
-        visible = deleteDialogVisibility,
-        onDeleteRequest = {
-            viewModel.deleteChat(uid, deleteKey)
-            deleteDialogVisibility = false
-        },
-        onDismissRequest = {
-            deleteDialogVisibility = false
-        }
-    )
-
-    // 채팅 추가 다이얼로그
-    AddChatDialog(
-        visible = addDialogVisibility,
-        modifyMode = modifyMode,
-        onDismissRequest = {
-            addDialogVisibility = false
-            inputContent = ""
-            selectSubject = "질문"
-        },
-        onAddRequest = {
-            // 콜백으로 채팅 추가
-            var newChat: Chat
-            if(selectSubject == "질문"){
-                newChat = Chat(inputContent, 0)
-            }else{
-                newChat = Chat(inputContent, 1)
+    if(!isSuperShow) {
+        DeleteDialogScreen(
+            visible = deleteDialogVisibility,
+            onDeleteRequest = {
+                viewModel.deleteChat(uid, deleteKey)
+                deleteDialogVisibility = false
+            },
+            onDismissRequest = {
+                deleteDialogVisibility = false
             }
-            if(modifyMode){ // 수정
-                newChat.key = modifyKey
-                viewModel.modifyChat(uid, newChat)
-                modifyMode = false
-            }else{ // 추가
-                viewModel.sendChat(uid, newChat)
-            }
-            inputContent = ""
-            selectSubject = "질문"
-            addDialogVisibility = false
-        },
-        inputContent = inputContent,
-        selectSubject = selectSubject,
-        onContentChanged = {
-            inputContent = it
-        },
-        onSelectSubject = {
-            selectSubject = it
-        }
-    )
+        )
 
-    Box() {
+        // 채팅 추가 다이얼로그
+        AddChatDialog(
+            visible = addDialogVisibility,
+            modifyMode = modifyMode,
+            onDismissRequest = {
+                addDialogVisibility = false
+                inputContent = ""
+                selectSubject = "질문"
+            },
+            onAddRequest = {
+                // 콜백으로 채팅 추가
+                var newChat: Chat
+                if (selectSubject == "질문") {
+                    newChat = Chat(inputContent, 0)
+                } else {
+                    newChat = Chat(inputContent, 1)
+                }
+                if (modifyMode) { // 수정
+                    newChat.key = modifyKey
+                    viewModel.modifyChat(uid, newChat)
+                    modifyMode = false
+                } else { // 추가
+                    viewModel.sendChat(uid, newChat)
+                }
+                inputContent = ""
+                selectSubject = "질문"
+                addDialogVisibility = false
+            },
+            inputContent = inputContent,
+            selectSubject = selectSubject,
+            onContentChanged = {
+                inputContent = it
+            },
+            onSelectSubject = {
+                selectSubject = it
+            }
+        )
+    }
+
+    Box(
+        modifier = modifier
+            .padding(start = 8.dp, end = 8.dp, top = 8.dp)
+    ) {
         chatList?.let {
             LazyColumn( // LazyColumn = RecyclerView
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = modifier
+                contentPadding = PaddingValues(bottom = 100.dp),
             ){
                 items(chatList!!){
                     if(it.type == 0){
@@ -127,18 +133,20 @@ fun ChatList(
                 }
             }
         }
-        FloatingActionButton( // 플로팅 버튼
-            onClick = { addDialogVisibility = true }, // state 를 변경시켜서 다이얼로그를 보여줌
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(10.dp),
-            backgroundColor = Color(0xFF40A6D5),
-        ) {
-            Icon(
-                Icons.Default.Add,
-                contentDescription = null,
-                tint = Color.White
-            )
+        if(!isSuperShow){
+            FloatingActionButton( // 플로팅 버튼
+                onClick = { addDialogVisibility = true }, // state 를 변경시켜서 다이얼로그를 보여줌
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(10.dp),
+                backgroundColor = Color(0xFF40A6D5),
+            ) {
+                Icon(
+                    Icons.Default.Add,
+                    contentDescription = null,
+                    tint = Color.White
+                )
+            }
         }
     }
 }

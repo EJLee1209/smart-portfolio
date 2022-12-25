@@ -28,20 +28,19 @@ fun CustomAlertDialog(
     }
 }
 
-// 채팅 추가 다이얼로그
+// 채팅 추가/수정 다이얼로그
 @Composable
 fun AddChatDialog(
-    visible: Boolean,
-    modifyMode: Boolean,
-    onDismissRequest: () -> Unit,
-    onAddRequest: () -> Unit,
-    inputContent: String,
-    selectSubject: String,
-    onContentChanged: (String) -> Unit,
-    onSelectSubject: (String) -> Unit
+    visible: Boolean, // dialog visibility state
+    modifyMode: Boolean, // 수정할건지 추가할건지 state
+    onDismissRequest: () -> Unit, // 취소를 눌렀을 때 로직
+    onAddRequest: () -> Unit, // 추가/수정을 눌렀을 때 로직
+    inputContent: String, // TextField content state
+    selectSubject: String, // Radio Button State
+    onContentChanged: (String) -> Unit, // TextFiled state 변경시 로직
+    onSelectSubject: (String) -> Unit // Radio Button state 변경시 로직
 ){
-
-    if(visible){
+    if(visible){ // visibility 가 true 면 다이얼로그를 보여줌
         CustomAlertDialog(
             onDismissRequest = onDismissRequest
         ) {
@@ -67,7 +66,7 @@ fun AddChatDialog(
                     value = inputContent,
                     onValueChange = { onContentChanged(it) },
                     label = { Text(text = "내용") },
-                    maxLines = 3,
+                    maxLines = 5,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color(0xFF40A6D5),
                         cursorColor = Color(0xFF40A6D5),
@@ -78,7 +77,6 @@ fun AddChatDialog(
                     mItems = listOf("질문","답변"),
                     selected = selectSubject,
                     setSelected = { onSelectSubject(it) })
-
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {

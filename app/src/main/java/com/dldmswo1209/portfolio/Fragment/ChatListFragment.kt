@@ -49,9 +49,6 @@ class ChatListFragment : Fragment() {
             roomAdapter.submitList(it)
             Log.d("testt", "onViewCreated: ${it}")
         }
-
-
-
     }
 
 }

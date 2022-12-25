@@ -38,8 +38,6 @@ fun OtherChatItem(
     longClick: ()-> Unit,
     onClick: (Chat) -> Unit
 ){
-    var isExpanded by rememberSaveable { mutableStateOf(false) } // 채팅 확장 여부 state
-
     Row() {
         Image(
             painter = painterResource(id = R.drawable.profile),
@@ -80,7 +78,7 @@ fun OtherChatItem(
                     modifier = Modifier
                         .padding(5.dp)
                         .widthIn(max = 280.dp),
-                    maxLines = if(isExpanded) Int.MAX_VALUE else 3,
+                    maxLines = 10,
                     overflow = TextOverflow.Ellipsis,
                 )
             }
@@ -138,7 +136,7 @@ fun MyChatItem(
                 if(isExpanded) {
                     Int.MAX_VALUE
                 } else{
-                    3
+                    10
                 },
                 overflow = TextOverflow.Ellipsis
             )

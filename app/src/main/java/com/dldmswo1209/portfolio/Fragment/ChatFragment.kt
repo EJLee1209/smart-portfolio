@@ -33,7 +33,7 @@ class ChatFragment : Fragment() {
         isSuperShow = (activity as MainActivity).isSuperShow
 
         binding.composeView.setContent {
-            ChatList(viewModel = viewModel, uid = uid)
+            ChatList(viewModel = viewModel, uid = uid, isSuperShow = isSuperShow)
         }
 
     }
