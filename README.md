@@ -75,7 +75,7 @@
 - Firebase Authentication 
 - Firebase Storage
 - Firebase Cloud Messaging
-- Google Cloud Platform Compute Engine
+- Heroku
 - Glide
 - Coroutine
 - Retrofit2
