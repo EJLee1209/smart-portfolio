@@ -30,6 +30,7 @@ import androidx.compose.ui.window.Dialog
 import com.dldmswo1209.portfolio.Model.Chat
 import com.dldmswo1209.portfolio.R
 
+// 채팅 item = RecyclerView item
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OtherChatItem(

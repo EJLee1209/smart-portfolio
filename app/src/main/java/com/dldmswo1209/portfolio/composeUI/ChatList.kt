@@ -18,6 +18,7 @@ import com.dldmswo1209.portfolio.composeUI.AddChatDialog
 import com.dldmswo1209.portfolio.composeUI.DeleteDialogScreen
 import com.dldmswo1209.portfolio.viewModel.MainViewModel
 
+// LazyColumn = RecyclerView(LinearLayout - orientation vertical)
 @Composable
 fun ChatList(
     modifier: Modifier = Modifier,
@@ -55,11 +56,14 @@ fun ChatList(
             modifyMode = modifyMode,
             onDismissRequest = {
                 addDialogVisibility = false
+                modifyMode = false
                 inputContent = ""
                 selectSubject = "질문"
             },
             onAddRequest = {
                 // 콜백으로 채팅 추가
+                if(inputContent == "") return@AddChatDialog
+
                 var newChat: Chat
                 if (selectSubject == "질문") {
                     newChat = Chat(inputContent, 0)
@@ -150,6 +154,7 @@ fun ChatList(
         }
     }
 }
+
 
 
 
