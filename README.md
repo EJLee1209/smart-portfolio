@@ -32,10 +32,12 @@
 <img src="https://user-images.githubusercontent.com/101651909/205433701-a517e32c-8822-4b8d-853f-8b49abd80389.jpg" width="60%"/>
 타임라인을 선택하여 수정 또는 삭제가 가능합니다.
 
-## 📌 채팅 포트폴리오
-<img src="https://user-images.githubusercontent.com/101651909/202912396-255670ec-8a78-4ce2-b0fd-6a629b71980e.jpg" width="60%"/>
+## 📌 채팅 포트폴리오(Compose UI 적용)
+<img src="https://user-images.githubusercontent.com/101651909/209462977-5b8a0c0b-b4e5-42da-9998-16bd1da2d87d.png" width="40%"/>
+
 채팅 형태의 포트폴리오 입니다. <br>
-왼쪽 하단의 버튼을 클릭해서 일반모드/관리자 모드를 변경할 수 있고, 관리자 모드 상태에서는 수정 또는 삭제가 가능합니다 <br>
+하단의 플로팅 버튼을 터치해서 추가할 수 있습니다. <br>
+메세지를 한 번 터치하거나 길게 터치하면, 수정 또는 삭제가 가능합니다. <br>
 
 ## 📌 카드 포트폴리오
 <img src="https://user-images.githubusercontent.com/101651909/202912401-06ca5e33-da61-4a4c-9981-80df856a311c.jpg" width="60%"/>
@@ -78,5 +80,6 @@
 - Coroutine
 - Retrofit2
 - Lottie
+- Compose UI
 
 ### [푸시메세지 서버 코드](https://github.com/EJLee1209/fcm-server)
